@@ -26,7 +26,7 @@ import csv
 import sys
 
 from .analyze import analyze_comments, format_report
-from .apify import fetch_apify_dataset, read_apify_file
+from .apify import fetch_apify_dataset, read_apify_file, read_json_file
 from .config import load_config
 from .ingest import fetch_comments_graph, read_comments_csv
 from .models import LeadStore, RawComment
@@ -65,6 +65,18 @@ def _cmd_import_apify(args, config) -> int:
             added += 1
     store.close()
     print(f"Imported {total} Apify comments from {label} ({added} new).")
+    return 0
+
+
+def _cmd_import_json(args, config) -> int:
+    store = LeadStore(config.db_path)
+    added = total = 0
+    for comment in read_json_file(args.file, source=args.source):
+        total += 1
+        if store.add_comment_if_new(comment):
+            added += 1
+    store.close()
+    print(f"Imported {total} comments from {args.file} ({added} new).")
     return 0
 
 
@@ -215,6 +227,13 @@ def main(argv=None) -> int:
     p_apify.add_argument("--dataset-id", default=None,
                         help="Apify dataset id to fetch (needs APIFY_TOKEN)")
 
+    p_json = sub.add_parser("import-json",
+                        help="import comments from ANY scraper's JSON/JSONL output")
+    p_json.add_argument("--file", required=True,
+                        help="JSON array or JSON Lines with comment records")
+    p_json.add_argument("--source", default="scraper",
+                        help="label for where the data came from (e.g. scrapling)")
+
     p_analyze = sub.add_parser("analyze",
                         help="aggregate analysis over stored comments (market research)")
     p_analyze.add_argument("--media", default=None,
@@ -248,6 +267,7 @@ def main(argv=None) -> int:
     dispatch = {
         "import": _cmd_import,
         "import-apify": _cmd_import_apify,
+        "import-json": _cmd_import_json,
         "analyze": _cmd_analyze,
         "pull": _cmd_pull,
         "triage": _cmd_triage,

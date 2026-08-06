@@ -27,22 +27,27 @@ def _pick(item: dict[str, Any], *keys: str, default: str = "") -> str:
     return default
 
 
-def _to_comment(item: dict[str, Any]) -> RawComment | None:
-    text = _pick(item, "text", "comment", "commentText")
+def _to_comment(item: dict[str, Any], source: str = "apify") -> RawComment | None:
+    text = _pick(item, "text", "comment", "commentText", "content")
     if not text:
         return None
     return RawComment(
-        comment_id=_pick(item, "id", "commentId", "pk") or f"apify-{hash(text) & 0xffffffff:x}",
-        username=_pick(item, "ownerUsername", "username", "owner", default="unknown"),
+        comment_id=_pick(item, "id", "commentId", "pk") or f"{source}-{hash(text) & 0xffffffff:x}",
+        username=_pick(item, "ownerUsername", "username", "owner", "author", default="unknown"),
         text=text,
         timestamp=_pick(item, "timestamp", "createdAt", "created_at"),
-        media_id=_pick(item, "postUrl", "postId", "postShortcode", "media_id"),
-        source="apify",
+        media_id=_pick(item, "postUrl", "postId", "postShortcode", "media_id", "post_url"),
+        source=source,
     )
 
 
-def read_apify_file(path: str) -> Iterator[RawComment]:
-    """Read an exported Apify dataset (JSON array or JSON Lines)."""
+def read_json_file(path: str, source: str = "scraper") -> Iterator[RawComment]:
+    """Read comments from any scraper's output: JSON array or JSON Lines.
+
+    Fields are mapped tolerantly, so output from Apify, Scrapling, or a
+    hand-rolled scraper all work as long as each record has a comment text and,
+    ideally, a username. `source` just tags where the data came from.
+    """
     with open(path, encoding="utf-8") as f:
         head = f.read(1)
         f.seek(0)
@@ -51,9 +56,14 @@ def read_apify_file(path: str) -> Iterator[RawComment]:
         else:  # JSON Lines
             items = [json.loads(line) for line in f if line.strip()]
     for item in items:
-        c = _to_comment(item)
+        c = _to_comment(item, source=source)
         if c:
             yield c
+
+
+def read_apify_file(path: str) -> Iterator[RawComment]:
+    """Read an exported Apify dataset (JSON array or JSON Lines)."""
+    return read_json_file(path, source="apify")
 
 
 def fetch_apify_dataset(config: Config, dataset_id: str) -> Iterator[RawComment]:

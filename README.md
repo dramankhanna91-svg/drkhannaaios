@@ -37,11 +37,14 @@ For people who **do** message you, reply within Instagram's normal inbox rules;
 for people who **share their own** contact details with consent, add them to the
 exported list and follow up through your usual channels.
 
-**On scraping competitor comments:** run the scrape on **Apify** (they operate
-the proxies and accept the platform terms as the operator) and feed the output
-into `import-apify`. This tool does not implement stealth/anti-detection
-scraping itself. The `analyze` command is **aggregate** — it reports patterns
-about the audience, not a per-person contact list to message.
+**On scraping competitor comments:** run the scraper yourself — Apify, Scrapling,
+or your own — and feed its output into `import-json` (or `import-apify`). This
+project does not implement stealth/anti-detection scraping itself; that stays
+with the scraper you operate. Note the real cost of a "free" scraper on
+Instagram is risk you carry: reading comments needs either a logged-in session
+(which can get *your* account banned) or evasion infra (which breaks whenever IG
+changes). The `analyze` command is **aggregate** — it reports patterns about the
+audience, not a per-person contact list to message.
 
 ## Setup
 
@@ -76,10 +79,14 @@ Run an Instagram comment scraper on Apify against a public post, export the
 dataset, then:
 
 ```bash
-# Load the scraped comments:
+# Load the scraped comments (Apify export):
 python -m insta_leads import-apify --file apify_dataset.json
 # ...or fetch a dataset by id (needs APIFY_TOKEN):
 python -m insta_leads import-apify --dataset-id <DATASET_ID>
+
+# ...or import ANY scraper's output (Scrapling, custom, etc.). Fields are
+# mapped tolerantly — each record just needs comment text and ideally a name:
+python -m insta_leads import-json --file scrapling_out.jsonl --source scrapling
 
 # Aggregate analysis over everything (or one post's comments):
 python -m insta_leads analyze
