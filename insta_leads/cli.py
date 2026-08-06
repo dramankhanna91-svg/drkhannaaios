@@ -25,9 +25,11 @@ import argparse
 import csv
 import sys
 
+from .analyze import analyze_comments, format_report
+from .apify import fetch_apify_dataset, read_apify_file
 from .config import load_config
 from .ingest import fetch_comments_graph, read_comments_csv
-from .models import LeadStore
+from .models import LeadStore, RawComment
 from .reply import post_comment_reply
 from .triage import triage_comment
 
@@ -42,6 +44,49 @@ def _cmd_import(args, config) -> int:
             added += 1
     store.close()
     print(f"Imported {total} comments from {args.csv} ({added} new).")
+    return 0
+
+
+def _cmd_import_apify(args, config) -> int:
+    store = LeadStore(config.db_path)
+    if args.file:
+        source = read_apify_file(args.file)
+        label = args.file
+    elif args.dataset_id:
+        source = fetch_apify_dataset(config, args.dataset_id)
+        label = f"dataset {args.dataset_id}"
+    else:
+        print("Provide either --file or --dataset-id.", file=sys.stderr)
+        return 1
+    added = total = 0
+    for comment in source:
+        total += 1
+        if store.add_comment_if_new(comment):
+            added += 1
+    store.close()
+    print(f"Imported {total} Apify comments from {label} ({added} new).")
+    return 0
+
+
+def _cmd_analyze(args, config) -> int:
+    import anthropic
+
+    client = anthropic.Anthropic()
+    store = LeadStore(config.db_path)
+    comments = [
+        RawComment(
+            comment_id=l.comment_id, username=l.username, text=l.text,
+            timestamp=l.timestamp, media_id=l.media_id, source=l.source,
+        )
+        for l in store.iter_by_status()
+        if (not args.media or l.media_id == args.media)
+    ]
+    store.close()
+    if not comments:
+        print("No comments to analyze. Import some first.", file=sys.stderr)
+        return 1
+    result = analyze_comments(client, config.model, comments)
+    print(format_report(result))
     return 0
 
 
@@ -65,8 +110,6 @@ def _cmd_triage(args, config) -> int:
     store = LeadStore(config.db_path)
     done = 0
     for lead in list(store.iter_by_status("new")):
-        from .models import RawComment
-
         raw = RawComment(
             comment_id=lead.comment_id,
             username=lead.username,
@@ -165,6 +208,18 @@ def main(argv=None) -> int:
     p_import = sub.add_parser("import", help="import comments from a CSV")
     p_import.add_argument("--csv", required=True)
 
+    p_apify = sub.add_parser("import-apify",
+                        help="import comments from an Apify scraper run")
+    p_apify.add_argument("--file", default=None,
+                        help="path to an exported Apify dataset (JSON or JSONL)")
+    p_apify.add_argument("--dataset-id", default=None,
+                        help="Apify dataset id to fetch (needs APIFY_TOKEN)")
+
+    p_analyze = sub.add_parser("analyze",
+                        help="aggregate analysis over stored comments (market research)")
+    p_analyze.add_argument("--media", default=None,
+                        help="limit to one post's comments (by media_id)")
+
     p_pull = sub.add_parser("pull", help="pull comments from your own post (Graph API)")
     p_pull.add_argument("--media", required=True, help="media (post) id you own/manage")
 
@@ -192,6 +247,8 @@ def main(argv=None) -> int:
 
     dispatch = {
         "import": _cmd_import,
+        "import-apify": _cmd_import_apify,
+        "analyze": _cmd_analyze,
         "pull": _cmd_pull,
         "triage": _cmd_triage,
         "list": _cmd_list,

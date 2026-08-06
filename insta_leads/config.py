@@ -20,6 +20,7 @@ class Config:
     ig_access_token: str | None
     ig_business_account_id: str | None
     ig_graph_version: str
+    apify_token: str | None
 
     @property
     def instagram_enabled(self) -> bool:
@@ -33,4 +34,5 @@ def load_config() -> Config:
         ig_access_token=os.getenv("IG_ACCESS_TOKEN") or None,
         ig_business_account_id=os.getenv("IG_BUSINESS_ACCOUNT_ID") or None,
         ig_graph_version=os.getenv("IG_GRAPH_VERSION", "v21.0"),
+        apify_token=os.getenv("APIFY_TOKEN") or None,
     )
