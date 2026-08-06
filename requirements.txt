@@ -1,0 +1,8 @@
+# Core AI triage engine
+anthropic>=0.116.0
+
+# Instagram Graph API calls + optional outreach channels (only used when configured)
+requests>=2.31.0
+
+# Config loading
+python-dotenv>=1.0.0

@@ -1,0 +1,13 @@
+# Secrets / config
+.env
+
+# Local data
+*.db
+leads*.csv
+!sample_comments.csv
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
