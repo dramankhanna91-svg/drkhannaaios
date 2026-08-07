@@ -64,16 +64,16 @@ def score_layout(key):
 
 
 def comparison_table():
-    keys = ["architect", "A", "B"]
+    keys = ["architect", "A", "B", "C"]
     scores = {k: score_layout(k) for k in keys}
-    lines = ["| Flow | Architect | Layout A | Layout B |",
-             "|---|---|---|---|"]
+    lines = ["| Flow | Architect | Layout A | Layout B | Layout C |",
+             "|---|---|---|---|---|"]
     for label, _, _ in FLOWS:
         row = [f"| {label} "]
         for k in keys:
             row.append(f"| {scores[k][label]:.0f} ft ")
         lines.append("".join(row) + "|")
     tot = {k: sum(scores[k].values()) for k in keys}
-    lines.append(f"| **Total key-flow travel** | **{tot['architect']:.0f} ft** "
-                 f"| **{tot['A']:.0f} ft** | **{tot['B']:.0f} ft** |")
+    lines.append("| **Total key-flow travel** | " +
+                 " | ".join(f"**{tot[k]:.0f} ft**" for k in keys) + " |")
     return "\n".join(lines), scores

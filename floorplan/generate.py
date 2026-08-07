@@ -19,14 +19,15 @@ def main():
 
     for key, base in [("architect", "layout_0_architect_asis"),
                       ("A", "layout_A_targeted_revision"),
-                      ("B", "layout_B_fresh_alternative")]:
+                      ("B", "layout_B_fresh_alternative"),
+                      ("C", "layout_C_arrival_hub")]:
         path = os.path.join(OUT, base)
         render_layout(key, path)
         print(f"2D  {base}.png/.svg ok")
         errs = export_dxf(key, path + ".dxf")
         print(f"DXF {base}.dxf  audit errors: {errs}")
 
-    for key, base in [("A", "3d_layout_A"), ("B", "3d_layout_B")]:
+    for key, base in [("A", "3d_layout_A"), ("B", "3d_layout_B"), ("C", "3d_layout_C")]:
         render_3d(key, os.path.join(OUT, base + ".png"))
         print(f"3D  {base}.png ok")
 
@@ -37,7 +38,7 @@ def main():
     print(table)
 
     # sanity checks
-    for key, factory_name in [("A", "Layout A"), ("B", "Layout B")]:
+    for key, factory_name in [("A", "Layout A"), ("B", "Layout B"), ("C", "Layout C")]:
         rooms = LAYOUTS[key][1]()
         seen = {}
         for r in rooms:

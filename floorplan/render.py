@@ -66,6 +66,21 @@ def _tile_hatch(ax, poly, zorder, pitch=1.0):
         _plot_lines(ax, seg, "#c9d4d6", 0.45, zorder)
 
 
+def _tile_hatch2(ax, poly, zorder, pitch=2.0):
+    """Very light 2' floor-tile grid for dry rooms (architect-sheet look)."""
+    minx, miny, maxx, maxy = poly.bounds
+    from shapely.geometry import LineString
+    inner = poly.buffer(-0.15)
+    if inner.is_empty:
+        return
+    for x in np.arange(np.ceil(minx / pitch) * pitch, maxx, pitch):
+        _plot_lines(ax, LineString([(x, miny), (x, maxy)]).intersection(inner),
+                    "#e6e4de", 0.35, zorder)
+    for y in np.arange(np.ceil(miny / pitch) * pitch, maxy, pitch):
+        _plot_lines(ax, LineString([(minx, y), (maxx, y)]).intersection(inner),
+                    "#e6e4de", 0.35, zorder)
+
+
 def _plot_lines(ax, geom, color, lw, zorder):
     if geom.is_empty:
         return
@@ -91,9 +106,9 @@ def _furniture(ax, item, z=6):
         ax.add_patch(Circle((x + w / 2, y + h + 1.1), 0.85, fc="none", lw=0.55,
                             ec="#4a4a4a", zorder=z))
     elif kind in ("desk", "side", "cart"):
-        ax.add_patch(Rectangle((x, y), w, h, fc="#f0f0f0", **thin))
+        ax.add_patch(Rectangle((x, y), w, h, fc="#f0f0f0", angle=rot, **thin))
     elif kind == "counter":
-        ax.add_patch(Rectangle((x, y), w, h, fc="#e7e0d6", **thin))
+        ax.add_patch(Rectangle((x, y), w, h, fc="#e7e0d6", angle=rot, **thin))
     elif kind == "shelf":
         ax.add_patch(Rectangle((x, y), w, h, fc="white", **thin))
         n = max(2, int(max(w, h) / 1.4))
@@ -126,6 +141,16 @@ def _furniture(ax, item, z=6):
     elif kind == "light":
         ax.add_patch(Circle((x + w / 2, y + h / 2), w / 2, fc="none", lw=0.5,
                             ec="#4a4a4a", zorder=z))
+
+
+def _door_tag(ax, door, z=11):
+    """Architect-style door tags by leaf width: D1 >= 2'-9\", D2 >= 2'-3\", D3 below."""
+    cx, cy, w, wall = door
+    tag = "D1" if w >= 2.75 else ("D2" if w >= 2.25 else "D3")
+    off = 1.6
+    dx, dy = {"N": (off, 1.0), "S": (off, -1.0), "E": (1.0, off), "W": (-1.0, off)}[wall]
+    ax.text(cx + dx, cy + dy, tag, fontsize=5.5, color="#666", zorder=z,
+            ha="center", va="center")
 
 
 def _door(ax, door, z=8):
@@ -181,25 +206,28 @@ def render_layout(key, out_base, highlight=True):
     ax.text(c.x, c.y, "CUT-OUT\n(void)", ha="center", va="center", fontsize=9,
             color=INK, zorder=4)
 
-    # room fills (near-white zone tints), wet-room tile hatch
+    # room fills (near-white zone tints); tile grids: fine in wet, light 2' elsewhere
     for r in rooms:
         if r.zone == "circ":
             continue
         p = r.poly
         _fill(ax, p, 2, fc=_tint(ZONES[r.zone][0], 0.35), ec="none")
-        if r.zone == "wet":
-            for g in _iter_polys(p):
+        for g in _iter_polys(p):
+            if r.zone == "wet":
                 _tile_hatch(ax, g, 3)
+            elif g.area > 30:
+                _tile_hatch2(ax, g, 2.5)
 
     # walls: solid dark fill
     _fill(ax, walls, 7, fc=INK, ec="none")
 
-    # furniture + doors
+    # furniture + doors + door tags
     for r in rooms:
         for f in r.furniture:
             _furniture(ax, f)
         for d in r.doors:
             _door(ax, d)
+            _door_tag(ax, d)
 
     # ------------------------------------------------------------- labels
     keynote_pts = []
@@ -211,12 +239,16 @@ def render_layout(key, out_base, highlight=True):
         if r.zone == "circ":
             x0, y0, w0, h0 = r.rect
             rot = 90 if h0 > w0 * 1.4 else 0
-            if r.key in ("lobby",):
-                tx, ty, rot = 14.8, 53.9, 0
+            if r.key == "lobby":
+                tx, ty, rot = x0 + w0 * 0.72, y0 + h0 * 0.9, 0
             else:
                 tx, ty = cpt.x, cpt.y
-            ax.text(tx, ty, r.name, ha="center", va="center", fontsize=7.5,
-                    color="#8a8a84", style="italic", zorder=9, rotation=rot)
+            if r.name.isupper():
+                ax.text(tx, ty, r.name, ha="center", va="center", fontsize=8.5,
+                        color="#222", weight="bold", zorder=9, rotation=rot)
+            else:
+                ax.text(tx, ty, r.name, ha="center", va="center", fontsize=7.5,
+                        color="#8a8a84", style="italic", zorder=9, rotation=rot)
             continue
         code = _keynote_code(r)
         if code:
@@ -228,6 +260,8 @@ def render_layout(key, out_base, highlight=True):
         if r.key == "wait":
             fs = 8.5
             cpt = type(cpt)(cpt.x - 1.2, cpt.y)
+        if r.key in ("pharm", "triage") and p.area < 50:
+            fs = 6.2
         label = r.name + ("\n" + r.dims if r.dims else "")
         ax.text(cpt.x, cpt.y, label, ha="center", va="center", fontsize=fs,
                 color="#111", weight="bold" if r.name.isupper() else "normal",
@@ -305,8 +339,38 @@ def render_layout(key, out_base, highlight=True):
         ax.plot([i, i], [116.9, 118.1], lw=1.2, color=INK)
         ax.text(i, 119.6, f"{i}'", ha="center", fontsize=7.5, color=INK)
 
-    ax.set_xlim(-11.5, 58)
-    ax.set_ylim(126, -12)     # inverted: south at top, matching the architect's sheet
+    # title block (architect-sheet style)
+    tb_y0, tb_y1 = 130.5, 139.5
+    ax.add_patch(Rectangle((-8, tb_y0), 66, tb_y1 - tb_y0, fc="white", ec=INK, lw=1.2,
+                           zorder=3))
+    for fx in (12, 30, 44):
+        ax.plot([fx, fx], [tb_y0, tb_y1], color=INK, lw=0.8, zorder=4)
+    ax.text(-6.5, tb_y0 + 1.6, "PROJECT", fontsize=6, color="#777")
+    ax.text(-6.5, tb_y0 + 5.4, "Hospital of Dr. Aman Khanna\n7th Floor, Solaris Shine,\nAlthan, Surat",
+            fontsize=7.5, color=INK, va="center")
+    ax.text(13.5, tb_y0 + 1.6, "DRAWING", fontsize=6, color="#777")
+    ax.text(13.5, tb_y0 + 5.4, f"{title}\nDimensioned layout plan", fontsize=7.5,
+            color=INK, va="center")
+    ax.text(31.5, tb_y0 + 1.6, "SCALE / DATE", fontsize=6, color="#777")
+    ax.text(31.5, tb_y0 + 5.4, "N.T.S. (scale bar)\n07-08-2026", fontsize=7.5,
+            color=INK, va="center")
+    ax.text(45.5, tb_y0 + 1.6, "STATUS", fontsize=6, color="#777")
+    ax.text(45.5, tb_y0 + 5.4, "Concept for review —\nto be verified by the\nproject architect",
+            fontsize=7, color=INK, va="center")
+
+    # room schedule (right margin block)
+    sched = [(r.name.title(), r.dims, r.area) for r in rooms
+             if r.zone not in ("circ",) and r.name and r.area > 8]
+    sched.sort(key=lambda t: -t[2])
+    lines = ["ROOM SCHEDULE", "—" * 34]
+    for name, dims, area in sched[:22]:
+        nm = (name[:20] + "…") if len(name) > 21 else name
+        lines.append(f"{nm:<22s} {area:>4.0f} sf")
+    ax.text(50.5, 108.5, "\n".join(lines), fontsize=6.2, color=INK, va="top",
+            family="monospace", linespacing=1.35)
+
+    ax.set_xlim(-11.5, 62)
+    ax.set_ylim(141, -12)     # inverted: south at top, matching the architect's sheet
     ax.axis("off")
     fig.tight_layout()
     fig.savefig(out_base + ".png", dpi=200, bbox_inches="tight", facecolor="white")
