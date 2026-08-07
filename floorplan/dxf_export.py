@@ -2,11 +2,13 @@
 import ezdxf
 from ezdxf.enums import TextEntityAlignment
 
-from plan_model import PLATE, CUTOUT, GLASS_WEST, GLASS_NORTH, LAYOUTS
+from plan_model import (PLATE, CUTOUT, GLASS_WEST, GLASS_NORTH, LAYOUTS,
+                        wall_bands)
 
 LAYERS = {
     "PLATE":     {"color": 7, "lineweight": 50},
     "WALLS":     {"color": 7, "lineweight": 35},
+    "WALL_FILL": {"color": 8},
     "GLASS":     {"color": 5, "lineweight": 25},
     "DOORS":     {"color": 1, "lineweight": 18},
     "TEXT":      {"color": 7},
@@ -29,6 +31,18 @@ def export_dxf(key, out_path):
                        dxfattribs={"layer": "PLATE"})
     msp.add_lwpolyline(list(CUTOUT.exterior.coords), close=True,
                        dxfattribs={"layer": "VOID"})
+
+    # solid wall fill, matching the rendered sheet
+    walls = wall_bands(rooms)
+    wall_geoms = walls.geoms if walls.geom_type.startswith("Multi") else [walls]
+    for g in wall_geoms:
+        if g.geom_type != "Polygon" or g.area < 0.05:
+            continue
+        hatch = msp.add_hatch(color=8, dxfattribs={"layer": "WALL_FILL"})
+        hatch.paths.add_polyline_path(list(g.exterior.coords), is_closed=True)
+        for hole in g.interiors:
+            hatch.paths.add_polyline_path(list(hole.coords), is_closed=True,
+                                          flags=ezdxf.const.BOUNDARY_PATH_OUTERMOST)
 
     for (x1, y1), (x2, y2) in GLASS_WEST + GLASS_NORTH:
         msp.add_line((x1, y1), (x2, y2), dxfattribs={"layer": "GLASS"})

@@ -150,7 +150,7 @@ def _north_wing():
              doors=[(21.7, 63.0, 2.8, "W")],
              furniture=[("bed", 23.0, 59.2, 3.2, 6.6, 0), ("side", 26.6, 59.0, 1.4, 1.6, 0),
                         ("bed", 29.4, 59.2, 3.2, 6.6, 0), ("side", 33.0, 59.0, 1.4, 1.6, 0),
-                        ("wc", 39.0, 59.4, 1.6, 2.2, 0), ("sink", 37.4, 62.0, 1.5, 1.2, 0)]),
+                        ("wc", 38.2, 62.0, 1.6, 2.2, 0), ("sink", 36.4, 64.6, 1.5, 1.2, 0)]),
         Room("twin2", "Twin Sharing 2", "18'-4\" x 9'-0\"", (21.6, 68.6, 18.3, 9.0), "inpatient",
              doors=[(21.7, 73.0, 2.8, "W")],
              furniture=[("bed", 23.0, 69.6, 3.2, 6.6, 0), ("side", 26.6, 69.4, 1.4, 1.6, 0),
@@ -325,3 +325,38 @@ LAYOUTS = {
     "A": ("LAYOUT A — Targeted Revision", layout_a_rooms),
     "B": ("LAYOUT B — Fresh Alternative", layout_b_rooms),
 }
+
+
+# ------------------------------------------------------- CAD-style geometry
+def solid_rooms(rooms):
+    return [r for r in rooms if r.zone != "circ"]
+
+
+def circulation_poly(rooms):
+    """Everything inside the plate that is not a room or the cut-out."""
+    solids = unary_union([r.poly for r in solid_rooms(rooms)])
+    return PLATE.buffer(-0.75).difference(solids).difference(CUTOUT)
+
+
+def wall_bands(rooms):
+    """Filled wall geometry: grown room outlines minus room interiors,
+    plus the plate perimeter and cut-out surround, with door openings and
+    the main entrance punched out."""
+    solids = [r.poly for r in solid_rooms(rooms)]
+    grown = unary_union([p.buffer(0.55, join_style=2) for p in solids]
+                        + [CUTOUT.buffer(0.55, join_style=2)])
+    walls = grown.difference(unary_union(solids)).difference(CUTOUT)
+    perimeter = PLATE.difference(PLATE.buffer(-0.75))
+    walls = unary_union([walls, perimeter]).intersection(PLATE)
+
+    for r in rooms:
+        for (cx, cy, w, side) in r.doors:
+            if side in ("N", "S"):
+                opening = box(cx - w / 2, cy - 1.1, cx + w / 2, cy + 1.1)
+            else:
+                opening = box(cx - 1.1, cy - w / 2, cx + 1.1, cy + w / 2)
+            walls = walls.difference(opening)
+
+    _, y1, y2 = MD_DOOR
+    walls = walls.difference(box(-1.5, y1, 1.5, y2))
+    return walls
