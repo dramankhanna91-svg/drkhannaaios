@@ -128,3 +128,40 @@ frontage — the client's explicit priority.
 - `MoizKhuzema/Automated-FloorPlan-Generator` — bubble-diagram zoning cross-check
 - `CTLab-ITMO/GenPlan` — text-to-plan generation surveyed; unsuitable (residential training data, GPU models)
 All four are cloned under `floorplan/reference-repos/` for inspection.
+
+---
+
+## 7. LAYOUT C — "Arrival Hub" (fresh design, now the lead option)
+
+After review, the client asked for a genuinely new design (not the architect's
+plan patched), flagging the entrance/reception/pharmacy zone. Three concepts
+were generated (C1 Arrival Hub / C2 Glass Promenade / C3 Dual Flow —
+`concept_C*.png`); C1 was developed into **Layout C**:
+
+- **Arrival lobby** ~21' × 9'-6" at the main door — no rooms crammed into it;
+  an angled reception desk faces the door with sightlines to the waiting
+  entrance and both corridors.
+- **Pharmacy at the exit**: 8'-0" × 5'-1" on the east wall immediately south
+  of the main door — dispensing counter opens into the lobby **7 ft from the
+  exit** (vs 36 ft in the architect's plan), stock door from the staff side.
+- **Triage/vitals nook** off the lobby before the consult corridor.
+- **OT pod**: the only way into the OT is through the Scrub+Autoclave
+  anteroom; Recovery (2 beds, 10'-10"×9'-2") has the direct OT door and
+  discharges through a dedicated **staff link** corridor toward the ward
+  wing — post-op patients never enter the public lobby.
+- **X-ray/Dressing** inboard (shielding-ready), 20 ft from the consult
+  cluster and adjacent to the OT.
+- **Waiting + recreation** ≈13'×27' on the openable west glass, 20+ seats,
+  recreation corner at the quiet south end, accessible WC inside.
+- Ward wing bones kept (5 single + 2 twin, nursing at the corridor junction).
+
+**Scores** (see flow_scores.md): Layout C totals **123 ft** across the seven
+key flows — best of all four options (architect 204 / A 158 / B 131).
+
+Sheets: `layout_C_arrival_hub.png/.svg/.dxf` (CAD style, door tags, tile
+grid, title block, room schedule), `layout_C_presentation.png` (colored
+presentation visual), `3d_layout_C.png`.
+
+Note: an AI photorealistic render was attempted via Higgsfield but the
+account has 0 credits (free plan); the presentation visual is the honest
+CPU-rendered fallback. The pipeline is in place if credits are added.

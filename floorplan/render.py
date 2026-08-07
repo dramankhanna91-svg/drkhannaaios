@@ -91,13 +91,24 @@ def _plot_lines(ax, geom, color, lw, zorder):
             ax.plot(xs, ys, color=color, lw=lw, zorder=zorder, solid_capstyle="butt")
 
 
-def _furniture(ax, item, z=6):
+CAD_PALETTE = dict(chair="white", bed_blanket="#eeeeee", counter="#e7e0d6",
+                   desk="#f0f0f0", plant="#e2eddd", wall=INK, tint_keep=0.35,
+                   shadow=False)
+PRESO_PALETTE = dict(chair="#9fc6bc", bed_blanket="#aecbe8", counter="#c29a6b",
+                     desk="#d9c6a5", plant="#8fbf7f", wall="#3a372f", tint_keep=0.62,
+                     shadow=True)
+
+
+def _furniture(ax, item, z=6, pal=CAD_PALETTE):
     kind, x, y, w, h, rot = item
     thin = dict(lw=0.55, ec="#4a4a4a", zorder=z)
     if kind == "bed":
         ax.add_patch(Rectangle((x, y), w, h, fc="white", **thin))
-        ax.add_patch(Rectangle((x + 0.25, y + h - 1.4), w - 0.5, 1.0, fc="#eeeeee", lw=0.4,
-                               ec="#4a4a4a", zorder=z))
+        ax.add_patch(Rectangle((x + 0.25, y + h - 1.4), w - 0.5, 1.0, fc=pal["bed_blanket"],
+                               lw=0.4, ec="#4a4a4a", zorder=z))
+        if pal["shadow"]:
+            ax.add_patch(Rectangle((x + 0.2, y + 0.4), w, h * 0.55, fc=pal["bed_blanket"],
+                                   lw=0.3, ec="#4a4a4a", zorder=z))
     elif kind == "exam":
         ax.add_patch(Rectangle((x, y), w, h, fc="#f4f4f4", **thin))
         ax.plot([x, x + w], [y + h * 0.75, y + h * 0.75], color="#4a4a4a", lw=0.4, zorder=z)
@@ -106,9 +117,9 @@ def _furniture(ax, item, z=6):
         ax.add_patch(Circle((x + w / 2, y + h + 1.1), 0.85, fc="none", lw=0.55,
                             ec="#4a4a4a", zorder=z))
     elif kind in ("desk", "side", "cart"):
-        ax.add_patch(Rectangle((x, y), w, h, fc="#f0f0f0", angle=rot, **thin))
+        ax.add_patch(Rectangle((x, y), w, h, fc=pal["desk"], angle=rot, **thin))
     elif kind == "counter":
-        ax.add_patch(Rectangle((x, y), w, h, fc="#e7e0d6", angle=rot, **thin))
+        ax.add_patch(Rectangle((x, y), w, h, fc=pal["counter"], angle=rot, **thin))
     elif kind == "shelf":
         ax.add_patch(Rectangle((x, y), w, h, fc="white", **thin))
         n = max(2, int(max(w, h) / 1.4))
@@ -119,7 +130,7 @@ def _furniture(ax, item, z=6):
             for i in range(1, n):
                 ax.plot([x, x + w], [y + h * i / n] * 2, color="#4a4a4a", lw=0.35, zorder=z)
     elif kind == "chair":
-        ax.add_patch(Rectangle((x, y), w, h, fc="white", lw=0.5, ec="#4a4a4a", zorder=z))
+        ax.add_patch(Rectangle((x, y), w, h, fc=pal["chair"], lw=0.5, ec="#4a4a4a", zorder=z))
     elif kind == "wc":
         ax.add_patch(Rectangle((x, y + h * 0.5), w, h * 0.5, fc="white", lw=0.5,
                                ec="#4a4a4a", zorder=z))
@@ -132,7 +143,7 @@ def _furniture(ax, item, z=6):
         ax.add_patch(Rectangle((x, y), w, h, fc="white", lw=0.5, ec="#4a4a4a", zorder=z))
         ax.plot([x, x + w], [y, y + h], color="#4a4a4a", lw=0.35, zorder=z)
     elif kind == "plant":
-        ax.add_patch(Circle((x + w / 2, y + h / 2), w / 2, fc="#e2eddd", lw=0.5,
+        ax.add_patch(Circle((x + w / 2, y + h / 2), w / 2, fc=pal["plant"], lw=0.5,
                             ec="#6d8a63", zorder=z))
     elif kind == "tv":
         ax.add_patch(Rectangle((x, y), w, h, fc="#666", lw=0.4, ec="#333", zorder=z))
@@ -186,8 +197,11 @@ def _keynote_code(room):
     return None
 
 
-def render_layout(key, out_base, highlight=True):
+def render_layout(key, out_base, highlight=True, style="cad"):
+    pal = PRESO_PALETTE if style == "presentation" else CAD_PALETTE
     title, factory = LAYOUTS[key]
+    if style == "presentation":
+        title += " — presentation visual"
     rooms = factory()
     walls = wall_bands(rooms)
 
@@ -206,28 +220,32 @@ def render_layout(key, out_base, highlight=True):
     ax.text(c.x, c.y, "CUT-OUT\n(void)", ha="center", va="center", fontsize=9,
             color=INK, zorder=4)
 
-    # room fills (near-white zone tints); tile grids: fine in wet, light 2' elsewhere
+    # room fills (zone tints); tile grids: fine in wet, light 2' elsewhere
     for r in rooms:
         if r.zone == "circ":
             continue
         p = r.poly
-        _fill(ax, p, 2, fc=_tint(ZONES[r.zone][0], 0.35), ec="none")
+        _fill(ax, p, 2, fc=_tint(ZONES[r.zone][0], pal["tint_keep"]), ec="none")
         for g in _iter_polys(p):
             if r.zone == "wet":
                 _tile_hatch(ax, g, 3)
             elif g.area > 30:
                 _tile_hatch2(ax, g, 2.5)
 
-    # walls: solid dark fill
-    _fill(ax, walls, 7, fc=INK, ec="none")
+    # walls: soft drop shadow (presentation) then solid fill
+    if pal["shadow"]:
+        from shapely.affinity import translate as _shtr
+        _fill(ax, _shtr(walls, 0.45, 0.7), 6.5, fc="#5a564c", ec="none", alpha=0.30)
+    _fill(ax, walls, 7, fc=pal["wall"], ec="none")
 
     # furniture + doors + door tags
     for r in rooms:
         for f in r.furniture:
-            _furniture(ax, f)
+            _furniture(ax, f, pal=pal)
         for d in r.doors:
             _door(ax, d)
-            _door_tag(ax, d)
+            if style != "presentation":
+                _door_tag(ax, d)
 
     # ------------------------------------------------------------- labels
     keynote_pts = []
@@ -348,8 +366,10 @@ def render_layout(key, out_base, highlight=True):
     ax.text(-6.5, tb_y0 + 1.6, "PROJECT", fontsize=6, color="#777")
     ax.text(-6.5, tb_y0 + 5.4, "Hospital of Dr. Aman Khanna\n7th Floor, Solaris Shine,\nAlthan, Surat",
             fontsize=7.5, color=INK, va="center")
+    import textwrap
     ax.text(13.5, tb_y0 + 1.6, "DRAWING", fontsize=6, color="#777")
-    ax.text(13.5, tb_y0 + 5.4, f"{title}\nDimensioned layout plan", fontsize=7.5,
+    ax.text(13.5, tb_y0 + 5.4,
+            textwrap.fill(title, 30) + "\nDimensioned layout plan", fontsize=6.8,
             color=INK, va="center")
     ax.text(31.5, tb_y0 + 1.6, "SCALE / DATE", fontsize=6, color="#777")
     ax.text(31.5, tb_y0 + 5.4, "N.T.S. (scale bar)\n07-08-2026", fontsize=7.5,
