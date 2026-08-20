@@ -4,6 +4,20 @@
 by Dr. Khanna: **₹5 lakh/month side income** (on top of the existing
 practice base).
 
+> **Revisions (20 Aug 2026, per Dr. Khanna):**
+> 1. **Biostatistics consulting stream dropped.** Its ₹60k–1L row is
+>    reallocated: platform hours rise to 30–35/month and the funnel targets
+>    ~35 opinions/month. The statistics credential stays in every pitch —
+>    it powers the clinical-validation wedge — but no standalone stats
+>    consulting is pursued.
+> 2. **Practo-style teleconsult platforms added** to the second-opinion
+>    funnel (#3): list on Practo/Apollo 24|7/Tata 1mg for video consults as
+>    an external demand channel; the ₹2,000 structured written opinion stays
+>    on the own-brand MVP. Tracked in the "Teleconsult Platforms" sheet of
+>    `../OrthoOS-side-income-tracker.xlsx`.
+> 3. Gmail outreach drafts prepared for the 9 named imaging-AI targets
+>    (recipient addresses to be verified before sending).
+
 ## The arithmetic that governs everything
 
 You have **~90 hours/month**. ₹5L across 90 hours means a **blended
