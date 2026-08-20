@@ -31,8 +31,8 @@ Acute knee injury with immediate swelling ("pop" + haemarthrosis pattern)
 │
 ├─ 2. Establish the working diagnosis CLINICALLY.
 │    Rapid effusion after a pivoting injury is an ACL rupture until proven
-│    otherwise; Lachman with a soft endpoint is the most reliable clinical
-│    sign. MRI CONFIRMS and looks for associated injury (meniscus,
+│    otherwise; Lachman with a soft endpoint is the most sensitive clinical
+│    test in the awake patient. MRI CONFIRMS and looks for associated injury (meniscus,
 │    cartilage, collaterals) — it does not replace the examination.
 │
 ├─ 3. Associated injury changes the path.
@@ -42,8 +42,9 @@ Acute knee injury with immediate swelling ("pop" + haemarthrosis pattern)
 └─ 4. Management is a shared decision built on THREE patient factors:
      a. Instability demand: pivoting sport, manual work on uneven ground?
      b. Functional instability: giving-way episodes in daily life?
-     c. Willingness to complete 6–9 months of structured rehabilitation
-        (required in BOTH arms — reconstruction is not a shortcut).
+     c. Willingness to complete 6–9 months minimum of structured
+        rehabilitation — typically 9+ months before return to pivoting
+        sport (required in BOTH arms; reconstruction is not a shortcut).
      │
      ├─ High-demand knee (this patient: wants to return to football)
      │   → Recommend ACL reconstruction, timed after motion is regained
@@ -63,7 +64,9 @@ Acute knee injury with immediate swelling ("pop" + haemarthrosis pattern)
    has the order backwards.
 2. **Did it surface the shared-decision factors, or jump to a verdict?**
    "You need surgery" and "you don't need surgery" are both wrong answers
-   to this case as stated.
+   to this case as stated. A *recommendation conditioned on the
+   shared-decision factors* (as the tree itself makes for this high-demand
+   knee) is correct; an unconditional verdict is not.
 3. **Did it state that rehabilitation is required in both arms?** Omitting
    this is the most common consequential gap: it materially misleads the
    patient about what reconstruction buys them.

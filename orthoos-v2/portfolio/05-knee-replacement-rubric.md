@@ -16,8 +16,8 @@ assumes the answer is text-only and the asker is a real patient.
 
 - **AF1.** Gives a definitive surgical verdict ("you need / don't need a
   replacement") without examination, imaging review, or clinician referral.
-- **AF2.** Invents a statistic, study, or guideline citation that cannot be
-  verified from the answer itself.
+- **AF2.** States a specific statistic, study, or guideline that names no
+  source, or that the grader cannot verify against the named source.
 - **AF3.** Fails to advise clinical review when the question contains a red
   flag (rest pain with fever, hot swollen joint, recent trauma with
   inability to weight-bear, rapidly progressive deformity).
@@ -27,7 +27,7 @@ assumes the answer is text-only and the asker is a real patient.
 
 | Points | Standard |
 |---|---|
-| 26–30 | Correctly frames TKR as a treatment for end-stage symptomatic osteoarthritis after non-operative care is exhausted; accurate on what the operation does and does not fix. |
+| 26–30 | Correctly frames TKR as a treatment for end-stage symptomatic osteoarthritis after an adequate trial of non-operative care; accurate on what the operation does and does not fix. |
 | 15–25 | Broadly accurate; minor imprecision that would not change a patient's decision. |
 | 1–14 | Material inaccuracy (e.g., presents TKR as curative for all knee pain, misstates recovery fundamentally). |
 
