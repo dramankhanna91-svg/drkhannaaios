@@ -18,6 +18,8 @@ shallow output on all four. v2 splits it:
   than regenerating it.
 - **[`templates/`](templates/)** — the application tracker and weekly metrics
   sheet, ready to copy into a spreadsheet.
+- **[`reports/`](reports/)** — outputs of executed steps: the B1 current-state
+  report and the B2 income-stream scoring.
 
 ### Run order
 
