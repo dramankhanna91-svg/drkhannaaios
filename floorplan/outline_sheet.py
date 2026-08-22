@@ -25,18 +25,25 @@ GLASS = "#1d4ed8"
 VOID = "#9ca3af"
 ACCENT = "#b45309"
 
-PLATE = [(0.0, 0.0), (48.5, 0.0), (44.5, 40.0), (43.0, 55.0), (41.5, 70.0),
-         (39.5, 88.0), (38.8, 92.0), (36.5, 97.5), (33.0, 100.2),
-         (29.0, 101.0), (0.0, 101.0)]
+# --- REVISION B (22-08-2026) -------------------------------------------------
+# Rebuilt from a calibrated pixel survey of the architect's sheet after the
+# builder's typical-floor plan was received.  Revision A wrongly assumed a
+# 101'-0" length; the plate actually measures 92'-0".  Calibration: east wall
+# x=226 px, south wall y=580 px, north wall y=1779 px, SW corner x=858 px
+# => 13.031 px/ft against the stated 48'-6" south wall.
+PLATE = [(0.0, 0.0), (48.5, 0.0), (47.3, 10.0), (45.8, 20.0), (44.3, 30.0),
+         (43.6, 45.0), (41.5, 50.0), (39.9, 60.0), (38.5, 70.0), (37.1, 80.0),
+         (36.2, 85.0), (35.0, 89.5), (33.5, 91.0), (31.0, 92.0), (0.0, 92.0)]
 
-# cut-out void, clipped to the west facade
-CUTOUT = [(27.5, 48.0), (43.7, 48.0), (42.45, 60.5), (27.5, 60.5)]
+# cut-out / service void, clipped to the west facade
+CUTOUT = [(25.6, 40.0), (44.0, 40.0), (42.7, 48.0), (25.6, 48.0)]
 
-MD = (49.5, 53.5)                       # main door on the east wall
-DUCT = (0.0, 59.2, 4.0, 4.2)            # traced - flagged "verify" on sheet 3
-STATIONS = [40.0, 55.0, 70.0, 88.0, 92.0]
-WIDTH_AT = {0.0: 48.5, 40.0: 44.5, 55.0: 43.0, 70.0: 41.5,
-            88.0: 39.5, 92.0: 38.8, 97.5: 36.5, 100.2: 33.0, 101.0: 29.0}
+MD = (43.0, 48.0)                       # main door on the east wall (measured)
+DUCT = (0.0, 51.2, 4.0, 4.2)            # traced - flagged "verify" on sheet 3
+STATIONS = [20.0, 40.0, 60.0, 80.0, 90.0]
+WIDTH_AT = {0.0: 48.5, 10.0: 47.3, 20.0: 45.8, 30.0: 44.3, 45.0: 43.6,
+            50.0: 41.5, 60.0: 39.9, 70.0: 38.5, 80.0: 37.1, 85.0: 36.2,
+            89.5: 35.0, 91.0: 33.5, 92.0: 31.0}
 
 
 def fi(v):
@@ -144,10 +151,9 @@ def plate_outline(s, grid=False):
     s.poly(cpts, 1.2, VOID, fill="#eef0f2")
     cx = (cpts[0][0] + cpts[1][0]) / 2
     cy = cpts[0][1] + 26
-    s.text(cx, cy, "CUT-OUT (VOID)", 9.5, INK, "middle", weight="bold")
-    s.text(cx, cy + 15, "27'-6\" from east wall", 8.4, INK, "middle")
-    s.text(cx, cy + 27, "48'-0\" from south wall", 8.4, INK, "middle")
-    s.text(cx, cy + 39, "12'-6\" deep · 16'-2½\" wide", 8.4, INK, "middle")
+    s.text(cx, cy + 8, "CUT-OUT /", 8.2, INK, "middle", weight="bold")
+    s.text(cx, cy + 19, "SERVICE AREA", 8.2, INK, "middle", weight="bold")
+    s.text(cx, cy + 31, "≈18'-4\" × 8'-0\"", 7.4, INK, "middle")
 
     # duct / shaft (traced - verify)
     dx, dy = P(DUCT[0], DUCT[1])
@@ -188,13 +194,13 @@ def dimensions(s):
     x_nw = P(29.0, 101.0)[0]
 
     s.dim_h(OX, x_sw, 82, "48'-6\"", 10.5, ext=OY - 3)
-    s.dim_v(OY, y_n, 50, "101'-0\"", 10.5, ext=OX - 3)
-    s.dim_h(OX, x_nw, y_n + 20, "29'-0\"", 10, ext=y_n + 3)
+    s.dim_v(OY, y_n, 50, "92'-0\"", 10.5, ext=OX - 3)
+    s.dim_h(OX, x_nw, y_n + 20, "≈31'-0\"", 10, ext=y_n + 3)
 
     # main-door setting-out on an inner chain
     my1, my2 = P(0, MD[0])[1], P(0, MD[1])[1]
-    s.dim_v(OY, my1, 74, "49'-6\"", 8.6)
-    s.dim_v(my1, my2, 74, "4'-0\"", 8.0)
+    s.dim_v(OY, my1, 74, "43'-0\"", 8.6)
+    s.dim_v(my1, my2, 74, "5'-0\"", 8.0)
 
     # west-facade stations: tick on the east wall, width called out at the facade
     for st in STATIONS:
@@ -231,11 +237,12 @@ def footer_box(s, extra=None):
 
     s.line(bx, by + 32, A4W - 24, by + 32, 0.5, THIN)
     s.text(bx, by + 46, "CHECK YOUR PRINT", 8.4, ACCENT, weight="bold", ls=1.0)
-    s.text(bx, by + 59, "101'-0\" east wall  =  252.5 mm", 8.6, INK)
+    s.text(bx, by + 59, "92'-0\" east wall  =  230.0 mm", 8.6, INK)
     s.text(bx, by + 71, "48'-6\" south wall  =  121.3 mm", 8.6, INK)
     s.text(bx, by + 85, "1'-0\" = 2.5 mm · 5'-0\" corridor = 12.5 mm", 8.0, THIN)
+    s.text(bx, by + 99, "REV B — length corrected 101'-0\" → 92'-0\"", 8.0, ACCENT)
     if extra:
-        s.text(bx, by + 99, extra, 8.0, THIN)
+        s.text(bx, by + 111, extra, 8.0, THIN)
 
 
 def build_outline(grid=False):
@@ -251,31 +258,34 @@ def build_outline(grid=False):
 
 # --------------------------------------------------------------- sheet three
 SCHEDULE = [
-    ("OVERALL ENVELOPE", [
+    ("OVERALL ENVELOPE  (REVISION B — see notes)", [
         ("South wall (top of sheet)", "48'-6\""),
-        ("East wall — straight, full length", "101'-0\""),
-        ("North wall (short, at the curved end)", "29'-0\""),
-        ("Carpet area inside the envelope, less the cut-out", "≈ 4,164 sq ft"),
+        ("East wall — straight, full length", "92'-0\""),
+        ("North wall (short, past the curved corner)", "≈ 31'-0\""),
+        ("Gross area inside the envelope", "≈ 3,871 sq ft"),
+        ("Net, after deducting the cut-out", "≈ 3,729 sq ft"),
     ]),
     ("WEST FACADE — WIDTH AT EACH STATION", [
         ("at 0'-0\" (south wall)", "48'-6\""),
-        ("at 40'-0\" north of the south wall", "44'-6\""),
-        ("at 55'-0\"", "43'-0\""),
-        ("at 70'-0\"", "41'-6\""),
-        ("at 88'-0\"", "39'-6\""),
-        ("at 92'-0\"", "38'-9½\""),
-        ("at 97'-6\"  (curve begins)", "36'-6\""),
-        ("at 100'-2\"", "33'-0\""),
-        ("at 101'-0\" (north wall)", "29'-0\""),
+        ("at 10'-0\" north of the south wall", "47'-3½\""),
+        ("at 20'-0\"", "45'-9½\""),
+        ("at 30'-0\"", "44'-3½\""),
+        ("at 45'-0\"  (cut-out corner — slight jog)", "43'-7\""),
+        ("at 50'-0\"", "41'-6\""),
+        ("at 60'-0\"", "39'-11\""),
+        ("at 70'-0\"", "38'-6\""),
+        ("at 80'-0\"", "37'-1\""),
+        ("at 89'-6\"  (curve begins)", "35'-0\""),
+        ("at 92'-0\" (north wall)", "≈ 31'-0\""),
     ]),
     ("FIXED CONSTRAINTS — DO NOT BUILD OVER", [
-        ("Main entry door, east wall, from the south corner", "49'-6\" to 53'-6\""),
-        ("Cut-out (void) — east edge, from the east wall", "27'-6\""),
-        ("Cut-out — south edge, from the south wall", "48'-0\""),
-        ("Cut-out — size (runs west to the facade)", "16'-2½\" × 12'-6\""),
-        ("Duct / shaft on the east wall  (TRACED — VERIFY)", "≈ 59'-2\", 4'-0\" × 4'-2\""),
+        ("Main entry door, east wall, from the south corner", "43'-0\" to 48'-0\""),
+        ("Cut-out / service void — east edge, from east wall", "25'-7\""),
+        ("Cut-out — south edge, from the south wall", "40'-0\""),
+        ("Cut-out — size (runs west to the facade)", "≈ 18'-4\" × 8'-0\""),
+        ("Duct / shaft on the east wall  (TRACED — VERIFY)", "≈ 51'-2\", 4'-0\" × 4'-2\""),
         ("Openable glass", "whole west facade + north edge"),
-        ("Service area (outside the tenancy)", "beyond the south wall"),
+        ("Service area (outside the tenancy)", "strip beyond the south wall"),
     ]),
     ("HANDY CONVERSIONS AT THIS SCALE", [
         ("1'-0\"", "2.5 mm"),
@@ -288,10 +298,14 @@ SCHEDULE = [
 ]
 
 NOTES = [
-    "Geometry is traced from the dimensioned floor-plan drawing, not surveyed.",
-    "Columns and shear walls are NOT shown — get the structural grid from the",
-    "     DWG before you commit partitions.",
-    "The north-west corner is curved; it is drawn here as short straight runs.",
+    "REVISION B: the envelope was re-surveyed from the architect's sheet and",
+    "     the length corrected from 101'-0\" to 92'-0\". Layouts A-D were drawn",
+    "     on the old, over-long plate and must be re-fitted to this outline.",
+    "The zone marked CUT-OUT here is labelled SERVICE AREA on the builder's",
+    "     typical-floor plan — confirm whether it has a slab before planning it.",
+    "Geometry is traced from a photograph of the drawing, not surveyed. Ask the",
+    "     builder for a DXF/PDF export to remove the remaining tracing error.",
+    "Columns and shear walls are NOT shown — get the structural grid first.",
     "Keep every patient corridor at least 5'-0\" clear (12.5 mm on this print).",
 ]
 
