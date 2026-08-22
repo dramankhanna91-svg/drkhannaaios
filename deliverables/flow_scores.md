@@ -1,12 +1,16 @@
 # Key clinical-flow travel distances (corridor L1 metric)
 
-| Flow | Architect | Layout A | Layout B | Layout C | Layout D (sketch) |
-|---|---|---|---|---|---|
-| OT -> Recovery (post-op trolley) | 20 ft | 2 ft | 2 ft | 2 ft | 2 ft |
-| Main door -> Reception | 25 ft | 8 ft | 8 ft | 13 ft | 13 ft |
-| Reception -> Waiting | 24 ft | 46 ft | 53 ft | 47 ft | 30 ft |
-| Pharmacy -> Main door (exit collection) | 36 ft | 26 ft | 26 ft | 7 ft | 31 ft |
-| Consult cluster -> X-ray/Dressing | 33 ft | 43 ft | 9 ft | 20 ft | 43 ft |
-| Nursing station -> farthest bed (Single 3) | 32 ft | 32 ft | 32 ft | 32 ft | 32 ft |
-| Waiting -> nearest WC | 34 ft | 2 ft | 2 ft | 2 ft | 2 ft |
-| **Total key-flow travel** | **204 ft** | **158 ft** | **131 ft** | **123 ft** | **152 ft** |
+Layout E is measured on the corrected Rev C envelope (48'-6" x 92'-0").
+Earlier layouts A-D were drawn on the superseded 101-ft envelope; their
+historical totals (A 158 / B 131 / C 123 / D 152 ft) are not comparable.
+
+| Flow | Layout E (final) |
+|---|---|
+| OT -> Recovery (post-op trolley) | 2 ft |
+| Main door -> Reception | 17 ft |
+| Reception -> Waiting | 26 ft |
+| Pharmacy -> Main door (exit collection) | 12 ft |
+| Consult cluster -> X-ray/Dressing | 20 ft |
+| Nursing station -> farthest bed (Single 3) | 16 ft |
+| Waiting -> nearest WC | 56 ft |
+| **Total key-flow travel** | **149 ft** |

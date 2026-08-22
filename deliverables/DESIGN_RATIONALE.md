@@ -193,3 +193,36 @@ D's weaker flows are pharmacy→exit and OPD→X-ray (opposite corners); its
 stronger flows are reception→waiting (30 ft) and a fully consolidated
 surgical stack. Sheets: `layout_D_sketch_line_diagram.png` (single-line
 diagram with flow arrows), `layout_D_sketch_cad.png/.svg/.dxf`.
+
+---
+
+## 9. LAYOUT E — Dr. Khanna's FINAL plan (Rev C envelope) — THE deliverable
+
+Digitized from the doctor's second hand sketch, drawn on the corrected
+48'-6" × 92'-0" envelope (Rev C, builder-confirmed). This supersedes
+Layouts A–D, which were drawn on the over-long Rev A envelope.
+
+Program as built: OT 20'×20' pod (autoclave + sterile store/change + scrub)
+at the SE; Recovery/stretcher (direct OT door) and X-ray/Dressing/EMERGENCY
+stacked to the entry — walk-in casualties enter dressing straight off the
+lobby; OPD 1–3 + Doctors' Lounge (w/ bath) mid-south; WAITING ≈12'×17'
+(16 seats) on the west glass; ENTRY LOBBY with angled RECEPTION desk and
+PHARMACY counter (registration + dispensing); east service band (BP/exam,
+nursing + obs bed, wash+bath, stores); ROOMS 1–4 all ensuite on the
+glass/curve + ensuite SUITE 5 at the north. 6 inpatient beds minimum
+(4 rooms + suite + obs), OT+recovery separate.
+
+Flow scores (Rev C plate): total 149 ft. Standouts: OT→Recovery 2 ft,
+pharmacy→exit 12 ft, nurse→farthest bed 16 ft.
+
+**Open items for the architect:**
+1. Waiting→nearest WC is 56 ft — recommend a small visitor WC carved off
+   the OPD lobby / near the cut-out wall.
+2. OT at 20'×20' leaves Recovery at 8'-0" deep (1 bed + stretcher). If two
+   recovery beds are wanted, drop OT to 20'×17'.
+3. X-ray wall shared with lobby/pharmacy needs AERB lead lining if true
+   radiography is installed.
+4. Verify columns/shear walls and the cut-out slab question before
+   partition layout is frozen.
+
+Sheets: `layout_E_final.png/.svg/.dxf`, `3d_layout_E.png`.

@@ -10,7 +10,9 @@ corridor-mediated edge model.
 from plan_model import LAYOUTS, MD_DOOR
 
 
-ALIASES = {"single3": ["single3", "room4", "gw"],
+ALIASES = {"single3": ["single3", "room3", "room4", "gw"],
+           "nursing": ["nursing", "ns"],
+           "wc_w": ["wc_w", "washC"],
            "opd1": ["opd1", "opd2"]}
 
 
@@ -79,10 +81,9 @@ def score_layout(key):
 
 
 def comparison_table():
-    keys = ["architect", "A", "B", "C", "D"]
+    keys = ["E"]
     scores = {k: score_layout(k) for k in keys}
-    lines = ["| Flow | Architect | Layout A | Layout B | Layout C | Layout D (sketch) |",
-             "|---|---|---|---|---|---|"]
+    lines = ["| Flow | Layout E (final) |", "|---|---|"]
     for label, _, _ in FLOWS:
         row = [f"| {label} "]
         for k in keys:

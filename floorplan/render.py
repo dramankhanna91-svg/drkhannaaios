@@ -303,7 +303,7 @@ def render_layout(key, out_base, highlight=True, style="cad"):
                 color="#2c6fbb", lw=0.7, zorder=5)
     ax.text(48.3, 20, "OPENABLE GLASS", rotation=-84, fontsize=8, color="#2c6fbb",
             ha="center", va="center")
-    ax.text(20, 103.8, "OPENABLE GLASS", fontsize=8, color="#2c6fbb", ha="center")
+    ax.text(20, 94.8, "OPENABLE GLASS", fontsize=8, color="#2c6fbb", ha="center")
 
     # main door: swing + label (wall already has the opening punched)
     _, y1, y2 = MD_DOOR
@@ -313,24 +313,24 @@ def render_layout(key, out_base, highlight=True, style="cad"):
                 arrowprops=dict(arrowstyle="->", lw=1.1, color=INK))
 
     # compass labels
-    for x, y, s in [(24, -8.5, "SOUTH SIDE"), (24, 108.5, "NORTH SIDE")]:
+    for x, y, s in [(24, -8.5, "SOUTH SIDE"), (24, 99.5, "NORTH SIDE")]:
         ax.text(x, y, s, ha="center", va="center", fontsize=11, weight="bold",
                 bbox=dict(fc="#eeeeee", ec=INK, lw=1))
     ax.text(-8.5, 24, "EAST SIDE", rotation=90, ha="center", va="center", fontsize=11,
             weight="bold", bbox=dict(fc="#eeeeee", ec=INK, lw=1))
     ax.text(55, 24, "WEST SIDE", rotation=-90, ha="center", va="center", fontsize=11,
             weight="bold", bbox=dict(fc="#eeeeee", ec=INK, lw=1))
-    ax.add_patch(FancyArrow(52.5, 96, 0, 4.5, width=0.6, head_width=2.0, head_length=1.8,
+    ax.add_patch(FancyArrow(52.5, 87, 0, 4.5, width=0.6, head_width=2.0, head_length=1.8,
                             fc=INK, ec=INK))
-    ax.text(52.5, 94, "N", ha="center", fontsize=13, weight="bold", color=INK)
+    ax.text(52.5, 85, "N", ha="center", fontsize=13, weight="bold", color=INK)
 
     # overall dimensions
     ax.annotate("", xy=(48.5, -6.2), xytext=(0, -6.2),
                 arrowprops=dict(arrowstyle="<->", lw=1, color=INK))
     ax.text(24.2, -7.3, "48'-6\"", ha="center", fontsize=9, color=INK)
-    ax.annotate("", xy=(-4.8, 101), xytext=(-4.8, 0),
+    ax.annotate("", xy=(-4.8, 92), xytext=(-4.8, 0),
                 arrowprops=dict(arrowstyle="<->", lw=1, color=INK))
-    ax.text(-5.9, 14.0, "101'-0\"", rotation=90, va="center", fontsize=9, color=INK)
+    ax.text(-5.9, 14.0, "92'-0\"", rotation=90, va="center", fontsize=9, color=INK)
 
     # legend + keynote table
     handles = [Line2D([], [], marker="s", ls="", ms=11, mfc=_tint(col, 0.35), mec="#999",
@@ -344,7 +344,7 @@ def render_layout(key, out_base, highlight=True, style="cad"):
     keys_used = sorted({k for _, _, k, _ in keynote_pts})
     if keys_used:
         note = "KEYNOTES:\n" + "\n".join(f"  ({k})  {code_desc[k]}" for k in keys_used)
-        ax.text(-8, 123.5, note, fontsize=7.5, color=INK, va="top", linespacing=1.5)
+        ax.text(-8, 114.5, note, fontsize=7.5, color=INK, va="top", linespacing=1.5)
 
     total = PLATE.area - CUTOUT.area
     ax.set_title(f"{title}\nHospital of Dr. Aman Khanna — 7th Floor, Solaris Shine, Althan, Surat"
@@ -352,13 +352,13 @@ def render_layout(key, out_base, highlight=True, style="cad"):
                  fontsize=12, pad=16)
 
     # scale bar
-    ax.plot([0, 10], [117.5, 117.5], lw=3, color=INK)
+    ax.plot([0, 10], [108.5, 108.5], lw=3, color=INK)
     for i in range(0, 11, 5):
-        ax.plot([i, i], [116.9, 118.1], lw=1.2, color=INK)
-        ax.text(i, 119.6, f"{i}'", ha="center", fontsize=7.5, color=INK)
+        ax.plot([i, i], [107.9, 109.1], lw=1.2, color=INK)
+        ax.text(i, 110.6, f"{i}'", ha="center", fontsize=7.5, color=INK)
 
     # title block (architect-sheet style)
-    tb_y0, tb_y1 = 130.5, 139.5
+    tb_y0, tb_y1 = 121.5, 130.5
     ax.add_patch(Rectangle((-8, tb_y0), 66, tb_y1 - tb_y0, fc="white", ec=INK, lw=1.2,
                            zorder=3))
     for fx in (12, 30, 44):
@@ -386,11 +386,11 @@ def render_layout(key, out_base, highlight=True, style="cad"):
     for name, dims, area in sched[:22]:
         nm = (name[:20] + "…") if len(name) > 21 else name
         lines.append(f"{nm:<22s} {area:>4.0f} sf")
-    ax.text(50.5, 108.5, "\n".join(lines), fontsize=6.2, color=INK, va="top",
+    ax.text(50.5, 99.5, "\n".join(lines), fontsize=6.2, color=INK, va="top",
             family="monospace", linespacing=1.35)
 
     ax.set_xlim(-11.5, 62)
-    ax.set_ylim(141, -12)     # inverted: south at top, matching the architect's sheet
+    ax.set_ylim(132, -12)     # inverted: south at top, matching the architect's sheet
     ax.axis("off")
     fig.tight_layout()
     fig.savefig(out_base + ".png", dpi=200, bbox_inches="tight", facecolor="white")

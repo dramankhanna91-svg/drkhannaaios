@@ -14,32 +14,37 @@ WALL = 0.375          # internal wall thickness (4.5")
 CEIL_H = 9.5          # slab-to-ceiling, for the 3D view
 
 # ---------------------------------------------------------------- floor plate
-# Traced from the dimensioned JPG (DWG not convertible in this environment).
-# East edge straight; west facade angled inward toward north; curved NW corner.
+# REVISION C (22-08-2026): envelope from a calibrated pixel survey of the
+# architect's sheet, cross-checked against the builder's CAD PDF
+# (19'-6.5" + 19'-6.5" + 8'-0" passage + 43'-9.5" + walls = 92'-0").
+# East edge straight; west facade tapers; curved NW corner. 48'-6" x 92'-0".
 PLATE_PTS = [
     (0.0, 0.0),        # SE corner (sheet top-left)
     (48.5, 0.0),       # SW corner
-    (44.5, 40.0),      # west facade, angling east as it runs north
-    (43.0, 55.0),
-    (41.5, 70.0),
-    (39.5, 88.0),
-    (38.8, 92.0),
-    (36.5, 97.5),      # start of curved corner
-    (33.0, 100.2),
-    (29.0, 101.0),     # curve meets north edge
-    (0.0, 101.0),      # NE corner
+    (47.3, 10.0),      # west facade, tapering east as it runs north
+    (45.8, 20.0),
+    (44.3, 30.0),
+    (43.6, 45.0),
+    (41.5, 50.0),
+    (39.9, 60.0),
+    (38.5, 70.0),
+    (37.1, 80.0),
+    (36.2, 85.0),
+    (35.0, 89.5),      # curve begins
+    (33.5, 91.0),
+    (31.0, 92.0),      # curve meets north wall
+    (0.0, 92.0),       # NE corner
 ]
 PLATE = Polygon(PLATE_PTS)
 
-# Cut-out void (open shaft) against the west facade, mid-plan
-CUTOUT = Polygon([(27.5, 48.0), (43.9, 48.0), (42.6, 60.5), (27.5, 60.5)])
+# Cut-out / service void against the west facade, at the waist
+CUTOUT = Polygon([(25.6, 40.0), (44.0, 40.0), (42.7, 48.0), (25.6, 48.0)])
 
 # Openable-glass bands (drawn outside the plate edge)
-GLASS_WEST = [((48.5, 0.0), (44.5, 40.0)), ((44.5, 40.0), (43.0, 55.0)),
-              ((43.0, 55.0), (41.5, 70.0)), ((41.5, 70.0), (38.8, 92.0))]
-GLASS_NORTH = [((29.0, 101.0), (10.0, 101.0))]
+GLASS_WEST = [(PLATE_PTS[i], PLATE_PTS[i + 1]) for i in range(1, 13)]
+GLASS_NORTH = [((31.0, 92.0), (10.0, 92.0))]
 
-MD_DOOR = (0.0, 49.5, 53.5)   # main double door on east facade, y-span
+MD_DOOR = (0.0, 43.0, 48.0)   # main door on east facade, y-span (5'-0")
 
 
 @dataclass
@@ -568,12 +573,154 @@ def layout_d_rooms():
     return rooms
 
 
+# -------- Layout E: Dr. Khanna's FINAL sketch (v2), on the Rev C envelope
+def layout_e_rooms():
+    """Digitization of the doctor's second sketch on the confirmed 92'-0"
+    plate: OT 20'x20' pod at the SE with scrub + autoclave, recovery and
+    X-ray/dressing/emergency stacked to the entry; OPD 1-3 + doctors'
+    lounge mid-south; waiting on the west glass above the cut-out;
+    entry lobby with reception + pharmacy; service band on the east;
+    Rooms 1-4 (ensuite) on the glass + Suite 5 at the north."""
+    rooms = [
+        # --- OT pod (south-east)
+        Room("autoclave", "Autoclave", "9'-10\" x 5'-2\"", (0.4, 0.4, 9.8, 5.2), "surgical",
+             doors=[(5.0, 5.8, 2.4, "N")],
+             furniture=[("counter", 0.7, 0.7, 9.0, 1.6, 0)],
+             notes="Sterile supply direct to OT"),
+        Room("sterile", "Sterile Store / Change", "9'-6\" x 5'-2\"", (10.6, 0.4, 9.8, 5.2), "surgical",
+             doors=[(16.5, 5.8, 2.4, "N")],
+             furniture=[("shelf", 10.9, 0.7, 1.2, 4.4, 0), ("shelf", 18.9, 0.7, 1.2, 4.4, 0)]),
+        Room("ot", "OPERATION THEATRE", "20'-0\" x 20'-0\"", (0.4, 6.0, 20.0, 20.0), "surgical",
+             furniture=[("ottable", 8.6, 13.0, 2.6, 6.5, 15), ("counter", 1.0, 6.3, 6.0, 1.5, 0),
+                        ("cart", 16.6, 9.0, 1.8, 2.6, 0), ("cart", 16.6, 20.0, 1.8, 2.6, 0),
+                        ("light", 10.4, 11.0, 1.5, 1.5, 0)]),
+        Room("scrub", "Scrub", "5'-2\" x 7'-0\"", (20.9, 2.0, 5.2, 7.0), "surgical",
+             doors=[(20.8, 7.2, 2.6, "W"), (23.5, 9.1, 2.4, "N")],
+             furniture=[("sink", 21.3, 2.3, 1.4, 1.2, 0), ("sink", 23.0, 2.3, 1.4, 1.2, 0)]),
+        Room("recovery", "RECOVERY / Stretcher", "12'-0\" x 8'-0\"", (0.4, 26.4, 12.0, 8.0), "surgical",
+             doors=[(6.0, 26.3, 3.0, "S"), (12.5, 30.4, 2.8, "W")],
+             furniture=[("bed", 1.2, 27.2, 3.2, 6.6, 0), ("cart", 9.8, 27.0, 1.8, 2.2, 0)],
+             notes="Direct door from OT; discharges via spine, never the lobby"),
+        Room("xray", "X-RAY / DRESSING / EMERGENCY", "12'-0\" x 7'-7\"", (0.4, 34.8, 12.0, 7.6), "consult",
+             doors=[(6.5, 42.5, 3.0, "N"), (12.5, 38.5, 2.6, "W")],
+             furniture=[("exam", 1.2, 35.4, 2.25, 5.5, 0), ("counter", 7.2, 35.2, 4.4, 1.3, 0)],
+             notes="Walk-in emergencies come straight off the entry lobby"),
+        # --- consult band (mid-south) + lounge
+        Room("bath_lg", "Bath", "3'-0\" x 5'-0\"", (26.5, 0.4, 3.0, 5.0), "wet",
+             doors=[(29.6, 2.8, 2.0, "W")],
+             furniture=[("wc", 27.0, 0.8, 1.4, 1.9, 0), ("shower", 27.0, 3.2, 1.2, 1.2, 0)]),
+        Room("lounge", "DOCTORS' LOUNGE", "≈17' x 9'-0\" (w/ bath)", (29.9, 0.4, 17.4, 9.0), "consult",
+             doors=[(33.5, 9.5, 2.6, "N")],
+             furniture=[("desk", 31.0, 4.6, 4.2, 2.2, 0), ("chair", 32.2, 2.8, 1.4, 1.4, 0),
+                        ("bed", 41.0, 0.8, 3.0, 6.2, 0)]),
+        Room("opd2", "OPD 2", "10'-2\" x 9'-0\"", (20.9, 13.0, 10.2, 9.0), "consult",
+             doors=[(20.8, 17.5, 2.8, "W")],
+             furniture=[("desk", 22.0, 17.0, 4.6, 2.2, 0), ("chair", 23.4, 15.2, 1.4, 1.4, 0),
+                        ("exam", 28.4, 13.3, 2.25, 5.5, 0)]),
+        Room("opd1", "OPD 1", "10'-2\" x 9'-0\"", (20.9, 22.4, 10.2, 9.0), "consult",
+             doors=[(20.8, 26.9, 2.8, "W")],
+             furniture=[("desk", 22.0, 26.4, 4.6, 2.2, 0), ("chair", 23.4, 24.6, 1.4, 1.4, 0),
+                        ("exam", 28.4, 22.7, 2.25, 5.5, 0)]),
+        Room("opd3", "OPD 3", "≈12' x 9'-2\"", (31.6, 12.9, 12.6, 9.2), "consult",
+             doors=[(31.5, 17.5, 2.8, "E")],
+             furniture=[("desk", 33.0, 17.0, 4.6, 2.2, 0), ("chair", 34.4, 15.2, 1.4, 1.4, 0),
+                        ("exam", 39.6, 13.2, 2.25, 5.5, 0)]),
+        # --- waiting on the west glass (his v2 addition)
+        Room("wait", "WAITING AREA", "≈12' x 17' (16 seats)", (31.6, 22.5, 12.8, 17.1), "public",
+             doors=[(31.7, 35.5, 3.2, "E")],
+             furniture=[("chair", 33.0, 23.6, 1.4, 1.4, 0), ("chair", 34.8, 23.6, 1.4, 1.4, 0),
+                        ("chair", 36.6, 23.6, 1.4, 1.4, 0), ("chair", 38.4, 23.6, 1.4, 1.4, 0),
+                        ("chair", 33.0, 27.0, 1.4, 1.4, 0), ("chair", 34.8, 27.0, 1.4, 1.4, 0),
+                        ("chair", 36.6, 27.0, 1.4, 1.4, 0), ("chair", 38.4, 27.0, 1.4, 1.4, 0),
+                        ("chair", 33.0, 30.4, 1.4, 1.4, 0), ("chair", 34.8, 30.4, 1.4, 1.4, 0),
+                        ("chair", 36.6, 30.4, 1.4, 1.4, 0), ("chair", 38.4, 30.4, 1.4, 1.4, 0),
+                        ("chair", 33.0, 33.8, 1.4, 1.4, 0), ("chair", 34.8, 33.8, 1.4, 1.4, 0),
+                        ("chair", 36.6, 33.8, 1.4, 1.4, 0), ("chair", 38.2, 33.8, 1.4, 1.4, 0),
+                        ("tv", 32.0, 37.6, 0.8, 3.6, 0), ("water", 35.0, 38.0, 1.4, 1.4, 0),
+                        ("plant", 41.8, 23.0, 1.6, 1.6, 0)],
+             notes="West openable glass; fed from the OPD lobby"),
+        # --- entry waist
+        Room("recep", "RECEPTION", "", (13.0, 44.0, 6.5, 4.0), "circ",
+             furniture=[("counter", 13.4, 44.6, 5.6, 1.9, -18)]),
+        # --- east service band (north of entry)
+        Room("pharm", "PHARMACY", "7'-5\" x 6'-0\"", (5.0, 48.8, 7.4, 6.0), "public",
+             doors=[(8.6, 48.7, 2.6, "S")],
+             furniture=[("counter", 5.3, 49.0, 6.6, 1.4, 0), ("shelf", 5.3, 53.2, 6.6, 1.3, 0)],
+             notes="Counter faces the entry lobby - registration + dispensing"),
+        Room("bp", "BP / Exam Room", "11'-10\" x 5'-7\"", (0.4, 55.4, 11.8, 5.6), "consult",
+             doors=[(12.3, 58.2, 2.6, "W")],
+             furniture=[("desk", 0.8, 55.8, 3.6, 1.9, 0), ("exam", 8.6, 55.7, 2.25, 5.2, 0)]),
+        Room("ns", "NURSING STN. + Obs Bed", "11'-10\" x 7'-7\"", (0.4, 61.4, 11.8, 7.6), "inpatient",
+             doors=[(12.3, 65.2, 2.8, "W")],
+             furniture=[("counter", 0.8, 61.7, 8.0, 1.7, 0), ("chair", 2.6, 63.9, 1.4, 1.4, 0),
+                        ("bed", 8.2, 63.9, 3.0, 4.6, 0)]),
+        Room("washC", "Wash + Bath (2)", "11'-10\" x 5'-0\"", (0.4, 69.4, 11.8, 5.0), "wet",
+             doors=[(12.3, 71.9, 2.4, "W")],
+             furniture=[("wc", 1.2, 70.0, 1.5, 2.0, 0), ("shower", 4.4, 70.0, 1.3, 1.3, 0),
+                        ("sink", 8.8, 70.0, 1.4, 1.2, 0)]),
+        Room("store", "Stores", "11'-10\" x 5'-5\"", (0.4, 74.8, 11.8, 5.4), "support",
+             doors=[(12.3, 77.5, 2.4, "W")],
+             furniture=[("shelf", 0.8, 75.1, 1.2, 4.6, 0), ("shelf", 10.8, 75.1, 1.2, 4.6, 0)]),
+        Room("pantry", "Pantry", "4'-6\" x 5'-2\"", (13.0, 84.0, 4.5, 5.2), "support",
+             doors=[(15.2, 83.9, 2.2, "S")],
+             furniture=[("counter", 13.3, 87.6, 3.9, 1.3, 0)]),
+        # --- wards on the glass (ensuite, per v2 sketch) + suite
+        Room("room1", "ROOM 1", "≈23' x 10'-2\" (ensuite)", (18.2, 48.8, 25.0, 10.2), "inpatient",
+             holes=[(18.4, 49.0, 4.2, 5.2)],
+             doors=[(17.9, 55.5, 2.8, "E")],
+             furniture=[("bed", 24.0, 49.6, 3.2, 6.6, 0), ("side", 27.6, 49.4, 1.4, 1.6, 0),
+                        ("chair", 30.4, 50.0, 1.4, 1.4, 0)]),
+        Room("wcR1", "T", "", (18.4, 49.0, 4.2, 5.2), "wet",
+             doors=[(20.4, 54.3, 2.0, "N")],
+             furniture=[("wc", 19.0, 49.6, 1.5, 2.0, 0), ("sink", 21.4, 49.4, 1.2, 1.2, 0)]),
+        Room("room2", "ROOM 2", "≈22' x 10'-0\" (ensuite)", (18.2, 59.4, 24.0, 10.0), "inpatient",
+             holes=[(18.4, 59.6, 4.2, 5.2)],
+             doors=[(17.9, 66.0, 2.8, "E")],
+             furniture=[("bed", 24.0, 60.2, 3.2, 6.6, 0), ("side", 27.6, 60.0, 1.4, 1.6, 0),
+                        ("chair", 30.4, 60.6, 1.4, 1.4, 0)]),
+        Room("wcR2", "T", "", (18.4, 59.6, 4.2, 5.2), "wet",
+             doors=[(20.4, 64.9, 2.0, "N")],
+             furniture=[("wc", 19.0, 60.2, 1.5, 2.0, 0), ("sink", 21.4, 60.0, 1.2, 1.2, 0)]),
+        Room("room3", "ROOM 3", "≈21' x 9'-6\" (ensuite)", (18.2, 69.8, 22.5, 9.6), "inpatient",
+             holes=[(18.4, 70.0, 4.2, 5.2)],
+             doors=[(17.9, 76.0, 2.8, "E")],
+             furniture=[("bed", 24.0, 70.6, 3.2, 6.6, 0), ("side", 27.6, 70.4, 1.4, 1.6, 0),
+                        ("chair", 30.4, 71.0, 1.4, 1.4, 0)]),
+        Room("wcR3", "T", "", (18.4, 70.0, 4.2, 5.2), "wet",
+             doors=[(20.4, 75.3, 2.0, "N")],
+             furniture=[("wc", 19.0, 70.6, 1.5, 2.0, 0), ("sink", 21.4, 70.4, 1.2, 1.2, 0)]),
+        Room("room4", "ROOM 4", "≈17' x 11'-10\" (ensuite)", (18.0, 79.8, 18.0, 11.8), "inpatient",
+             holes=[(18.2, 80.0, 4.2, 5.2)],
+             doors=[(17.8, 80.8, 2.6, "E")],
+             furniture=[("bed", 24.0, 80.8, 3.2, 6.6, 0), ("side", 27.6, 80.6, 1.4, 1.6, 0),
+                        ("chair", 30.2, 81.2, 1.4, 1.4, 0)]),
+        Room("wcR4", "T", "", (18.2, 80.0, 4.2, 5.2), "wet",
+             doors=[(20.2, 85.3, 2.0, "N")],
+             furniture=[("wc", 18.8, 80.6, 1.5, 2.0, 0), ("sink", 21.2, 80.4, 1.2, 1.2, 0)]),
+        Room("suite", "SUITE ROOM 5", "12'-2\" x 8'-7\" (ensuite)", (0.4, 83.4, 12.2, 8.6), "inpatient",
+             holes=[(8.6, 86.8, 3.8, 5.0)],
+             doors=[(6.0, 83.3, 3.0, "S")],
+             furniture=[("bed", 1.2, 84.6, 3.2, 6.6, 0), ("side", 4.8, 84.4, 1.4, 1.6, 0)]),
+        Room("wcS5", "T", "", (8.6, 86.8, 3.8, 5.0), "wet",
+             doors=[(8.5, 88.9, 2.0, "E")],
+             furniture=[("wc", 9.2, 87.4, 1.5, 2.0, 0), ("sink", 11.2, 87.2, 1.2, 1.2, 0)]),
+        # --- circulation label anchors
+        Room("link", "link", "", (20.9, 9.4, 20.0, 3.2), "circ"),
+        Room("spine", "7'-8\" w. spine", "", (12.8, 26.2, 7.7, 16.6), "circ"),
+        Room("sublobby", "OPD LOBBY", "", (20.9, 31.8, 10.4, 7.9), "circ"),
+        Room("lobby", "ENTRY LOBBY", "", (0.4, 42.8, 25.0, 5.6), "circ"),
+        Room("wardcorr", "5'-0\" w. Passage", "", (12.6, 48.8, 5.0, 34.4), "circ"),
+    ]
+    return rooms
+
+
 LAYOUTS = {
     "architect": ("Architect's Proposal (as received)", architect_rooms),
     "A": ("LAYOUT A — Targeted Revision", layout_a_rooms),
     "B": ("LAYOUT B — Fresh Alternative", layout_b_rooms),
     "C": ("LAYOUT C — \"Arrival Hub\" (fresh design)", layout_c_rooms),
     "D": ("LAYOUT D — Dr. Khanna's Sketch (interpreted)", layout_d_rooms),
+    "E": ("LAYOUT E — Dr. Khanna's Final Plan", layout_e_rooms),
 }
 
 
