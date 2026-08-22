@@ -10,7 +10,21 @@ corridor-mediated edge model.
 from plan_model import LAYOUTS, MD_DOOR
 
 
+ALIASES = {"single3": ["single3", "room4", "gw"],
+           "opd1": ["opd1", "opd2"]}
+
+
+def _resolve(rooms, key):
+    if key in rooms or key is None:
+        return key
+    for alt in ALIASES.get(key, []):
+        if alt in rooms:
+            return alt
+    return key
+
+
 def _door_pts(rooms, key):
+    key = _resolve(rooms, key)
     r = rooms[key]
     if r.doors:
         return [(cx, cy) for cx, cy, _, _ in r.doors]
@@ -26,6 +40,7 @@ def _dist(rooms, a_pts, b_pts, a_key=None, b_key=None):
     """Min corridor distance between door sets; a door of one room lying on
     the other room's boundary is a direct connection (wall-thickness only)."""
     if a_key and b_key:
+        a_key, b_key = _resolve(rooms, a_key), _resolve(rooms, b_key)
         pa, pb = rooms[a_key].poly, rooms[b_key].poly
         for pt in a_pts:
             from shapely.geometry import Point
@@ -64,10 +79,10 @@ def score_layout(key):
 
 
 def comparison_table():
-    keys = ["architect", "A", "B", "C"]
+    keys = ["architect", "A", "B", "C", "D"]
     scores = {k: score_layout(k) for k in keys}
-    lines = ["| Flow | Architect | Layout A | Layout B | Layout C |",
-             "|---|---|---|---|---|"]
+    lines = ["| Flow | Architect | Layout A | Layout B | Layout C | Layout D (sketch) |",
+             "|---|---|---|---|---|---|"]
     for label, _, _ in FLOWS:
         row = [f"| {label} "]
         for k in keys:

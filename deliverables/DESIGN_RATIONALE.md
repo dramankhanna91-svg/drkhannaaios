@@ -165,3 +165,31 @@ presentation visual), `3d_layout_C.png`.
 Note: an AI photorealistic render was attempted via Higgsfield but the
 account has 0 credits (free plan); the presentation visual is the honest
 CPU-rendered fallback. The pipeline is in place if credits are added.
+
+---
+
+## 8. LAYOUT D — Dr. Khanna's own sketch, interpreted (line diagram + CAD)
+
+Dr. Khanna hand-sketched his preferred arrangement; Layout D is its faithful
+professional interpretation on the real plate (confirmed by Q&A):
+
+- **OT moved to the SE corner**, Recovery directly below with the direct
+  door, X-ray/Dressing below that — one clinical stack on the east.
+- **Autoclave+Scrub, Staff Bath, Doctors' Lounge (~15'×9'-7", with bath)**
+  across the south; Store under the autoclave. (CAS ignored; Admin dropped.)
+- **OPD 1 & 2** mid-plan; **Waiting ≈17'×26'** on the west glass with the
+  accessible Wash beside the cut-out, exactly where sketched.
+- **Pharmacy (8'×5'-7") + common Washroom at the nursing/ward gate**, per
+  the sketch — note the trade-off: exit-collection distance is 31 ft vs
+  7 ft in Layout C; in exchange, inpatient/attendant dispensing is at the
+  ward door.
+- **Ward wing re-programmed: Room 1 (deluxe, 18'-4"×9') + Rooms 2–4
+  (singles) + GENERAL WARD ≈17'×19'-8" with 4 curtained beds and two
+  attached toilets** (replaces the twins + singles 4–5). 8 beds total.
+- Pantry + Linen/Utility tucked behind the pharmacy block.
+
+Score: 152 ft total key-flow travel (architect 204 / A 158 / B 131 / C 123).
+D's weaker flows are pharmacy→exit and OPD→X-ray (opposite corners); its
+stronger flows are reception→waiting (30 ft) and a fully consolidated
+surgical stack. Sheets: `layout_D_sketch_line_diagram.png` (single-line
+diagram with flow arrows), `layout_D_sketch_cad.png/.svg/.dxf`.
