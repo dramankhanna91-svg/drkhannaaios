@@ -105,14 +105,14 @@ class Sheet:
 
 
 # --------------------------------------------------------------- sheet build
-def title_block(s, sheet_no, sheet_name):
+def title_block(s, sheet_no, sheet_name, scale_text="SCALE  1 cm = 4'-0\"   (≈ 1:122)   A4",
+                total=3):
     s.text(OX, 24, "HOSPITAL OF DR. AMAN KHANNA", 15, INK, weight="bold", ls=1.2)
     s.text(OX, 39, "7TH FLOOR, SOLARIS SHINE, ALTHAN, SURAT", 9.5, THIN, ls=0.9)
     s.line(OX, 46, A4W - 24, 46, 0.7, INK)
     s.text(OX, 60, sheet_name, 11, INK, weight="bold", ls=0.6)
-    s.text(A4W - 24, 24, f"SHEET {sheet_no} OF 3", 9.5, THIN, anchor="end", ls=0.8)
-    s.text(A4W - 24, 39, "SCALE  1 cm = 4'-0\"   (≈ 1:122)   A4",
-           9.5, INK, anchor="end", ls=0.4)
+    s.text(A4W - 24, 24, f"SHEET {sheet_no} OF {total}", 9.5, THIN, anchor="end", ls=0.8)
+    s.text(A4W - 24, 39, scale_text, 9.5, INK, anchor="end", ls=0.4)
     s.text(A4W - 24, 60, "PRINT AT 100% / ACTUAL SIZE — do not 'fit to page'",
            9, ACCENT, anchor="end", ls=0.3)
 
