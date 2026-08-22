@@ -226,3 +226,41 @@ pharmacy→exit 12 ft, nurse→farthest bed 16 ft.
    partition layout is frozen.
 
 Sheets: `layout_E_final.png/.svg/.dxf`, `3d_layout_E.png`.
+
+---
+
+## 10. LAYOUT E rev 2 — OPD cluster per Dr. Khanna + contractor package
+
+Changes over rev 1 (all confirmed by the doctor):
+- **Consult cluster**: one OPD LOBBY sits between OPD 1 and OPD 2 and runs
+  through to OPD 3 — a single entry point off the spine feeds all three.
+  **OPD 3 (Sr. Consultant, ≈12'×12'-4") has a private door into the
+  Doctors' Lounge**.
+- **OT premise**: patients enter ONLY through Recovery/Pre-op (3'-6"
+  corridor door); staff only via Scrub. No other opening into the suite.
+- **Waiting**: 216 sq ft glass hall (16 seats) + 6-chair overflow nook =
+  22 seats — adequate for 3 parallel OPDs (planning norm 6–8 per consult
+  room). **No visitor WC inside the unit** — visitors use the common-area
+  toilets outside the main entry (builder's provision by the lift core).
+- Flow total on the Rev C plate: **154 ft** (architect's proposal: 204 ft
+  measured on its own sheet — ≈25% less walking).
+- The 56-ft "waiting→WC" score line refers to the internal inpatient
+  wash+bath; visitor WC distance is governed by the common core outside.
+
+**Contractor package** (`contractor_setting_out.pdf`): setting-out schedule
+— every room located X/Y from the east & south datum walls in feet-inches,
+with width/depth/area; door schedule (tags D1–D3, clear widths, positions);
+construction notes (partitions, OT finishes/AHU/medical gas, AERB lining,
+plumbing gangs, site-verification). Companion drawings:
+`layout_E_final.png/.svg/.dxf`, `layout_E_blueprint.svg` /
+`layout_E_clean.svg` (AI-CAD/Rayon-style self-contained blueprint SVG),
+`3d_layout_E.png`.
+
+Repo methodology: HospitalEdgeWeigths corridor-L1 scoring (score.py);
+`Automated-FloorPlan-Generator` was cloned for the bubble/treemap area
+method but hardcodes a local Windows CSV path and cannot run headless —
+its area-allocation check was applied manually via the room schedule
+(3,729 sq ft net fully partitioned, no orphan pockets). `ishan-parihar/
+AI-CAD` (ezdxf text-to-CAD) informed the blueprint SVG output spec.
+A reusable pipeline skill now lives at
+`.claude/skills/hospital-floorplan/SKILL.md`.
