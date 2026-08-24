@@ -56,6 +56,8 @@
 <rect x="106.0" y="133.0" width="60.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="262.0" y="160.0" width="18.0" height="26.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="262.0" y="270.0" width="18.0" height="26.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="136.0" y="294.0" width="18.0" height="26.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="226.0" y="312.0" width="55.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="200.0" y="180.0" width="15.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <text x="331" y="122" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">Scrub</text>
 <text x="331" y="134" fill="#7d9cbd" font-size="7.5" text-anchor="middle">5'-2" × 7'-0"</text>
@@ -173,6 +175,7 @@
 <rect x="122.0" y="709.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="178.0" y="709.0" width="30.0" height="46.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <text x="193" y="734" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="150.0" y="736.0" width="16.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="219.0" y1="708.0" x2="219.0" y2="736.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 219.0 708.0 L 191.0 708.0 A 28.0 28.0 0 0 0 219.0 736.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <text x="159" y="786" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">Wash + Bath (2)</text>
@@ -199,12 +202,18 @@
 <text x="352" y="602" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
 <rect x="372.0" y="564.0" width="14.0" height="16.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="400.0" y="570.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="480.0" y="563.0" width="20.0" height="45.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="490" y="588" fill="#7d9cbd" font-size="5.5" text-anchor="middle">WARD.</text>
+<rect x="426.0" y="632.0" width="55.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="454" y="646" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="396.0" y="561.0" width="36.0" height="7.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="275.0" y1="611.0" x2="275.0" y2="639.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 275.0 611.0 L 303.0 611.0 A 28.0 28.0 0 0 1 275.0 639.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <circle cx="301" cy="586" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
 <text x="301" y="589" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
 <rect x="286.0" y="566.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="310.0" y="564.0" width="12.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="305.0" y="594.0" width="16.0" height="16.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="290.0" y1="613.0" x2="310.0" y2="613.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 290.0 613.0 L 290.0 633.0 A 20.0 20.0 0 0 1 310.0 613.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <text x="407" y="691" fill="#f2f6fb" font-size="9.5" font-weight="bold" text-anchor="middle">ROOM 2</text>
@@ -213,12 +222,18 @@
 <text x="352" y="708" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
 <rect x="372.0" y="670.0" width="14.0" height="16.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="400.0" y="676.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="470.0" y="669.0" width="20.0" height="45.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="480" y="694" fill="#7d9cbd" font-size="5.5" text-anchor="middle">WARD.</text>
+<rect x="420.0" y="736.0" width="55.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="448" y="750" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="396.0" y="667.0" width="36.0" height="7.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="275.0" y1="716.0" x2="275.0" y2="744.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 275.0 716.0 L 303.0 716.0 A 28.0 28.0 0 0 1 275.0 744.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <circle cx="301" cy="692" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
 <text x="301" y="695" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
 <rect x="286.0" y="672.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="310.0" y="670.0" width="12.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="305.0" y="700.0" width="16.0" height="16.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="290.0" y1="719.0" x2="310.0" y2="719.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 290.0 719.0 L 290.0 739.0 A 20.0 20.0 0 0 1 310.0 719.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <text x="400" y="793" fill="#f2f6fb" font-size="9.5" font-weight="bold" text-anchor="middle">ROOM 3</text>
@@ -227,12 +242,18 @@
 <text x="352" y="811" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
 <rect x="372.0" y="774.0" width="14.0" height="16.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="400.0" y="780.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="458.0" y="773.0" width="20.0" height="45.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="468" y="798" fill="#7d9cbd" font-size="5.5" text-anchor="middle">WARD.</text>
+<rect x="410.0" y="834.0" width="55.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="438" y="848" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="396.0" y="771.0" width="36.0" height="7.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="275.0" y1="816.0" x2="275.0" y2="844.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 275.0 816.0 L 303.0 816.0 A 28.0 28.0 0 0 1 275.0 844.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <circle cx="301" cy="796" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
 <text x="301" y="799" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
 <rect x="286.0" y="776.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="310.0" y="774.0" width="12.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="305.0" y="804.0" width="16.0" height="16.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="290.0" y1="823.0" x2="310.0" y2="823.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 290.0 823.0 L 290.0 843.0 A 20.0 20.0 0 0 1 310.0 823.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <text x="366" y="922" fill="#f2f6fb" font-size="9.5" font-weight="bold" text-anchor="middle">ROOM 4</text>
@@ -241,12 +262,18 @@
 <text x="352" y="914" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
 <rect x="372.0" y="876.0" width="14.0" height="16.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="398.0" y="882.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="420.0" y="873.0" width="20.0" height="45.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="430" y="898" fill="#7d9cbd" font-size="5.5" text-anchor="middle">WARD.</text>
+<rect x="366.0" y="958.0" width="55.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="394" y="972" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="336.0" y="871.0" width="36.0" height="7.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="274.0" y1="865.0" x2="274.0" y2="891.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 274.0 865.0 L 300.0 865.0 A 26.0 26.0 0 0 1 274.0 891.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <circle cx="299" cy="896" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
 <text x="299" y="899" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
 <rect x="284.0" y="876.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="308.0" y="874.0" width="12.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="303.0" y="904.0" width="16.0" height="16.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="288.0" y1="923.0" x2="308.0" y2="923.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 288.0 923.0 L 288.0 943.0 A 20.0 20.0 0 0 1 308.0 923.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <text x="141" y="960" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">SUITE ROOM 5</text>
@@ -254,12 +281,17 @@
 <rect x="108.0" y="916.0" width="32.0" height="66.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <text x="124" y="951" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
 <rect x="144.0" y="914.0" width="14.0" height="16.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="200.0" y="908.0" width="19.0" height="28.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="138.0" y="964.0" width="40.0" height="22.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="158" y="978" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="105.0" y="909.0" width="32.0" height="7.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="141.0" y1="903.0" x2="171.0" y2="903.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 141.0 903.0 L 141.0 873.0 A 30.0 30.0 0 0 0 171.0 903.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <circle cx="201" cy="963" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
 <text x="201" y="966" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
 <rect x="188.0" y="944.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <rect x="208.0" y="942.0" width="12.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="204.0" y="971.0" width="15.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
 <line x1="181.0" y1="949.0" x2="181.0" y2="969.0" stroke="#0d2a4a" stroke-width="5"/>
 <path d="M 181.0 949.0 L 201.0 949.0 A 20.0 20.0 0 0 1 181.0 969.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
 <text x="356" y="180" fill="#7d9cbd" font-size="8" font-style="italic" text-anchor="middle">link</text>

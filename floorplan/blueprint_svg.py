@@ -130,10 +130,10 @@ def render_blueprint(key, theme_name, out_path):
                      f'stroke-width="0.7"'
                      + (f' transform="rotate({rot} {bx:.1f} {by:.1f})"' if rot else "")
                      + '/>')
-            if kind in ("bed", "ottable", "desk", "exam") and fw * fh > 6:
+            if kind in ("bed", "ottable", "desk", "exam", "wardrobe", "sofa") and fw * fh > 6:
                 lx, ly = P(fx + fw / 2, fy + fh / 2)
                 lbl = {"bed": "BED", "ottable": "OT TABLE", "desk": "DESK",
-                       "exam": "EXAM"}[kind]
+                       "exam": "EXAM", "wardrobe": "WARD.", "sofa": "SOFA"}[kind]
                 s.append(f'<text x="{lx:.0f}" y="{ly + 2.5:.0f}" fill="{t["faint"]}" '
                          f'font-size="5.5" text-anchor="middle">{lbl}</text>')
         # doors: opening + swing arc

@@ -129,6 +129,14 @@ def _furniture(ax, item, z=6, pal=CAD_PALETTE):
         else:
             for i in range(1, n):
                 ax.plot([x, x + w], [y + h * i / n] * 2, color="#4a4a4a", lw=0.35, zorder=z)
+    elif kind == "wardrobe":
+        ax.add_patch(Rectangle((x, y), w, h, fc="#e8e2d8", **thin))
+        ax.plot([x, x + w], [y, y + h], color="#4a4a4a", lw=0.35, zorder=z)
+        ax.plot([x, x + w], [y + h, y], color="#4a4a4a", lw=0.35, zorder=z)
+    elif kind == "sofa":
+        ax.add_patch(Rectangle((x, y), w, h, fc=pal["chair"], **thin))
+        ax.plot([x + 0.25, x + w - 0.25], [y + h - 0.55, y + h - 0.55],
+                color="#4a4a4a", lw=0.45, zorder=z)
     elif kind == "chair":
         ax.add_patch(Rectangle((x, y), w, h, fc=pal["chair"], lw=0.5, ec="#4a4a4a", zorder=z))
     elif kind == "wc":
