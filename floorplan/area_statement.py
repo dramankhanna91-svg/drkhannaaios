@@ -1,4 +1,4 @@
-"""FLOOR SPACE CALCULATION — Layout E rev 2 on the Rev C envelope.
+"""FLOOR SPACE CALCULATION — Layout E rev 3 on the Rev C envelope.
 
 Computed from the actual geometry (shapely), not hand totals:
 gross plate, cut-out deduction, net carpet, per-zone and per-room areas,
@@ -40,7 +40,7 @@ def compute():
 def build_pages(d):
     s = Sheet()
     title_block(s, 1, "FLOOR SPACE CALCULATION — computed from plan geometry",
-                scale_text="LAYOUT E rev 2 — AREAS IN SQ FT", total=2)
+                scale_text="LAYOUT E rev 3 — AREAS IN SQ FT", total=2)
     y = 98
     s.text(OX, y, "A. ENVELOPE", 10.5, INK, weight="bold", ls=1.0)
     s.line(OX, y + 5, A4W - 24, y + 5, 0.7, INK)
@@ -87,7 +87,7 @@ def build_pages(d):
         ("Usable efficiency (rooms ÷ net)", f"{100 * d['rooms'] / d['net']:.0f}%  (60-70% is healthy)"),
         ("Circulation share", f"{100 * d['circ'] / d['net']:.0f}%  (25-32% typical for a hospital)"),
         ("Area per inpatient bed (net ÷ 6 beds)", f"{d['net'] / beds:,.0f} sf/bed"),
-        ("Waiting provision", "216 sf + overflow = 22 seats for 3 OPDs"),
+        ("Waiting provision", "216 sf + overflow = 22 seats for 4 OPDs"),
         ("OT suite share (surgical zone)", f"{sum(r.area for r in d['by_zone']['surgical']):,.0f} sf"),
     ]:
         s.text(OX, y, k, 10, INK)
@@ -111,7 +111,7 @@ def build_pages(d):
     # page 2: per-room table
     s2 = Sheet()
     title_block(s2, 2, "ROOM-BY-ROOM AREA SCHEDULE",
-                scale_text="LAYOUT E rev 2 — AREAS IN SQ FT", total=2)
+                scale_text="LAYOUT E rev 3 — AREAS IN SQ FT", total=2)
     y = 96
     for htxt, hx in [("ROOM", 0), ("ZONE", 300), ("SIZE", 420), ("AREA", 655)]:
         s2.text(OX + hx, y, htxt, 8.6, THIN, weight="bold")

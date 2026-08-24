@@ -573,12 +573,13 @@ def layout_d_rooms():
     return rooms
 
 
-# -------- Layout E: Dr. Khanna's FINAL sketch (v2), on the Rev C envelope
+# -------- Layout E: Dr. Khanna's FINAL sketch (v2 + Option 4), Rev C envelope
 def layout_e_rooms():
     """Digitization of the doctor's second sketch on the confirmed 92'-0"
     plate: OT 20'x20' pod at the SE with scrub + autoclave, recovery and
-    X-ray/dressing/emergency stacked to the entry; OPD 1-3 + doctors'
-    lounge mid-south; waiting on the west glass above the cut-out;
+    X-ray/dressing/emergency stacked to the entry; OPD 1-4 + doctors'
+    lounge mid-south (rev 3: OPD 4 carved from the lounge band per the
+    Option 4 hybrid decision); waiting on the west glass above the cut-out;
     entry lobby with reception + pharmacy; service band on the east;
     Rooms 1-4 (ensuite) on the glass + Suite 5 at the north."""
     rooms = [
@@ -606,14 +607,29 @@ def layout_e_rooms():
              doors=[(6.5, 42.5, 3.0, "N"), (12.5, 38.5, 2.6, "W")],
              furniture=[("exam", 1.2, 35.4, 2.25, 5.5, 0), ("counter", 7.2, 35.2, 4.4, 1.3, 0)],
              notes="Walk-in emergencies come straight off the entry lobby"),
-        # --- consult band (mid-south) + lounge
-        Room("bath_lg", "Bath", "3'-0\" x 5'-0\"", (26.5, 0.4, 3.0, 5.0), "wet",
+        # --- consult band (mid-south): OPD 4 carved from the old lounge run
+        # (Option 4 hybrid, 24-08-2026). OPD 4 takes the middle of the band
+        # with a door off the link corridor and absorbs the old staff bath as
+        # an attached WC; the lounge shrinks to the SW glass corner with its
+        # own bath, entered privately from OPD 3.
+        Room("wcO4", "WC", "3'-0\" x 5'-0\"", (26.5, 0.4, 3.0, 5.0), "wet",
              doors=[(29.6, 2.8, 2.0, "W")],
-             furniture=[("wc", 27.0, 0.8, 1.4, 1.9, 0), ("shower", 27.0, 3.2, 1.2, 1.2, 0)]),
-        Room("lounge", "DOCTORS' LOUNGE", "≈17' x 9'-0\" (w/ bath)", (29.9, 0.4, 17.4, 9.0), "consult",
-             doors=[(30.6, 9.5, 2.4, "N")],
-             furniture=[("desk", 31.0, 4.6, 4.2, 2.2, 0), ("chair", 32.2, 2.8, 1.4, 1.4, 0),
-                        ("bed", 41.0, 0.8, 3.0, 6.2, 0)]),
+             furniture=[("wc", 27.0, 0.8, 1.4, 1.9, 0), ("sink", 27.1, 3.6, 1.3, 1.1, 0)]),
+        Room("opd4", "OPD 4", "10'-2\" x 9'-0\" + WC", (26.5, 0.4, 13.6, 9.0), "consult",
+             holes=[(26.5, 0.4, 3.0, 5.0)],
+             doors=[(28.6, 9.5, 2.6, "N")],
+             furniture=[("desk", 33.0, 4.9, 4.6, 2.0, 0), ("chair", 34.4, 7.2, 1.4, 1.4, 0),
+                        ("chair", 34.2, 2.9, 1.4, 1.4, 0), ("chair", 36.4, 2.9, 1.4, 1.4, 0),
+                        ("exam", 37.6, 0.7, 2.25, 5.2, 0), ("sink", 26.9, 6.4, 1.4, 1.2, 0)],
+             notes="4th consult room off the link corridor; attached WC"),
+        Room("bath_lg", "Bath", "3'-0\" x 5'-0\"", (44.3, 0.4, 3.0, 5.0), "wet",
+             doors=[(44.3, 2.8, 2.0, "E")],
+             furniture=[("wc", 44.8, 0.8, 1.4, 1.9, 0), ("shower", 44.9, 3.4, 1.2, 1.2, 0)]),
+        Room("lounge", "DRS' LOUNGE", "(w/ bath)", (40.5, 0.4, 6.8, 9.0), "consult",
+             holes=[(44.3, 0.4, 3.0, 5.0)],
+             furniture=[("sofa", 41.2, 6.6, 5.2, 2.2, 0), ("side", 40.9, 1.0, 1.4, 1.6, 0),
+                        ("chair", 41.2, 3.6, 1.4, 1.4, 0)],
+             notes="SW glass corner; entered privately from OPD 3"),
         # consult cluster: one small lobby between OPD 1 & 2, through to OPD 3;
         # OPD 3 shares a private door with the lounge (Dr. Khanna's concept)
         Room("opd2", "OPD 2", "10'-2\" x 7'-5\"", (20.9, 13.0, 10.2, 7.4), "consult",
@@ -625,7 +641,7 @@ def layout_e_rooms():
              furniture=[("desk", 22.0, 29.4, 4.6, 2.0, 0), ("chair", 23.4, 27.4, 1.4, 1.4, 0),
                         ("exam", 28.4, 27.6, 2.25, 5.2, 0)]),
         Room("opd3", "OPD 3 (Sr. Consultant)", "≈12' x 12'-4\"", (31.6, 9.8, 12.6, 12.3), "consult",
-             doors=[(36.0, 9.6, 2.4, "S"), (31.5, 21.4, 2.6, "E")],
+             doors=[(42.2, 9.6, 2.4, "S"), (31.5, 21.4, 2.6, "E")],
              furniture=[("desk", 33.2, 15.0, 4.6, 2.2, 0), ("chair", 34.6, 13.0, 1.4, 1.4, 0),
                         ("chair", 37.2, 13.0, 1.4, 1.4, 0),
                         ("exam", 40.2, 10.2, 2.25, 5.5, 0)],
@@ -741,7 +757,7 @@ LAYOUTS = {
     "B": ("LAYOUT B — Fresh Alternative", layout_b_rooms),
     "C": ("LAYOUT C — \"Arrival Hub\" (fresh design)", layout_c_rooms),
     "D": ("LAYOUT D — Dr. Khanna's Sketch (interpreted)", layout_d_rooms),
-    "E": ("LAYOUT E (rev 2) — Dr. Khanna's Final Plan", layout_e_rooms),
+    "E": ("LAYOUT E (rev 3) — Dr. Khanna's Final Plan", layout_e_rooms),
 }
 
 

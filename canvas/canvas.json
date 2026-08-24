@@ -1,14 +1,68 @@
 {
   "pages": [
-    { "id": "page-1", "name": "Tracing sheets" },
-    { "id": "page-2", "name": "Layout E" }
+    {
+      "id": "page-1",
+      "name": "Tracing sheets"
+    },
+    {
+      "id": "page-2",
+      "name": "Layout E"
+    }
   ],
   "artboards": [
-    { "file": "Main.dc.html", "x": 0, "y": 0, "w": 794, "h": 1123, "print": "fixed", "title": "1 \u2014 Outline", "page": "page-1" },
-    { "file": "SketchGrid.dc.html", "x": 894, "y": 0, "w": 794, "h": 1123, "print": "fixed", "title": "2 \u2014 Outline + 4 ft grid", "page": "page-1" },
-    { "file": "Dimensions.dc.html", "x": 1788, "y": 0, "w": 794, "h": 1123, "print": "fixed", "title": "3 \u2014 Dimensions & constraints", "page": "page-1" },
-    { "file": "BlueprintE.dc.html", "x": 0, "y": 0, "w": 700, "h": 1180, "print": "fixed", "title": "Layout E rev 2 \u2014 blueprint", "page": "page-2" },
-    { "file": "Comparison.dc.html", "x": 800, "y": 0, "w": 720, "h": 700, "print": "flow", "title": "Dr. Khanna vs Architect", "page": "page-2" }
+    {
+      "file": "Main.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 794,
+      "h": 1123,
+      "print": "fixed",
+      "title": "1 \u2014 Outline",
+      "page": "page-1"
+    },
+    {
+      "file": "SketchGrid.dc.html",
+      "x": 894,
+      "y": 0,
+      "w": 794,
+      "h": 1123,
+      "print": "fixed",
+      "title": "2 \u2014 Outline + 4 ft grid",
+      "page": "page-1"
+    },
+    {
+      "file": "Dimensions.dc.html",
+      "x": 1788,
+      "y": 0,
+      "w": 794,
+      "h": 1123,
+      "print": "fixed",
+      "title": "3 \u2014 Dimensions & constraints",
+      "page": "page-1"
+    },
+    {
+      "file": "BlueprintE.dc.html",
+      "x": 0,
+      "y": 0,
+      "w": 700,
+      "h": 1180,
+      "print": "fixed",
+      "title": "Layout E rev 3 \u2014 blueprint",
+      "page": "page-2"
+    },
+    {
+      "file": "Comparison.dc.html",
+      "x": 800,
+      "y": 0,
+      "w": 720,
+      "h": 700,
+      "print": "flow",
+      "title": "Dr. Khanna vs Architect",
+      "page": "page-2"
+    }
   ],
-  "launch": { "view": "canvas", "page": "page-2" }
+  "launch": {
+    "view": "canvas",
+    "page": "page-2"
+  }
 }

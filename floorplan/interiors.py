@@ -1,4 +1,4 @@
-"""Enlarged interior-detail boards for Layout E rev 2.
+"""Enlarged interior-detail boards for Layout E rev 3.
 
 Each board is a zoomed, fully furnished crop of the plan at large scale,
 like an architect's interior-detail sheet.

@@ -1,4 +1,4 @@
-"""CONTRACTOR SETTING-OUT PACKAGE (A4 PDF) for Layout E rev 2.
+"""CONTRACTOR SETTING-OUT PACKAGE (A4 PDF) for Layout E rev 3.
 
 Datums: X = inner face of the EAST wall (the straight 92'-0" wall);
         Y = inner face of the SOUTH wall (the 48'-6" wall).
@@ -28,7 +28,7 @@ def build_pages():
     # ---------- pages 1-2: setting-out schedule
     def new_sheet(no, name, total):
         s = Sheet()
-        title_block(s, no, name, scale_text="LAYOUT E rev 2 — UNITS: FEET-INCHES", total=total)
+        title_block(s, no, name, scale_text="LAYOUT E rev 3 — UNITS: FEET-INCHES", total=total)
         return s
 
     header = [("ROOM", 0), ("X from EAST wall", 250), ("Y from SOUTH wall", 385),

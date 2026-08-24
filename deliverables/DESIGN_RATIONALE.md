@@ -264,3 +264,43 @@ its area-allocation check was applied manually via the room schedule
 AI-CAD` (ezdxf text-to-CAD) informed the blueprint SVG output spec.
 A reusable pipeline skill now lives at
 `.claude/skills/hospital-floorplan/SKILL.md`.
+
+---
+
+## 11. LAYOUT E rev 3 — Option 4 hybrid: the 4th OPD (decided 24-08-2026)
+
+Dr. Khanna sketched three re-arrangements of the OPD + OT section; the
+brainstorm board (`opd_ot_options_board.png`) compared them and the
+decision was **Option 4 — hybrid**: keep everything from rev 2 and fund a
+4th consult room from the over-allocated Doctors' Lounge band, leaving the
+22-seat waiting untouched.
+
+Built geometry (one deviation from the schematic, forced by access):
+- **OPD 4 (≈107 sf + 15 sf attached WC)** takes the middle of the south
+  band at (26'-6", 0'-5") — an L-shaped room 13'-6" overall that absorbs
+  the old staff bath as an **attached WC** (useful clinically: sample
+  collection, uro/ante-natal checks). Its patient door opens off the link
+  corridor right beside the OPD lobby, so all four consult rooms share one
+  arrival point. Desk, 2 patient chairs, exam couch, handwash sink.
+- **Doctors' Lounge moves to the SW glass corner** (6'-9" × 9'-0" gross
+  ≈61 sf, with its own nested bath + shower). It is entered **privately
+  through OPD 3** — exactly the doctor's original "OPD 3 connects to the
+  lounge" concept, now with openable-glass frontage for the doctors.
+- Why the swap: in the sketch Option 4 put OPD 4 on the corner glass, but
+  that corner has no corridor adjacency — patients would have crossed the
+  lounge. Swapping gives OPD 4 proper public access and gives the (staff
+  -only) lounge the glass, which no patient room loses.
+- OPD 3's private lounge door relocates west to (42'-2", 9'-7"); its OPD
+  -lobby patient door is unchanged. Scrub gains nothing and loses nothing;
+  OT premise entry remains Recovery-only / Scrub-only.
+- **Waiting is untouched**: 216 sf glass hall + overflow = 22 seats, now
+  serving 4 OPDs (planning norm 6–8 waiters per consult room ⇒ 24–32 at
+  full parallel load — adequate given staggered clinics; overflow chairs
+  can be added along the spine if all four run simultaneously).
+- Flow total unchanged at **154 ft**; areas: rooms 2,721 sf (73% of net),
+  circulation 582 sf (16%). DXF audit: 0 errors.
+
+All sheets regenerated as rev 3: `layout_E_final.png/.svg/.dxf`,
+`layout_E_blueprint.svg/.png`, `layout_E_clean.svg`, `3d_layout_E.png`,
+`interior_*.png`, `contractor_setting_out.pdf`,
+`floor_space_calculation.pdf`, `flow_scores.md`.

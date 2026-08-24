@@ -1,6 +1,4 @@
-# Key clinical-flow travel distances (corridor L1)
-
-Layout E rev 2 on the Rev C envelope.
+# Key clinical-flow travel distances (corridor L1 metric)
 
 | Flow | Layout E (final) |
 |---|---|
