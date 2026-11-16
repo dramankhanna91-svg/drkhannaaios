@@ -20,7 +20,9 @@ branch `claude/hospital-floorplan-design-p9mczs`, commit and push when done.
 
 ## How to change the design
 1. Edit the room list in `plan_model.py` (`layout_e_rooms()` is the live
-   plan). Rooms are `Room(key, name, dims, (x, y, w, h), zone, doors=[...],
+   plan; `layout_f_rooms()` is the 16-11-2026 digitization of the doctors'
+   newer hand sketch, key `'F'`, outputs `layout_F_*` — see
+   `deliverables/LAYOUT_F_BRIEF_AND_FEASIBILITY.md`). Rooms are `Room(key, name, dims, (x, y, w, h), zone, doors=[...],
    furniture=[...], holes=[...])` in FEET, x from the east wall westward,
    y from the south wall northward. Doors: `(cx, cy, width, wall NSEW)` on a
    real shared wall. Nested toilets = separate wet Room + same rect in the

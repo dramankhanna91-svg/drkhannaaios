@@ -104,11 +104,14 @@ def _furniture(ax, item, z=6, pal=CAD_PALETTE):
     thin = dict(lw=0.55, ec="#4a4a4a", zorder=z)
     if kind == "bed":
         ax.add_patch(Rectangle((x, y), w, h, fc="white", **thin))
-        ax.add_patch(Rectangle((x + 0.25, y + h - 1.4), w - 0.5, 1.0, fc=pal["bed_blanket"],
-                               lw=0.4, ec="#4a4a4a", zorder=z))
-        if pal["shadow"]:
-            ax.add_patch(Rectangle((x + 0.2, y + 0.4), w, h * 0.55, fc=pal["bed_blanket"],
-                                   lw=0.3, ec="#4a4a4a", zorder=z))
+        if w > h:      # lying east-west: head at the west end (east if rot=180)
+            px = x + 0.4 if rot == 180 else x + w - 1.4
+            ax.add_patch(Rectangle((px, y + 0.25), 1.0, h - 0.5, fc=pal["bed_blanket"],
+                                   lw=0.4, ec="#4a4a4a", zorder=z))
+        else:          # lying north-south: head at the north end (south if rot=180)
+            py = y + 0.4 if rot == 180 else y + h - 1.4
+            ax.add_patch(Rectangle((x + 0.25, py), w - 0.5, 1.0, fc=pal["bed_blanket"],
+                                   lw=0.4, ec="#4a4a4a", zorder=z))
     elif kind == "exam":
         ax.add_patch(Rectangle((x, y), w, h, fc="#f4f4f4", **thin))
         ax.plot([x, x + w], [y + h * 0.75, y + h * 0.75], color="#4a4a4a", lw=0.4, zorder=z)
@@ -356,7 +359,7 @@ def render_layout(key, out_base, highlight=True, style="cad"):
 
     total = PLATE.area - CUTOUT.area
     ax.set_title(f"{title}\nHospital of Dr. Aman Khanna — 7th Floor, Solaris Shine, Althan, Surat"
-                 f"\nCarpet area ≈ {total:,.0f} sq ft  ·  corridors ≥ 5'-0\" (12'-1½\" spine)",
+                 f"\nCarpet area ≈ {total:,.0f} sq ft  ·  " + ("ward passage 6'-0\", OPD lobby 5'-0\"" if key == "F" else "corridors ≥ 5'-0\" (12'-1½\" spine)"),
                  fontsize=12, pad=16)
 
     # scale bar
@@ -380,7 +383,7 @@ def render_layout(key, out_base, highlight=True, style="cad"):
             textwrap.fill(title, 30) + "\nDimensioned layout plan", fontsize=6.8,
             color=INK, va="center")
     ax.text(31.5, tb_y0 + 1.6, "SCALE / DATE", fontsize=6, color="#777")
-    ax.text(31.5, tb_y0 + 5.4, "N.T.S. (scale bar)\n07-08-2026", fontsize=7.5,
+    ax.text(31.5, tb_y0 + 5.4, "N.T.S. (scale bar)\n" + ("16-11-2026" if key == "F" else "07-08-2026"), fontsize=7.5,
             color=INK, va="center")
     ax.text(45.5, tb_y0 + 1.6, "STATUS", fontsize=6, color="#777")
     ax.text(45.5, tb_y0 + 5.4, "Concept for review —\nto be verified by the\nproject architect",

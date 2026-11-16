@@ -128,7 +128,7 @@ def render_blueprint(key, theme_name, out_path):
             s.append(f'<rect x="{bx:.1f}" y="{by:.1f}" width="{fw * PPF:.1f}" '
                      f'height="{fh * PPF:.1f}" fill="none" stroke="{t["faint"]}" '
                      f'stroke-width="0.7"'
-                     + (f' transform="rotate({rot} {bx:.1f} {by:.1f})"' if rot else "")
+                     + (f' transform="rotate({rot} {bx:.1f} {by:.1f})"' if rot and kind != "bed" else "")
                      + '/>')
             if kind in ("bed", "ottable", "desk", "exam", "wardrobe", "sofa") and fw * fh > 6:
                 lx, ly = P(fx + fw / 2, fy + fh / 2)
