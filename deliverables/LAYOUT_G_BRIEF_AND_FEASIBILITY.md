@@ -1,5 +1,7 @@
 # Layout G — brief and feasibility
 
+> **Revision 17-11-2026 (OT suite).** The south block in this brief is superseded by `OT_G_BRIEF.md`, `ot_G_zone.jpg` and the regenerated `layout_G_detailed.*`: OT 20'-0" x 20'-0" clear (west wall on grid B, party wall rebuilt 7" north), staff band 6'-1" with CSSD clean / wash, scrub 6'-1" x 8'-0" and a dirty utility, OPD 2 as a 9'-0" x 10'-0" room north of the OT, recovery moved east, X-ray 106 sf, Drs' rest re-used as OT staff change. Sections 3 to 8 below still describe the south block before this change.
+
 > **Revision 17-11-2026 (IPD fix).** The ward in this brief is superseded by `IPD_COMPARISON.md`, `layout_G_detailed.jpg` and `ipd_G.jpg`: ward furniture is now drawn at true size, the ward toilets are 5'-0" deep and 6'-0" to 6'-9" long (were 5'-5" x 9'-0"), the suite bath is 7'-0" x 6'-0" wheelchair size, Room 3's door is at the south end of its passage wall, and Store / Duty room / Pantry changed size slightly. Room positions and bed count (5) are unchanged. The text and tables below were not rewritten.
 
 Solaris Shine, 7th floor, Althan, Surat · Dr. Aman Khanna (Orthopaedics) and Dr. Heena (Psychiatry) · 17-11-2026
