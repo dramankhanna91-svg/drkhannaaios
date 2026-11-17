@@ -2,7 +2,7 @@
 
     cd floorplan && python3 build_h.py
 
-Outputs (../deliverables): layout_H_detailed.png/.svg/.dxf,
+Outputs (../deliverables): layout_H_detailed.png/.svg/.dxf/.jpg, ot_H_zone.jpg,
 layout_H_blueprint.svg, layout_H_clean.svg, 3d_layout_H.png and
 layout_H_schedule.md (room schedule + check results, pasted into the brief).
 """
@@ -22,6 +22,7 @@ from shapely.ops import unary_union
 import layout_h as H
 from layout_h import fi
 import ipd
+import ot_h
 from plan_model import ZONES
 import render as RD
 
@@ -31,18 +32,20 @@ DATE = "17-11-2026"
 
 # label overrides: key -> dict(x, y, fs, rot, lines)
 LABELS = {
-    "ot": dict(x=10.5, y=14.4),
-    "recovery": dict(x=11.7, y=22.65, fs=6.3),
-    "xray": dict(x=10.6, y=29.7, fs=5.7),
-    "dirty": dict(x=3.7, y=22.4, rot=90, fs=6.4),
-    "otstore": dict(x=22.6, y=3.1, fs=5.4),
-    "cssd": dict(x=22.9, y=8.3, fs=5.3),
-    "scrub": dict(x=22.9, y=13.2, fs=6.0),
-    "change": dict(x=24.55, y=21.8, rot=90, fs=5.8),
-    "psywait": dict(x=31.3, y=5.0, rot=90, fs=6.4),
+    "ot": dict(x=7.8, y=4.2, fs=8),
+    "recovery": dict(x=10.6, y=25.55, fs=5.4, name="PRE-OP / RECOVERY · 2 bays"),
+    "xray": dict(x=10.5, y=32.15, fs=4.9),
+    "dirty": dict(x=4.0, y=24.9, fs=4.2),
+    "otstore": dict(x=23.3, y=2.6, fs=4.6),
+    "anstore": dict(x=30.2, y=2.7, fs=4.6),
+    "cssd": dict(x=23.7, y=6.5, fs=4.4),
+    "wash": dict(x=23.2, y=12.6, fs=4.6),
+    "scrub": dict(x=22.2, y=18.9, fs=4.2),
+    "change": dict(x=22.25, y=23.9, fs=4.4),
+    "psywait": dict(x=30.4, y=7.2, fs=5.0),
     "psy": dict(x=36.6, y=4.75, fs=5.8, name="OPD 3\nPSYCHIATRY"),
-    "opd2": dict(x=36.6, y=13.75, fs=5.8),
-    "opd1": dict(x=36.6, y=22.5, fs=5.8, name="OPD 1\nORTHO"),
+    "opd2": dict(x=36.6, y=14.5, fs=5.8),
+    "opd1": dict(x=36.3, y=25.6, fs=5.6, name="OPD 1\nORTHO"),
     "pharm": dict(x=7.7, y=51.7, fs=6.2),
     "clean": dict(x=3.2, y=64.9, rot=90, fs=6.0),
     "pantry": dict(x=8.3, y=64.9, fs=6.2),
@@ -58,10 +61,10 @@ IPD_H = {     # label position; text position / offset on the W and D strings (p
 }
 IPD_WINDOW = (-3.5, 53.5, 46.2, 97.0)      # close-up crop, plan feet (x0, x1, y0, y1)
 CIRC_LABELS = {
-    "wait": dict(x=27.4, y=33.6, fs=8.2, bold=True),
+    "wait": dict(x=27.6, y=35.2, fs=8.0, bold=True),
     "gate": dict(x=17.3, y=38.6, fs=5.8),
-    "opdpass": dict(x=30.2, y=18.0, rot=90, fs=6.6),
-    "svc": dict(x=2.2, y=33.6, rot=90, fs=5.8),
+    "opdpass": dict(x=30.2, y=18.5, rot=90, fs=6.6),
+    "svc": dict(x=3.0, y=35.2, rot=90, fs=5.6),
     "lobby": dict(x=10.5, y=46.3, fs=8.2, bold=True),
     "recep": dict(x=23.4, y=44.0, rot=90, fs=6.2, bold=True),
     "ns": dict(x=7.0, y=60.3, fs=6.0, bold=True),
@@ -195,13 +198,8 @@ def bed_count(rooms):
     return ipd, rec
 
 
-def render_detailed(out_base):
-    rooms = H.layout_h_rooms()
-    walls = H.walls_h(rooms)
-    pal = RD.CAD_PALETTE
-    fig, ax = plt.subplots(figsize=(13, 22))
-    ax.set_aspect("equal")
-
+def _draw_base(ax, rooms, walls, pal):
+    """Plate, context, room tints, walls, columns, furniture, doors, hatches, glass."""
     RD._fill(ax, H.PLATE_H, 1, fc=RD.CORRIDOR, ec="none")
     # service ledge south, cut-out
     ax.add_patch(Rectangle((0, -3.6), 48.12, 2.9, fc="white", ec=INK, lw=0.8, hatch="xxx", zorder=1))
@@ -262,7 +260,25 @@ def render_detailed(out_base):
         else:
             for dx in (-0.12, 0.12):
                 ax.plot([cx + dx, cx + dx], [cy - w / 2, cy + w / 2], color="#c0392b", lw=0.9, zorder=9)
-    ax.text(19.1, 8.3, "pass box", fontsize=5, color="#c0392b", rotation=90, ha="center", va="center", zorder=9)
+    for (x1, y1), (x2, y2) in H.GLASS_WEST_H + H.GLASS_NORTH_H:
+        ax.plot([x1, x2], [y1, y2], color="#2c6fbb", lw=2.0, zorder=5)
+        dx, dy = x2 - x1, y2 - y1
+        n = np.hypot(dx, dy)
+        ox, oy = dy / n * 0.45, -dx / n * 0.45
+        ax.plot([x1 + ox, x2 + ox], [y1 + oy, y2 + oy], color="#2c6fbb", lw=0.6, zorder=5)
+
+
+def render_detailed(out_base):
+    rooms = H.layout_h_rooms()
+    walls = H.walls_h(rooms)
+    pal = RD.CAD_PALETTE
+    fig, ax = plt.subplots(figsize=(13, 22))
+    ax.set_aspect("equal")
+
+    _draw_base(ax, rooms, walls, pal)
+    ax.text(19.9, 7.0, "pass box", fontsize=4.6, color="#c0392b", rotation=90, ha="center", va="center", zorder=9)
+    ax.text(19.9, 14.3, "dirty hatch", fontsize=4.6, color="#c0392b", rotation=90, ha="center", va="center", zorder=9)
+    ot_h.pendants(ax)
     ax.text(7.9, 47.45, "pharmacy hatch", fontsize=5, color="#c0392b", ha="center", va="center", zorder=9)
 
     # ---------------------------------------------------------------- labels
@@ -304,9 +320,12 @@ def render_detailed(out_base):
         ax.text(o.get("x", cp.x), o.get("y", cp.y), txt, ha="center", va="center", fontsize=fs,
                 color="#111", weight="bold" if r.name.isupper() or "·" in r.name else "normal",
                 rotation=o.get("rot", 0), zorder=9, linespacing=1.25)
-    KN = {"wc_acc": (38.2, 34.8), "wc_staff": (2.8, 56.2), "wcN4": (3.6, 72.6), "wcW1": (22.0, 58.6),
+    KN = {"wc_acc": (38.2, 35.6), "wc_staff": (2.8, 56.2), "wcN4": (3.6, 72.6), "wcW1": (22.0, 58.6),
           "wcW2": (22.0, 66.9), "wcW3": (22.0, 80.9)}
     for r, cp in keynotes:
+        if r.key == "wc_ot":
+            ax.text(20.9, 27.3, "T", ha="center", va="center", fontsize=5.5, weight="bold", color=INK, zorder=11)
+            continue
         x, y = KN.get(r.key, (cp.x, cp.y))
         acc = r.key in H.ACCESSIBLE_H
         if acc:
@@ -328,17 +347,11 @@ def render_detailed(out_base):
         ax.plot(xs[:-1] + (xs[-1],), ys, color=col, lw=1.1, ls=ls, zorder=9.5, alpha=0.9)
         ax.annotate("", xy=pts[-1], xytext=pts[-2], zorder=9.5,
                     arrowprops=dict(arrowstyle="-|>", color=col, lw=1.1))
-    flow([(3.0, 43.4), (17.4, 43.4), (17.4, 30.0), (17.2, 24.5), (16.9, 15.4)], "#1f5fbf")
-    flow([(30.2, 26.4), (28.0, 25.3), (25.0, 25.3), (25.0, 16.3), (21.6, 15.2), (19.4, 14.6)], "#2e7d32", "--")
-    flow([(3.2, 16.4), (3.2, 19.0), (5.2, 20.2), (5.2, 25.4), (2.2, 27.0), (2.2, 42.0), (0.6, 43.0)], "#8d5524", ":")
+    flow([(3.0, 43.4), (17.3, 43.4), (17.3, 33.0), (16.4, 31.5), (16.4, 18.6)], "#1f5fbf")
+    flow([(30.2, 29.6), (30.2, 23.5), (25.8, 23.5), (25.6, 22.0), (25.6, 20.2), (24.0, 19.9), (19.0, 19.9)],
+         "#2e7d32", "--")
+    flow([(2.4, 19.0), (2.4, 29.0), (1.5, 31.2), (1.5, 42.0), (0.6, 43.0)], "#8d5524", ":")
 
-    # glass
-    for (x1, y1), (x2, y2) in H.GLASS_WEST_H + H.GLASS_NORTH_H:
-        ax.plot([x1, x2], [y1, y2], color="#2c6fbb", lw=2.0, zorder=5)
-        dx, dy = x2 - x1, y2 - y1
-        n = np.hypot(dx, dy)
-        ox, oy = dy / n * 0.45, -dx / n * 0.45
-        ax.plot([x1 + ox, x2 + ox], [y1 + oy, y2 + oy], color="#2c6fbb", lw=0.6, zorder=5)
     ax.text(47.2, 22, "OPENABLE GLASS", rotation=-81.8, fontsize=7.5, color="#2c6fbb", ha="center", va="center")
     ax.text(41.2, 68, "OPENABLE GLASS", rotation=-81.8, fontsize=7.5, color="#2c6fbb", ha="center", va="center")
     ax.text(18, 93.9, "OPENABLE GLASS", fontsize=7.5, color="#2c6fbb", ha="center")
@@ -368,8 +381,8 @@ def render_detailed(out_base):
     # dimensions (clear-space stations = wall centre lines, outer faces at the ends)
     _dim_chain(ax, [0, 20.65, 27.02, 33.4, 48.12], -5.4, "x", side=1)
     _dim_chain(ax, [0, 48.12], -7.6, "x", side=1, fs=8, color=INK)
-    _dim_chain(ax, [0, 9.65, 18.39, 27.59, 40.0, 48.33, 62.75, 76.72, 92.36], 51.6, "y", side=1)
-    _dim_chain(ax, [0, 17.65, 27.59, 40.0, 48.33, 68.79, 92.36], -11.4, "y", side=-1)
+    _dim_chain(ax, [0, 9.65, 19.59, 30.59, 40.0, 48.33, 62.75, 76.72, 92.36], 51.6, "y", side=1)
+    _dim_chain(ax, [0, 20.65, 30.59, 40.0, 48.33, 68.79, 92.36], -11.4, "y", side=-1)
     _dim_chain(ax, [0, 92.36], -13.0, "y", side=-1, fs=8, color=INK)
     _dim_chain(ax, [0, 11.31, 18.19, 30.47], 95.6, "x", side=-1)
 
@@ -392,9 +405,11 @@ def render_detailed(out_base):
              f"2. Beds: {n_ipd} in-patient (4 twin rooms, each with window + ensuite) + {rec} recovery.  IPD furniture is\n"
              "    drawn at true size: bed 3'-3\" x 7'-0\", locker 1'-6\" sq., wardrobe 2'-0\" x 4'-0\", attendant sofa 2'-0\" x 5'-6\".\n"
              "    Blue strings in the ward rooms = clear size, plaster face to plaster face, measured on the DWG geometry.\n"
-             "3. OT is entered only through Recovery/Pre-op (patients) or Change > Scrub (staff).\n"
-             "4. Soiled goods: OT > Dirty Utility > 3'-6\" service passage > door beside the main entry.\n"
-             "5. X-ray room is 114 sf: mobile unit only. AERB fixed-unit room (≈194 sf) does NOT fit here.\n"
+             "3. OT 20'-0\" x 20'-0\" (400 sf) between column lines C1 and C3; entered only through Pre-op/Recovery\n"
+             "    (patients) or Change > Scrub (staff).  OT-zone detail, equipment key and flows: ot_H_zone.jpg.\n"
+             "4. Soiled goods: OT > Dirty Utility > 3'-6\" service passage > door beside the main entry; used\n"
+             "    instruments: OT > dirty hatch > CSSD wash > pass-through autoclave > CSSD clean > pass box > OT.\n"
+             "5. X-ray room is 86 sf: mobile unit only. AERB fixed-unit room (≈194 sf) does NOT fit here.\n"
              "6. (T) toilets: floor raised 150 mm as in the builder's toilets; new drain runs to be designed.\n"
              "7. Dashed blue circle = 5'-0\" wheelchair turning circle (accessible WC).\n"
              "8. Single exit; ward passage is a 43' dead end - fire officer / NBC check needed.")
@@ -453,7 +468,7 @@ def export_dxf_h(path):
         export_dxf("H", path)
     doc = ezdxf.readfile(path)
     msp = doc.modelspace()
-    for name, color in (("COLUMNS", 1), ("CORE", 9), ("PLUMBING_EXIST", 4), ("HATCH_PASS", 3)):
+    for name, color in (("COLUMNS", 1), ("CORE", 9), ("PLUMBING_EXIST", 4), ("HATCH_PASS", 3), ("OT_KEY", 2)):
         doc.layers.add(name, color=color)
     for k, col in H.COLUMNS_H.items():
         msp.add_lwpolyline(list(col.exterior.coords), close=True, dxfattribs={"layer": "COLUMNS"})
@@ -465,6 +480,9 @@ def export_dxf_h(path):
     for (cx, cy, w, o, lbl) in H.HATCHES_H:
         a, b = ((cx - w / 2, cy), (cx + w / 2, cy)) if o == "h" else ((cx, cy - w / 2), (cx, cy + w / 2))
         msp.add_line(a, b, dxfattribs={"layer": "HATCH_PASS"})
+    for n, (x, y), desc in H.OT_KEY_H:
+        msp.add_circle((x, y), 0.45, dxfattribs={"layer": "OT_KEY"})
+        msp.add_text(f"{n} {desc}", dxfattribs={"layer": "OT_KEY", "height": 0.25}).set_placement((x + 0.5, y))
     msp.add_lwpolyline(list(H.INNER_H.exterior.coords), close=True, dxfattribs={"layer": "PLATE"})
     _, y1, y2 = H.MD_DOOR_H
     msp.add_line((0, y1), (0, y2), dxfattribs={"layer": "DOORS"})
@@ -520,8 +538,13 @@ def main():
     checks = run_checks(rooms)
     for c in checks:
         print(c)
+    otc = ot_h.check_lines(ot_h.ot_checks(rooms))
+    for c in otc:
+        print(c)
+    checks += otc
     base = os.path.join(OUT, "layout_H_detailed")
     render_detailed(base)
+    print("ot zone sheet:", ot_h.render_ot_zone(os.path.join(OUT, "ot_H_zone.jpg"), sys.modules[__name__]))
     n = export_dxf_h(base + ".dxf")
     print("DXF audit errors:", n)
     checks.append(f"DXF audit errors: {n}")

@@ -122,8 +122,35 @@ EXTRA_WALLS_H = [
 # counter hatches / pass boxes: (cx, cy, width, 'h' horizontal wall | 'v')
 HATCHES_H = [
     (7.9, 48.33, 3.6, "h", "pharmacy hatch"),
-    (20.65, 8.3, 2.4, "v", "pass box"),
+    (20.65, 7.6, 2.4, "v", "sterile pass box"),           # CSSD clean -> OT
+    (20.65, 14.3, 2.0, "v", "dirty return hatch"),        # OT -> CSSD wash
+    (24.6, 10.5875, 2.0, "h", "pass-through autoclave"),  # CSSD wash -> clean
+    (21.9, 5.0875, 1.8, "h", "sterile hatch"),            # CSSD clean -> sterile store
 ]
+
+# OT equipment keynotes: number, (x, y) of the tag, description (true plan sizes)
+OT_KEY_H = [
+    (1, (10.46, 12.6), "OT table 2'-7\" x 6'-6\", head to the south"),
+    (2, (10.46, 14.6), "Mayo stand at the foot"),
+    (3, (10.46, 9.9), "Twin-dome OT light (ceiling)"),
+    (4, (13.5, 5.4), "Anaesthesia machine 2'-2\" x 2'-5\""),
+    (5, (12.9, 3.0), "Anaesthesia pendant (gases, sockets)"),
+    (6, (7.3, 13.1), "Surgical pendant (diathermy, suction, monitor)"),
+    (7, (6.8, 9.5), "Instrument trolley 1'-7\" x 3'-0\""),
+    (8, (15.7, 15.3), "Back table 3'-0\" x 1'-7\""),
+    (9, (15.4, 10.5), "Diathermy / suction cart"),
+    (10, (2.0, 13.6), "C-arm parking 2'-10\" x 6'-0\""),
+    (11, (1.6, 9.1), "C-arm monitor cart"),
+    (12, (10.75, 1.2), "Recessed wall cabinets 2 x 5'-6\""),
+    (13, (8.0, 19.7), "Writing shelf, OT control panel, X-ray viewer"),
+    (14, (18.6, 7.0), "Sterile pass box from CSSD clean"),
+    (15, (18.6, 13.6), "Dirty return hatch to CSSD wash"),
+    (16, (24.0, 16.7), "Scrub trough, 3 taps, elbow / sensor"),
+    (17, (18.0, 21.7), "Medical-gas zone valve box + alarm panel"),
+    (18, (24.6, 9.57), "Pass-through autoclave (loads from wash side)"),
+    (19, (15.6, 27.3), "Transfer bay: trolley change-over at the red line"),
+]
+PENDANTS_H = [(12.9, 3.0), (7.3, 13.1)]
 
 ACCESSIBLE_H = {"wc_acc", "wcW1", "wcW2", "wcW3"}     # 5'-0" turning circle drawn
 _COLS_H = unary_union(list(COLUMNS_H.values()))
@@ -220,8 +247,11 @@ IPD_PTS = {
 
 
 def layout_h_rooms():
-    """LAYOUT H - the architect's parti kept (OT 20'x17', twin-sharing rooms on
-    the west glass, a 12' public hall), re-planned on the DWG geometry:
+    """LAYOUT H - the architect's parti kept (OT in the SE corner, twin-sharing
+    rooms on the west glass, a wide public hall), re-planned on the DWG
+    geometry.  Rev. 17-11-2026 (OT fix): OT 20'-0" x 20'-0" (was 20' x 17'),
+    CSSD split into wash / clean with two hatches, scrub bay, staff WC,
+    anaesthesia store; the concourse is 9'-0" wide (was 12'-0"):
 
     * OT in the SE corner; patients reach it only through Recovery / Pre-op,
       staff only through Change -> Scrub; CSSD beside the OT with a pass box;
@@ -239,49 +269,74 @@ def layout_h_rooms():
     """
     rooms = [
         # ------------------------------------------------ OT complex (south-east)
-        R("ot", "OPERATION THEATRE", 0.46, 0.46, 20.46, 17.46, "surgical",
-          doors=[(16.6, 17.65, 5.0, "S"), (3.2, 17.65, 3.0, "N"), (20.65, 14.5, 3.5, "W")],
-          furniture=[("ottable", 9.2, 5.6, 2.6, 6.5, 0), ("light", 9.75, 7.6, 1.5, 1.5, 0),
-                     ("cart", 5.6, 4.6, 1.8, 2.6, 0), ("cart", 13.4, 7.4, 1.8, 2.6, 0),
-                     ("counter", 0.7, 3.0, 1.6, 8.0, 0),
-                     ("shelf", 12.0, 0.7, 6.0, 1.2, 0)],
-          notes="Patients only via Recovery; staff only via Scrub; soiled out via Dirty Utility"),
-        R("otstore", "Sterile Store", 20.835, 0.46, 26.835, 4.6, "support",
-          doors=[(24.9, 4.79, 2.5, "S")],
-          furniture=[("shelf", 25.4, 0.7, 1.2, 2.2, 0), ("shelf", 23.1, 0.65, 2.2, 1.2, 0)]),
-        R("cssd", "CSSD / Autoclave", 20.835, 4.975, 26.835, 11.6, "surgical",
-          doors=[(24.4, 11.79, 2.6, "S")],
-          furniture=[("counter", 25.3, 5.2, 1.4, 3.6, 0), ("cart", 21.1, 5.2, 2.0, 2.0, 0),
-                     ("sink", 21.2, 9.9, 1.3, 1.3, 0)],
-          notes="Beside the OT; used sets in / sterile sets out through the pass box"),
-        R("scrub", "Scrub", 20.835, 11.975, 26.835, 17.46, "surgical",
-          doors=[(25.0, 17.65, 2.8, "S")],
-          furniture=[("sink", 25.3, 12.4, 1.3, 1.3, 0), ("sink", 25.3, 14.2, 1.3, 1.3, 0)]),
-        R("change", "Staff Change", 20.835, 17.835, 26.835, 27.4, "surgical",
-          doors=[(27.02, 25.3, 2.8, "W"), (20.65, 25.3, 2.8, "W")],
-          furniture=[("shelf", 25.5, 18.1, 1.2, 5.0, 0), ("shelf", 21.0, 18.0, 1.2, 2.2, 0)],
-          notes="Only staff way in: OPD passage -> change -> scrub -> OT"),
-        R("recovery", "RECOVERY / PRE-OP", 6.375, 17.835, 20.46, 27.4, "surgical",
-          doors=[(16.9, 27.59, 5.0, "S")],
-          furniture=[("bed", 6.5, 18.0, 6.6, 3.25, 180), ("bed", 6.5, 24.0, 6.6, 3.25, 180),
-                     ("side", 6.6, 21.4, 1.4, 1.2, 0), ("side", 6.6, 22.7, 1.4, 1.2, 0),
-                     ("desk", 19.0, 18.2, 1.3, 3.0, 0)],
-          notes="2 beds; 5'-0\" double doors in line: hall -> recovery -> OT"),
-        R("dirty", "Dirty Utility", 0.46, 17.835, 6.0, 27.4, "support",
-          doors=[(2.2, 27.59, 2.8, "N")],
-          furniture=[("sink", 0.8, 18.4, 1.4, 1.4, 0), ("counter", 0.7, 20.6, 1.6, 4.0, 0),
-                     ("cart", 0.7, 25.0, 2.0, 1.5, 0)],
+        # OT 20'-0" x 20'-0" clear, exactly between column lines C1 and C3
+        R("ot", "OPERATION THEATRE", 0.46, 0.46, 20.46, 20.46, "surgical",
+          doors=[(15.6, 20.65, 5.0, "S"), (3.0, 20.65, 3.0, "N"), (20.65, 18.6, 3.4, "W"),
+                 (20.65, 3.3, 3.0, "W")],
+          furniture=[("ottable", 9.16, 7.0, 2.6, 6.5, 0),
+                     ("light", 9.51, 8.0, 1.9, 1.9, 0), ("light", 9.51, 10.5, 1.9, 1.9, 0),
+                     ("cart", 12.4, 4.2, 2.2, 2.4, 0),          # anaesthesia machine
+                     ("light", 12.2, 2.3, 1.4, 1.4, 0),         # anaesthesia pendant
+                     ("light", 6.6, 12.4, 1.4, 1.4, 0),         # surgical pendant
+                     ("cart", 6.0, 8.0, 1.6, 3.0, 0),           # instrument trolley
+                     ("cart", 14.2, 14.5, 3.0, 1.6, 0),         # back table
+                     ("cart", 14.6, 9.6, 1.6, 1.8, 0),          # diathermy / suction
+                     ("cart", 0.6, 10.6, 2.8, 6.0, 0),          # C-arm parking
+                     ("cart", 0.6, 8.0, 2.0, 2.2, 0),           # C-arm monitor cart
+                     ("shelf", 5.0, 0.56, 5.5, 1.3, 0), ("shelf", 11.0, 0.56, 5.5, 1.3, 0),
+                     ("counter", 6.0, 19.05, 4.0, 1.3, 0)],
+          notes="Patients only via Pre-op/Recovery; staff only via Change > Scrub; "
+                "sterile goods via pass box / sterile store; soiled out via hatch and Dirty Utility"),
+        R("otstore", "Sterile Store", 20.835, 0.46, 26.835, 4.9, "support",
+          doors=[(27.02, 2.2, 2.4, "W")],
+          furniture=[("shelf", 23.0, 3.6, 3.7, 1.2, 0)],
+          notes="Opens only into the OT; filled from CSSD clean side through a hatch"),
+        R("anstore", "Anaes. Store", 27.21, 0.46, 33.21, 3.585, "support",
+          furniture=[("shelf", 28.9, 0.56, 4.1, 1.2, 0)],
+          notes="Drugs, circuits, spare cylinders; reached through the sterile store"),
+        R("cssd", "CSSD clean", 20.835, 5.275, 26.835, 10.4, "surgical",
+          doors=[(22.1, 10.59, 2.4, "N")],
+          furniture=[("counter", 25.3, 5.4, 1.4, 3.3, 0), ("cart", 23.5, 8.85, 2.2, 1.45, 0)],
+          notes="Pack + sterile side; pass-through autoclave unloads here; pass box to the OT"),
+        R("wash", "CSSD wash", 20.835, 10.775, 26.835, 15.5, "support",
+          doors=[(27.02, 14.0, 2.6, "W")],
+          furniture=[("counter", 21.0, 14.0, 1.6, 1.4, 0), ("sink", 22.7, 14.05, 1.3, 1.3, 0),
+                     ("cart", 25.2, 10.9, 1.5, 1.7, 0)],
+          notes="Dirty side: used sets come in through the OT hatch; staff door from the OPD passage"),
+        R("scrub", "Scrub", 20.835, 15.875, 26.835, 20.46, "surgical",
+          doors=[(24.9, 20.65, 2.8, "S")],
+          furniture=[("sink", 21.6, 16.0, 1.4, 1.4, 0), ("sink", 23.3, 16.0, 1.4, 1.4, 0),
+                     ("sink", 25.0, 16.0, 1.4, 1.4, 0)],
+          notes="3-tap scrub trough outside the staff OT door"),
+        R("change", "Staff Change", 19.175, 20.835, 26.835, 30.4, "surgical",
+          doors=[(27.02, 23.5, 2.8, "W")],
+          holes=[(19.175, 25.6, 22.4, 30.4)],
+          furniture=[("shelf", 25.5, 25.6, 1.2, 4.7, 0), ("shelf", 19.3, 22.6, 1.2, 2.5, 0)],
+          notes="Only staff way in: OPD passage > change > scrub > OT; M and F locker banks, WC"),
+        R("wc_ot", "T", 19.175, 25.6, 22.4, 30.4, "wet",
+          doors=[(22.59, 28.0, 2.4, "E")],
+          furniture=[("wc", 20.0, 28.0, 1.6, 2.2, 0), ("sink", 19.4, 25.8, 1.2, 1.2, 0)],
+          notes="Staff WC inside the OT complex; new wet point, drain to verify"),
+        R("recovery", "PRE-OP / RECOVERY", 5.875, 20.835, 18.8, 30.4, "surgical",
+          doors=[(15.6, 30.59, 5.0, "S")],
+          furniture=[("bed", 5.975, 21.0, 6.6, 3.25, 180), ("bed", 5.975, 26.9, 6.6, 3.25, 180),
+                     ("side", 6.0, 24.35, 1.4, 1.2, 0), ("side", 6.0, 25.6, 1.4, 1.2, 0)],
+          notes="2 bays (1 holding + 1 recovery); 5'-0\" double doors in line: gate > transfer bay > OT"),
+        R("dirty", "Dirty Utility", 0.46, 20.835, 5.5, 30.4, "support",
+          doors=[(2.2, 30.59, 2.8, "N")],
+          furniture=[("sink", 0.7, 24.3, 1.4, 1.4, 0), ("counter", 0.6, 25.9, 1.5, 2.6, 0),
+                     ("cart", 3.7, 27.2, 1.6, 3.0, 0)],
           notes="Sluice + bio-medical waste hold; exit to the service passage"),
-        R("xray", "X-RAY (mobile) /\nDRESSING / PLASTER", 4.375, 27.775, 13.9, 39.8, "consult",
-          doors=[(14.09, 33.5, 4.0, "W")],
-          furniture=[("exam", 5.0, 28.6, 2.6, 6.6, 0), ("counter", 4.7, 38.1, 5.0, 1.4, 0),
-                     ("desk", 11.2, 37.6, 2.4, 1.6, 0), ("cart", 8.2, 35.6, 1.8, 2.2, 0)],
+        R("xray", "X-RAY (mobile) /\nDRESSING / PLASTER", 4.375, 30.775, 13.9, 39.8, "consult",
+          doors=[(14.09, 35.3, 4.0, "W")],
+          furniture=[("exam", 5.0, 31.2, 2.6, 6.6, 0), ("counter", 8.4, 38.2, 2.6, 1.4, 0),
+                     ("desk", 11.3, 38.0, 2.4, 1.6, 0), ("cart", 8.2, 35.4, 1.8, 2.2, 0)],
           notes="Lead-lined; sized for a mobile DR unit, not a fixed AERB room"),
         # ------------------------------------------------ OPD wing (south-west)
-        R("psywait", "Psy. Sub-wait", 27.21, 0.46, 33.21, 9.46, "public",
-          doors=[(30.2, 9.65, 3.0, "S")],
-          furniture=[("chair", 27.5, 1.0, 1.5, 1.5, 0), ("chair", 27.5, 2.7, 1.5, 1.5, 0),
-                     ("chair", 27.5, 4.4, 1.5, 1.5, 0), ("plant", 27.5, 7.6, 1.4, 1.4, 0)],
+        R("psywait", "Psy. Sub-wait", 27.21, 3.96, 33.21, 9.46, "public",
+          doors=[(30.2, 9.65, 3.0, "N")],
+          furniture=[("chair", 27.5, 4.1, 1.5, 1.5, 0), ("chair", 29.2, 4.1, 1.5, 1.5, 0),
+                     ("chair", 30.9, 4.1, 1.5, 1.5, 0), ("plant", 27.4, 7.9, 1.2, 1.2, 0)],
           notes="Closed lobby: no through traffic, acoustic door"),
         R("psy", "OPD 3 · PSYCHIATRY", 33.585, 0.46, 49.0, 9.46, "consult",
           doors=[(33.4, 7.7, 3.0, "E")],
@@ -289,21 +344,21 @@ def layout_h_rooms():
                      ("desk", 39.6, 5.4, 4.0, 2.0, 0), ("chair", 40.8, 7.7, 1.5, 1.5, 0),
                      ("plant", 43.2, 1.0, 1.4, 1.4, 0)],
           notes="Dr. Heena; quiet end, SW glass, sofa seating, no couch"),
-        R("opd2", "OPD 2", 33.585, 9.835, 49.0, 18.2, "consult",
-          doors=[(33.4, 16.5, 3.0, "E")],
-          furniture=[("exam", 34.0, 10.100, 6.0, 2.25, 0), ("chair", 39.6, 12.600, 1.5, 1.4, 0),
-                     ("chair", 41.4, 12.600, 1.5, 1.4, 0), ("desk", 39.4, 14.200, 4.0, 1.9, 0),
-                     ("chair", 40.6, 16.400, 1.5, 1.4, 0)],
+        R("opd2", "OPD 2", 33.585, 9.835, 49.0, 19.4, "consult",
+          doors=[(33.4, 17.7, 3.0, "E")],
+          furniture=[("exam", 34.0, 10.100, 6.0, 2.25, 0), ("chair", 39.6, 12.900, 1.5, 1.5, 0),
+                     ("chair", 41.4, 12.900, 1.5, 1.5, 0), ("desk", 39.4, 14.600, 4.0, 2.0, 0),
+                     ("chair", 40.6, 16.900, 1.5, 1.5, 0)],
           notes="Visiting consultant; buffer between ortho and psychiatry"),
-        R("opd1", "OPD 1 · ORTHO", 33.585, 18.575, 49.0, 27.4, "consult",
-          doors=[(33.4, 25.7, 3.0, "E")],
-          furniture=[("exam", 34.0, 18.840, 6.0, 2.25, 0), ("chair", 39.6, 21.575, 1.5, 1.5, 0),
-                     ("chair", 41.4, 21.575, 1.5, 1.5, 0), ("desk", 39.4, 23.275, 4.0, 2.0, 0),
-                     ("chair", 40.6, 25.575, 1.5, 1.5, 0)],
-          notes="Dr. Aman; first door off the hall, 35' from X-ray"),
-        R("wc_acc", "T (Acc.)", 35.6, 32.5, 49.0, 39.76, "wet",
-          doors=[(35.41, 36.3, 3.0, "W")],
-          furniture=[("wc", 38.3, 37.3, 1.6, 2.2, 0), ("sink", 36.0, 33.0, 1.3, 1.3, 0)],
+        R("opd1", "OPD 1 · ORTHO", 33.585, 19.775, 49.0, 30.4, "consult",
+          doors=[(33.4, 28.7, 3.0, "E")],
+          furniture=[("exam", 34.0, 20.040, 6.0, 2.25, 0), ("chair", 39.2, 23.6, 1.5, 1.5, 0),
+                     ("chair", 41.0, 23.6, 1.5, 1.5, 0), ("desk", 39.0, 25.4, 4.0, 2.0, 0),
+                     ("chair", 40.2, 27.7, 1.5, 1.5, 0)],
+          notes="Dr. Aman; first door off the concourse"),
+        R("wc_acc", "T (Acc.)", 35.6, 33.76, 49.0, 39.76, "wet",
+          doors=[(35.41, 36.9, 3.0, "W")],
+          furniture=[("wc", 38.3, 37.3, 1.6, 2.2, 0), ("sink", 36.0, 34.1, 1.3, 1.3, 0)],
           notes="Public wheelchair WC on the builder's toilet position"),
         # ------------------------------------------------ entry
         R("pharm", "PHARMACY", 4.705, 48.56, 11.125, 54.5, "public",
@@ -357,15 +412,15 @@ def layout_h_rooms():
                     ("wardrobe", 22.7, 89.8, 4.0, 2.0, 0), ("sofa", 26.9, 89.35, 5.5, 2.0, 0),
                     ("chair", 33.2, 85.2, 1.5, 1.5, 0)])
     # ---------------------------------------------------- circulation anchors
-    seats = ([("chair", 21.1 + 1.6 * i, 28.0, 1.5, 1.5, 0) for i in range(3)]
-             + [("chair", 33.9 + 1.6 * i, 28.0, 1.5, 1.5, 0) for i in range(5)]
+    seats = ([("chair", 21.1 + 1.6 * i, 30.9, 1.5, 1.5, 0) for i in range(3)]
+             + [("chair", 33.9 + 1.6 * i, 30.9, 1.5, 1.5, 0) for i in range(4)]
              + [("chair", 23.2 + 1.6 * i, 38.1, 1.5, 1.5, 0) for i in range(7)])
     rooms += [
-        R("wait", "12'-0\" w. WAITING CONCOURSE", 20.84, 31.6, 35.0, 35.6, "circ",
-          furniture=seats + [("water", 34.0, 30.4, 1.2, 1.2, 0), ("plant", 41.0, 30.2, 1.4, 1.4, 0)]),
+        R("wait", "9'-0\" w. WAITING CONCOURSE", 20.84, 33.0, 35.0, 37.0, "circ",
+          furniture=seats + [("plant", 40.6, 31.0, 1.4, 1.4, 0)]),
         R("gate", "gate 6'-1\"", 14.3, 36.0, 20.3, 39.0, "circ"),
-        R("opdpass", "6'-0\" w. OPD passage", 27.21, 11.0, 33.21, 24.0, "circ"),
-        R("svc", "3'-6\" dirty exit", 0.46, 29.0, 4.0, 38.0, "circ"),
+        R("opdpass", "6'-0\" w. OPD passage", 27.21, 11.0, 33.21, 29.0, "circ"),
+        R("svc", "3'-6\" dirty exit", 0.46, 31.5, 4.0, 38.5, "circ"),
         R("lobby", "ENTRANCE LOBBY", 4.0, 41.2, 19.0, 47.0, "circ"),
         R("recep", "RECEPTION", 20.2, 42.6, 24.3, 46.2, "circ",
           furniture=[("counter", 20.3, 41.1, 1.7, 6.2, 0), ("chair", 22.5, 42.0, 1.5, 1.5, 0),
