@@ -957,3 +957,6 @@ def wall_bands(rooms):
     _, y1, y2 = MD_DOOR
     walls = walls.difference(box(-1.5, y1, 1.5, y2))
     return walls
+
+
+import layout_h  # noqa: E402,F401  registers LAYOUTS["H"] (DWG-geometry layout, see layout_h.py)
