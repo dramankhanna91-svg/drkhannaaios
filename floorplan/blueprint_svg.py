@@ -12,10 +12,28 @@ import os
 
 from plan_model import (PLATE, CUTOUT, GLASS_WEST, GLASS_NORTH, MD_DOOR,
                         LAYOUTS, wall_bands)
+from layout_g import with_geometry
 
 PPF = 10.0                       # px per foot
-OX, OY = 96.0, 70.0
-W, H = 700.0, 1180.0
+OX, OY = 150.0, 112.0            # margins sized so header, footer and the
+W, H = 780.0, 1250.0             # entry label never clip (was 96/70, 700x1180)
+# envelope strings per layout: (subtitle, width ft, width label, length ft, length label)
+ENVELOPE = {
+    "G": ('OUTER WALL FACES 47\'-11¾" × 92\'-2¾" (BUILDER DWG)', 47.98, "47'-11¾\"",
+          92.22, "92'-2¾\""),
+}
+ENVELOPE_DEFAULT = ('ENVELOPE 48\'-6" × 92\'-0" (REV C)', 48.5, "48'-6\"", 92.0, "92'-0\"")
+
+
+def _fit(text, x, y, size, fill, extra="", spacing=0.0, avail=None):
+    """<text> that is squeezed with textLength when it would overrun the sheet."""
+    avail = (W - x - 14) if avail is None else avail
+    est = len(text) * (0.58 * size + spacing)
+    squeeze = (f' textLength="{avail:.0f}" lengthAdjust="spacingAndGlyphs"'
+               if est > avail else "")
+    sp = f' letter-spacing="{spacing}"' if spacing else ""
+    return (f'<text x="{x:.0f}" y="{y:.0f}" fill="{fill}" font-size="{size}"{sp}{squeeze}'
+            f'{extra}>{_esc(text)}</text>')
 
 THEMES = {
     "blueprint": dict(bg="#0d2a4a", ink="#f2f6fb", faint="#7d9cbd", wall="#f2f6fb",
@@ -38,6 +56,7 @@ def _esc(s):
     return s.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
 
 
+@with_geometry
 def render_blueprint(key, theme_name, out_path):
     t = THEMES[theme_name]
     title, factory = LAYOUTS[key]
@@ -49,11 +68,10 @@ def render_blueprint(key, theme_name, out_path):
          f'<rect width="{W:.0f}" height="{H:.0f}" fill="{t["bg"]}"/>']
 
     # title strip
-    s.append(f'<text x="{OX:.0f}" y="26" fill="{t["ink"]}" font-size="15" '
-             f'font-weight="bold" letter-spacing="1.5">{_esc(title.upper())}</text>')
-    s.append(f'<text x="{OX:.0f}" y="43" fill="{t["faint"]}" font-size="9.5" '
-             f'letter-spacing="0.8">HOSPITAL OF DR. AMAN KHANNA · 7TH FLOOR, SOLARIS '
-             f'SHINE, ALTHAN, SURAT · ENVELOPE 48\'-6" × 92\'-0" (REV C)</text>')
+    env = ENVELOPE.get(key, ENVELOPE_DEFAULT)
+    s.append(_fit(title.upper(), 24, 28, 15, t["ink"], ' font-weight="bold"', 1.2))
+    s.append(_fit("HOSPITAL OF DR. AMAN KHANNA · 7TH FLOOR, SOLARIS SHINE, ALTHAN, SURAT · "
+                  + env[0], 24, 46, 9.5, t["faint"], "", 0.6))
 
     # plate outline (thin, under the walls)
     s.append(f'<polygon points="{_poly_pts(PLATE)}" fill="none" '
@@ -107,7 +125,10 @@ def render_blueprint(key, theme_name, out_path):
                 s.append(f'<text x="{tx:.0f}" y="{ty:.0f}" fill="{t["faint"]}" '
                          f'font-size="8" font-style="italic" text-anchor="middle">'
                          f'{_esc(r.name)}</text>')
-        elif p.area < 34:
+        elif p.area < 34 and r.zone != "wet":
+            s.append(f'<text x="{tx:.0f}" y="{ty + 2:.0f}" fill="{t["ink"]}" '
+                     f'font-size="5.5" text-anchor="middle">{_esc(r.name)}</text>')
+        elif p.area < 34 or r.zone == "wet":
             s.append(f'<circle cx="{tx:.0f}" cy="{ty:.0f}" r="7" fill="none" '
                      f'stroke="{t["ink"]}" stroke-width="0.8"/>')
             s.append(f'<text x="{tx:.0f}" y="{ty + 3:.0f}" fill="{t["ink"]}" '
@@ -140,7 +161,17 @@ def render_blueprint(key, theme_name, out_path):
         for (dx_, dy_, wdt, wall) in r.doors:
             (px, py) = P(dx_, dy_)
             rr = wdt * PPF
-            if wall in ("N", "S"):
+            if wdt >= 4.5 and wall in ("N", "S"):      # double door: two leaves
+                sg = 1 if wall == "N" else -1
+                x1, x2, hr = px - rr / 2, px + rr / 2, rr / 2
+                s.append(f'<line x1="{x1:.1f}" y1="{py:.1f}" x2="{x2:.1f}" y2="{py:.1f}" '
+                         f'stroke="{t["bg"]}" stroke-width="5"/>')
+                s.append(f'<path d="M {x1:.1f} {py:.1f} L {x1:.1f} {py + sg * hr:.1f} '
+                         f'A {hr:.1f} {hr:.1f} 0 0 {1 if sg > 0 else 0} {px:.1f} {py:.1f} '
+                         f'A {hr:.1f} {hr:.1f} 0 0 {1 if sg > 0 else 0} {x2:.1f} {py + sg * hr:.1f} '
+                         f'L {x2:.1f} {py:.1f}" '
+                         f'fill="none" stroke="{t["accent"]}" stroke-width="0.9"/>')
+            elif wall in ("N", "S"):
                 sg = 1 if wall == "N" else -1
                 x1, x2 = px - rr / 2, px + rr / 2
                 s.append(f'<line x1="{x1:.1f}" y1="{py:.1f}" x2="{x2:.1f}" y2="{py:.1f}" '
@@ -162,8 +193,14 @@ def render_blueprint(key, theme_name, out_path):
     (_, ey2) = P(0, MD_DOOR[2])
     s.append(f'<line x1="{ex:.1f}" y1="{ey1:.1f}" x2="{ex:.1f}" y2="{ey2:.1f}" '
              f'stroke="{t["accent"]}" stroke-width="3"/>')
-    s.append(f'<text x="{ex - 10:.0f}" y="{(ey1 + ey2) / 2:.0f}" fill="{t["accent"]}" '
+    s.append(f'<text x="{ex - 58:.0f}" y="{(ey1 + ey2) / 2 + 3:.0f}" fill="{t["accent"]}" '
              f'font-size="9" font-weight="bold" text-anchor="end">MAIN ENTRY 5\'-0"</text>')
+    if key == "G":                       # RCC columns from the DWG
+        from layout_g import COLUMNS
+        for col in COLUMNS.values():
+            cc = col.intersection(PLATE)
+            s.append(f'<polygon points="{_poly_pts(cc)}" fill="{t["accent"]}" '
+                     f'fill-opacity="0.55" stroke="{t["accent"]}" stroke-width="0.8"/>')
 
     # dimension lines with oblique ticks
     def dim_h(xa, xb, y, label):
@@ -189,12 +226,12 @@ def render_blueprint(key, theme_name, out_path):
                  f'font-size="10" text-anchor="middle" '
                  f'transform="rotate(-90 {xx - 6:.0f} {(y1 + y2) / 2:.0f})">{label}</text>')
 
-    dim_h(0, 48.5, -2.6, "48'-6\"")
-    dim_v(0, 92, -3.6, "92'-0\"")
+    dim_h(0, env[1], -2.6, env[2])
+    dim_v(0, env[3], -3.6, env[4])
     dim_v(0, MD_DOOR[1], -1.8, "43'-0\"")
 
     # scale bar + north arrow
-    (sx, sy) = P(0, 96.5)
+    (sx, sy) = P(0, 97.0)
     for i in range(4):
         fill = t["ink"] if i % 2 == 0 else t["bg"]
         s.append(f'<rect x="{sx + i * 5 * PPF:.0f}" y="{sy:.0f}" width="{5 * PPF:.0f}" '
@@ -210,19 +247,20 @@ def render_blueprint(key, theme_name, out_path):
              f'text-anchor="middle">NORTH ↓</text>')
 
     # compass edges + notes
-    s.append(f'<text x="{P(24, -5.4)[0]:.0f}" y="{P(24, -5.4)[1]:.0f}" fill="{t["faint"]}" '
+    s.append(f'<text x="{P(24, -4.7)[0]:.0f}" y="{P(24, -4.7)[1]:.0f}" fill="{t["faint"]}" '
              f'font-size="9" text-anchor="middle" letter-spacing="2">SOUTH — SERVICE STRIP BEYOND</text>')
     (wx, wy) = P(51.5, 30)
     s.append(f'<text x="{wx:.0f}" y="{wy:.0f}" fill="{t["glass"]}" font-size="9" '
              f'text-anchor="middle" letter-spacing="1.5" '
              f'transform="rotate(-90 {wx:.0f} {wy:.0f})">WEST — OPENABLE GLASS · VIEWS</text>')
-    (fx_, fy_) = P(0, 99.5)
-    s.append(f'<text x="{fx_:.0f}" y="{fy_ + 14:.0f}" fill="{t["faint"]}" font-size="8">'
-             f'VISITOR WC: COMMON-AREA TOILETS OUTSIDE THE MAIN ENTRY (SEE BUILDER\'S FLOOR PLAN) · '
-             f'OT SUITE ENTERED ONLY VIA RECOVERY (PATIENTS) / SCRUB (STAFF)</text>')
-    s.append(f'<text x="{fx_:.0f}" y="{fy_ + 26:.0f}" fill="{t["faint"]}" font-size="8">'
-             f'SCALE 1:{int(12 * 96 / PPF / 2.54 * 2.54 / 12 * 12)} ON SCREEN — USE THE BAR · '
-             f'CONCEPT FOR REVIEW, TO BE VERIFIED BY THE PROJECT ARCHITECT</text>')
+    (_, fy_) = P(0, 101.0)
+    foot = ["PATIENT WC: BUILDER'S x06 TOILET KEPT OFF THE WAITING AREA · COLUMNS FROM THE DWG"
+            if key == "G" else
+            "VISITOR WC: COMMON-AREA TOILETS OUTSIDE THE MAIN ENTRY (SEE BUILDER'S FLOOR PLAN)",
+            "OT SUITE ENTERED ONLY VIA RECOVERY (PATIENTS) / SCRUB (STAFF)",
+            "SCALE: USE THE BAR · CONCEPT FOR REVIEW, TO BE VERIFIED BY THE PROJECT ARCHITECT"]
+    for i, line in enumerate(foot):
+        s.append(_fit(line, 24, fy_ + 14 + 12 * i, 8, t["faint"]))
 
     s.append("</svg>")
     with open(out_path, "w") as f:
@@ -233,6 +271,9 @@ def render_blueprint(key, theme_name, out_path):
 if __name__ == "__main__":
     here = os.path.dirname(os.path.abspath(__file__))
     out = os.path.join(here, "..", "deliverables")
-    for theme in ("blueprint", "clean"):
-        p = render_blueprint("E", theme, os.path.join(out, f"layout_E_{theme}.svg"))
-        print("wrote", os.path.basename(p))
+    import sys
+    keys = sys.argv[1:] or ["E"]
+    for k in keys:
+        for theme in ("blueprint", "clean"):
+            p = render_blueprint(k, theme, os.path.join(out, f"layout_{k}_{theme}.svg"))
+            print("wrote", os.path.basename(p))

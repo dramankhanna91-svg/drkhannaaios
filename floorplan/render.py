@@ -209,6 +209,9 @@ def _keynote_code(room):
 
 
 def render_layout(key, out_base, highlight=True, style="cad"):
+    if key == "G":                      # Layout G has its own DWG-geometry sheet
+        from layout_g import render_sheet
+        return render_sheet(out_base)
     pal = PRESO_PALETTE if style == "presentation" else CAD_PALETTE
     title, factory = LAYOUTS[key]
     if style == "presentation":

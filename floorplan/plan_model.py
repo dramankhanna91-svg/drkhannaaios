@@ -910,6 +910,8 @@ def layout_f_rooms():
     return rooms
 
 
+from layout_g import layout_g_rooms, TITLE as _G_TITLE  # Layout G lives in layout_g.py
+
 LAYOUTS = {
     "architect": ("Architect's Proposal (as received)", architect_rooms),
     "A": ("LAYOUT A — Targeted Revision", layout_a_rooms),
@@ -918,6 +920,7 @@ LAYOUTS = {
     "D": ("LAYOUT D — Dr. Khanna's Sketch (interpreted)", layout_d_rooms),
     "E": ("LAYOUT E (rev 3) — Dr. Khanna's Final Plan", layout_e_rooms),
     "F": ("LAYOUT F — Dr. Aman & Dr. Heena's Line Diagram, detailed", layout_f_rooms),
+    "G": (_G_TITLE, layout_g_rooms),
 }
 
 

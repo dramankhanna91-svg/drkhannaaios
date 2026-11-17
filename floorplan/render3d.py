@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 
 from plan_model import PLATE, CUTOUT, ZONES, LAYOUTS
+from layout_g import with_geometry
 
 WALL_H = 8.5
 
@@ -21,6 +22,7 @@ def _add(ax, verts, fc, ec, lw, alpha, zorder):
     ax.add_collection3d(col)
 
 
+@with_geometry
 def render_3d(key, out_path):
     title, factory = LAYOUTS[key]
     rooms = factory()

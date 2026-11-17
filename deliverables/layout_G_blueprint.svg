@@ -1,0 +1,361 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="1250" viewBox="0 0 780 1250" font-family="Helvetica, Arial, sans-serif">
+<rect width="780" height="1250" fill="#0d2a4a"/>
+<text x="24" y="28" fill="#f2f6fb" font-size="15" letter-spacing="1.2" font-weight="bold">LAYOUT G - BLUE-PEN SKETCH ON DWG GEOMETRY</text>
+<text x="24" y="46" fill="#7d9cbd" font-size="9.5" letter-spacing="0.6">HOSPITAL OF DR. AMAN KHANNA · 7TH FLOOR, SOLARIS SHINE, ALTHAN, SURAT · OUTER WALL FACES 47'-11¾" × 92'-2¾" (BUILDER DWG)</text>
+<polygon points="150.0,112.0 629.8,112.0 502.7,992.0 501.2,998.9 498.7,1005.4 495.4,1011.6 491.2,1017.2 486.2,1022.2 480.6,1026.4 474.4,1029.8 467.9,1032.2 461.0,1033.7 454.0,1034.2 150.0,1034.2 150.0,112.0" fill="none" stroke="#7d9cbd" stroke-width="0.8"/>
+<polygon points="396.4,593.0 557.5,593.0 569.0,512.9 396.4,512.9 396.4,593.0" fill="none" stroke="#5f7fa0" stroke-width="1.2"/>
+<line x1="396" y1="513" x2="569" y2="593" stroke="#5f7fa0" stroke-width="0.7"/>
+<line x1="396" y1="593" x2="569" y2="513" stroke="#5f7fa0" stroke-width="0.7"/>
+<text x="483" y="553" fill="#5f7fa0" font-size="8.5" text-anchor="middle">CUT-OUT / SERVICE (VOID)</text>
+<path d="M 418.7 418.0 L 417.6 418.0 L 417.6 421.8 L 422.4 421.8 L 422.4 313.9 L 422.4 310.4 L 422.4 309.0 L 418.7 309.0 L 418.7 310.2 L 382.5 310.2 L 382.5 282.8 L 388.1 282.8 L 388.1 279.0 L 382.5 279.0 L 382.5 211.8 L 387.6 211.8 L 387.6 208.0 L 382.5 208.0 L 382.5 204.0 L 378.7 204.0 L 378.7 310.2 L 352.8 310.2 L 351.0 310.2 L 351.0 314.1 L 352.8 314.1 L 352.8 336.1 L 378.7 336.1 L 378.7 418.0 L 351.0 418.0 L 351.0 421.8 L 378.7 421.8 L 382.4 421.8 L 383.6 421.8 L 383.6 418.0 L 382.5 418.0 L 382.5 314.1 L 418.7 314.1 L 418.7 418.0 Z" fill="#f2f6fb" fill-rule="evenodd" stroke="none"/>
+<path d="M 356.6 475.0 L 356.6 474.8 L 367.0 474.8 L 367.0 471.0 L 352.8 471.0 L 352.8 475.0 L 356.6 475.0 Z" fill="#f2f6fb" fill-rule="evenodd" stroke="none"/>
+<path d="M 495.4 1011.6 L 498.7 1005.4 L 501.2 998.9 L 502.7 992.0 L 526.4 827.9 L 530.8 797.4 L 558.3 607.2 L 559.9 596.3 L 627.6 127.4 L 628.0 124.5 L 629.8 112.0 L 150.0 112.0 L 150.0 542.0 L 153.9 542.0 L 153.9 513.4 L 296.6 513.4 L 296.6 498.0 L 292.8 498.0 L 292.8 509.6 L 153.9 509.6 L 153.9 421.8 L 292.8 421.8 L 292.8 458.0 L 296.6 458.0 L 296.6 421.8 L 301.0 421.8 L 301.0 418.0 L 237.1 418.0 L 237.1 314.1 L 301.0 314.1 L 301.0 310.2 L 189.0 310.2 L 189.0 314.1 L 233.3 314.1 L 233.3 418.0 L 153.9 418.0 L 153.9 314.1 L 159.0 314.1 L 159.0 310.2 L 153.9 310.2 L 153.9 115.9 L 352.8 115.9 L 352.8 127.4 L 378.7 127.4 L 378.7 174.0 L 382.5 174.0 L 382.5 170.8 L 418.7 170.8 L 418.7 208.0 L 413.6 208.0 L 413.6 211.8 L 418.7 211.8 L 418.7 279.0 L 413.1 279.0 L 413.1 282.8 L 418.7 282.8 L 418.7 284.0 L 422.4 284.0 L 422.4 282.8 L 422.4 279.0 L 422.4 211.8 L 422.4 208.0 L 422.4 170.8 L 433.2 170.8 L 433.2 167.0 L 382.5 167.0 L 382.5 115.9 L 472.5 115.9 L 472.5 167.0 L 460.8 167.0 L 460.8 170.8 L 472.4 170.8 L 472.4 177.2 L 476.2 177.2 L 476.2 115.9 L 530.0 115.9 L 530.0 178.5 L 533.8 178.5 L 533.8 115.9 L 561.2 115.9 L 561.2 161.7 L 567.8 161.7 L 567.8 157.9 L 565.0 157.9 L 565.0 115.9 L 601.7 115.9 L 601.7 127.4 L 623.6 127.4 L 619.2 157.9 L 590.2 157.9 L 590.2 161.7 L 618.6 161.7 L 611.2 213.0 L 533.8 213.0 L 533.8 203.5 L 530.0 203.5 L 530.0 213.0 L 476.2 213.0 L 476.2 204.8 L 472.4 204.8 L 472.4 213.0 L 472.4 216.8 L 472.4 276.0 L 476.2 276.0 L 476.2 216.8 L 610.7 216.8 L 597.2 310.2 L 573.0 310.2 L 476.2 310.2 L 476.2 306.0 L 472.4 306.0 L 472.4 310.4 L 472.4 313.9 L 472.4 380.0 L 476.2 380.0 L 476.2 314.1 L 573.0 314.1 L 573.0 326.2 L 594.9 326.2 L 582.3 413.0 L 476.2 413.0 L 476.2 410.0 L 472.4 410.0 L 472.4 416.8 L 581.8 416.8 L 574.7 465.8 L 505.2 465.8 L 505.2 469.8 L 509.0 469.8 L 509.0 469.6 L 574.2 469.6 L 571.6 487.6 L 560.2 486.0 L 556.9 509.6 L 509.0 509.6 L 509.0 494.2 L 505.2 494.2 L 505.2 509.6 L 422.4 509.6 L 422.4 471.0 L 413.0 471.0 L 413.0 474.8 L 418.7 474.8 L 418.7 509.6 L 378.7 509.6 L 378.7 497.5 L 356.6 497.5 L 356.6 497.0 L 352.8 497.0 L 352.8 497.5 L 352.8 501.2 L 352.8 513.6 L 378.7 513.6 L 378.7 513.3 L 393.1 513.3 L 393.1 593.2 L 373.8 593.2 L 373.8 593.0 L 352.8 593.0 L 352.8 612.9 L 352.8 616.6 L 352.8 658.5 L 356.6 658.5 L 356.6 616.6 L 373.8 616.6 L 373.8 596.9 L 544.8 596.9 L 541.5 615.7 L 552.8 617.3 L 549.1 643.2 L 466.2 643.2 L 466.2 663.0 L 470.0 663.0 L 470.0 647.0 L 548.6 647.0 L 540.8 701.0 L 470.0 701.0 L 470.0 693.0 L 466.2 693.0 L 466.2 701.0 L 356.6 701.0 L 356.6 693.5 L 352.8 693.5 L 352.8 701.0 L 352.8 704.8 L 352.8 712.5 L 356.6 712.5 L 356.6 704.8 L 466.2 704.8 L 466.2 713.0 L 470.0 713.0 L 470.0 704.8 L 540.2 704.8 L 532.4 758.8 L 470.0 758.8 L 470.0 743.0 L 466.2 743.0 L 466.2 762.5 L 531.9 762.5 L 526.9 796.8 L 510.7 794.5 L 508.6 809.0 L 356.6 809.0 L 356.6 747.5 L 352.8 747.5 L 352.8 809.0 L 352.8 812.8 L 352.8 870.5 L 356.6 870.5 L 356.6 812.8 L 508.1 812.8 L 506.3 825.0 L 522.5 827.3 L 518.2 857.2 L 482.0 857.2 L 482.0 861.0 L 517.7 861.0 L 513.3 891.3 L 501.9 889.7 L 498.9 910.5 L 510.3 912.1 L 509.9 915.0 L 450.0 915.0 L 450.0 861.0 L 452.0 861.0 L 452.0 857.2 L 446.2 857.2 L 446.2 915.0 L 356.6 915.0 L 356.6 905.5 L 352.8 905.5 L 352.8 915.0 L 352.8 918.8 L 352.8 921.5 L 356.6 921.5 L 356.6 918.8 L 446.2 918.8 L 446.2 976.5 L 452.0 976.5 L 452.0 972.8 L 450.0 972.8 L 450.0 918.8 L 509.3 918.8 L 501.5 972.8 L 482.0 972.8 L 482.0 976.5 L 501.0 976.5 L 498.8 991.5 L 497.5 997.8 L 495.2 1003.8 L 492.1 1009.5 L 488.2 1014.7 L 483.7 1019.2 L 478.5 1023.1 L 472.8 1026.2 L 466.8 1028.5 L 460.4 1029.8 L 454.0 1030.3 L 373.8 1030.3 L 373.8 1009.0 L 356.6 1009.0 L 356.6 956.5 L 352.8 956.5 L 352.8 958.0 L 340.3 958.0 L 340.3 961.8 L 352.8 961.8 L 352.8 1009.0 L 352.8 1030.3 L 165.4 1030.3 L 165.4 1009.0 L 153.9 1009.0 L 153.9 903.8 L 166.2 903.8 L 166.2 900.0 L 153.9 900.0 L 153.9 845.8 L 212.0 845.8 L 212.0 900.0 L 193.8 900.0 L 193.8 903.8 L 289.0 903.8 L 289.0 961.8 L 305.3 961.8 L 305.3 958.0 L 292.8 958.0 L 292.8 903.8 L 292.8 891.8 L 289.1 891.8 L 289.1 900.0 L 215.8 900.0 L 215.8 845.8 L 289.1 845.8 L 289.1 864.2 L 292.8 864.2 L 292.8 845.8 L 292.8 842.0 L 292.8 809.8 L 289.1 809.8 L 289.1 842.0 L 207.8 842.0 L 207.8 775.8 L 289.1 775.8 L 289.1 782.2 L 292.8 782.2 L 292.8 775.8 L 292.8 772.0 L 292.8 765.0 L 289.1 765.0 L 289.1 772.0 L 215.8 772.0 L 215.8 766.5 L 212.0 766.5 L 212.0 772.0 L 201.5 772.0 L 201.5 775.8 L 204.0 775.8 L 204.0 842.0 L 153.9 842.0 L 153.9 828.2 L 173.0 828.2 L 173.0 797.4 L 153.9 797.4 L 153.9 775.8 L 176.5 775.8 L 176.5 772.0 L 153.9 772.0 L 153.9 707.8 L 212.0 707.8 L 212.0 741.5 L 215.8 741.5 L 215.8 707.8 L 289.1 707.8 L 289.1 715.0 L 292.8 715.0 L 292.8 707.8 L 292.8 704.0 L 292.8 701.9 L 289.1 701.9 L 289.1 704.0 L 219.0 704.0 L 219.0 667.8 L 289.1 667.8 L 289.1 669.9 L 292.8 669.9 L 292.8 667.8 L 292.8 664.0 L 292.8 661.8 L 289.1 661.8 L 289.1 664.0 L 232.8 664.0 L 232.8 596.9 L 245.0 596.9 L 245.0 593.2 L 232.8 593.2 L 229.0 593.2 L 229.0 599.5 L 229.0 599.5 L 229.0 664.0 L 215.2 664.0 L 215.2 704.0 L 153.9 704.0 L 153.9 629.6 L 197.1 629.6 L 197.1 596.9 L 199.0 596.9 L 199.0 593.2 L 197.1 593.2 L 193.3 593.2 L 167.1 593.2 L 167.1 593.0 L 153.9 593.0 L 153.9 592.0 L 150.0 592.0 L 150.0 593.0 L 150.0 616.6 L 150.0 1034.2 L 454.0 1034.2 L 461.0 1033.7 L 467.9 1032.2 L 474.4 1029.8 L 480.6 1026.4 L 486.2 1022.2 L 491.2 1017.2 L 495.4 1011.6 Z M 167.1 596.9 L 193.3 596.9 L 193.3 625.8 L 153.9 625.8 L 153.9 616.6 L 167.1 616.6 L 167.1 596.9 Z M 505.2 512.9 L 560.2 512.9 L 567.9 512.9 L 556.4 593.0 L 396.4 593.0 L 396.4 513.3 L 396.4 512.9 L 422.4 512.9 L 505.2 512.9 Z" fill="#f2f6fb" fill-rule="evenodd" stroke="none"/>
+<path d="M 292.8 593.2 L 281.0 593.2 L 281.0 596.9 L 289.1 596.9 L 289.1 634.2 L 292.8 634.2 L 292.8 593.2 Z" fill="#f2f6fb" fill-rule="evenodd" stroke="none"/>
+<line x1="634.7" y1="112.7" x2="576.9" y2="513.6" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="637.7" y1="113.1" x2="579.8" y2="514.0" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="565.3" y1="593.7" x2="507.6" y2="992.7" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="568.3" y1="594.1" x2="510.6" y2="993.1" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="507.5" y1="993.3" x2="504.5" y2="1004.6" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="510.4" y1="994.1" x2="507.4" y2="1005.4" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="504.1" y1="1005.7" x2="498.5" y2="1015.9" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="506.7" y1="1007.1" x2="501.1" y2="1017.4" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="497.8" y1="1016.9" x2="489.9" y2="1025.6" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="500.0" y1="1018.9" x2="492.1" y2="1027.6" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="489.0" y1="1026.3" x2="479.3" y2="1032.9" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="490.7" y1="1028.8" x2="481.0" y2="1035.4" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="478.3" y1="1033.4" x2="467.3" y2="1037.5" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="479.3" y1="1036.2" x2="468.4" y2="1040.3" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="466.2" y1="1037.8" x2="454.6" y2="1039.2" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="466.5" y1="1040.8" x2="454.9" y2="1042.1" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="454.0" y1="1039.2" x2="199.0" y2="1039.2" stroke="#7fd4ff" stroke-width="1.0"/>
+<line x1="454.0" y1="1042.2" x2="199.0" y2="1042.2" stroke="#7fd4ff" stroke-width="1.0"/>
+<text x="266" y="216" fill="#f2f6fb" font-size="9.5" font-weight="bold" text-anchor="middle">OPERATION THEATRE</text>
+<text x="266" y="228" fill="#7d9cbd" font-size="7.5" text-anchor="middle">22'-6" × 19'-5"</text>
+<rect x="254.0" y="176.0" width="26.0" height="65.0" fill="none" stroke="#7d9cbd" stroke-width="0.7" transform="rotate(15 254.0 176.0)"/>
+<text x="267" y="211" fill="#7d9cbd" font-size="5.5" text-anchor="middle">OT TABLE</text>
+<rect x="262.0" y="158.0" width="15.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="210.0" y="118.0" width="70.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="326.0" y="142.0" width="18.0" height="26.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="170.0" y="202.0" width="18.0" height="26.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="170.0" y="242.0" width="18.0" height="26.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="194" y="363" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">OT Store</text>
+<text x="194" y="375" fill="#7d9cbd" font-size="7.5" text-anchor="middle">7'-11" × 10'-5"</text>
+<rect x="156.0" y="352.0" width="12.0" height="64.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="219.0" y="317.0" width="12.0" height="98.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="172.0" y="404.0" width="44.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="159.0" y1="312.1" x2="189.0" y2="312.1" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 159.0 312.1 L 159.0 342.1 A 30.0 30.0 0 0 1 189.0 312.1" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="308" y="374" fill="#f2f6fb" font-size="9.5" font-weight="bold" text-anchor="middle">RECOVERY / PRE-OP</text>
+<text x="308" y="386" fill="#7d9cbd" font-size="7.5" text-anchor="middle">≈13'-7" × 10'-5"</text>
+<rect x="243.0" y="317.0" width="32.0" height="68.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="259" y="354" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="280.0" y="317.0" width="32.0" height="68.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="296" y="354" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="275.5" y="317.0" width="4.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="240.0" y="398.0" width="34.0" height="17.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="301.0" y1="312.1" x2="351.0" y2="312.1" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 301.0 312.1 L 301.0 287.1 A 25.0 25.0 0 0 0 326.0 312.1 A 25.0 25.0 0 0 0 351.0 287.1 L 351.0 312.1" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<line x1="301.0" y1="419.9" x2="351.0" y2="419.9" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 301.0 419.9 L 301.0 394.9 A 25.0 25.0 0 0 0 326.0 419.9 A 25.0 25.0 0 0 0 351.0 394.9 L 351.0 419.9" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="223" y="463" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">X-RAY / DRESSING / EMERGENCY</text>
+<text x="223" y="475" fill="#7d9cbd" font-size="7.5" text-anchor="middle">13'-11" × 8'-9"</text>
+<rect x="184.0" y="471.0" width="64.0" height="25.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="216" y="486" fill="#7d9cbd" font-size="5.5" text-anchor="middle">EXAM</text>
+<rect x="206.0" y="424.0" width="60.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="160.0" y="426.0" width="16.0" height="22.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="294.7" y1="458.0" x2="294.7" y2="498.0" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 294.7 458.0 L 254.7 458.0 A 40.0 40.0 0 0 0 294.7 498.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="427" y="138" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">Autoclave / CSSD</text>
+<text x="427" y="150" fill="#7d9cbd" font-size="7.5" text-anchor="middle">9'-0" × 5'-1"</text>
+<rect x="385.0" y="118.0" width="56.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="433.2" y1="168.9" x2="460.8" y2="168.9" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 433.2 168.9 L 433.2 141.4 A 27.5 27.5 0 0 0 460.8 168.9" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="401" y="191" fill="#f2f6fb" font-size="5.5" text-anchor="middle">Scrub</text>
+<rect x="405.0" y="173.0" width="12.0" height="11.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="405.0" y="186.0" width="12.0" height="11.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="380.6" y1="174.0" x2="380.6" y2="204.0" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 380.6 174.0 L 350.6 174.0 A 30.0 30.0 0 0 0 380.6 204.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="401" y="247" fill="#f2f6fb" font-size="5.5" text-anchor="middle">OT Change</text>
+<rect x="384.0" y="214.0" width="11.0" height="42.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="388.1" y1="280.9" x2="413.1" y2="280.9" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 388.1 280.9 L 388.1 255.9 A 25.0 25.0 0 0 0 413.1 280.9" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="401" y="298" fill="#f2f6fb" font-size="5.5" text-anchor="middle">OT air-lock</text>
+<line x1="420.6" y1="284.0" x2="420.6" y2="309.0" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 420.6 284.0 L 395.6 284.0 A 25.0 25.0 0 0 0 420.6 309.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="401" y="363" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">OPD 2 · Plaster bay</text>
+<text x="401" y="375" fill="#7d9cbd" font-size="7.5" text-anchor="middle">3'-8" × 10'-5"</text>
+<rect x="384.5" y="317.0" width="22.5" height="60.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="396" y="350" fill="#7d9cbd" font-size="5.5" text-anchor="middle">EXAM</text>
+<rect x="385.0" y="384.0" width="16.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="503" y="161" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">DRS' LOUNGE</text>
+<text x="503" y="173" fill="#7d9cbd" font-size="7.5" text-anchor="middle">5'-5" × 9'-9"</text>
+<rect x="479.0" y="118.0" width="48.0" height="22.0" fill="none" stroke="#7d9cbd" stroke-width="0.7" transform="rotate(180 479.0 118.0)"/>
+<text x="503" y="132" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="512.0" y="194.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="474.3" y1="177.2" x2="474.3" y2="204.8" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 474.3 177.2 L 501.8 177.2 A 27.5 27.5 0 0 1 474.3 204.8" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<circle cx="593" cy="143" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="593" y="146" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
+<rect x="586.0" y="118.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7" transform="rotate(180 586.0 118.0)"/>
+<rect x="568.0" y="118.0" width="13.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="567.8" y1="159.8" x2="590.2" y2="159.8" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 567.8 159.8 L 567.8 182.3 A 22.5 22.5 0 0 1 590.2 159.8" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="574" y="184" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">Drs' Rest + WC</text>
+<text x="574" y="196" fill="#7d9cbd" font-size="7.5" text-anchor="middle">≈8'-1" × 9'-9" incl. WC</text>
+<rect x="544.0" y="182.0" width="62.0" height="28.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="575" y="198" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="536.0" y="118.0" width="13.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="531.9" y1="178.5" x2="531.9" y2="203.5" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 531.9 178.5 L 556.9 178.5 A 25.0 25.0 0 0 1 531.9 203.5" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="540" y="260" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">OPD 3 · Psychiatry</text>
+<text x="540" y="272" fill="#7d9cbd" font-size="7.5" text-anchor="middle">≈12'-9" × 9'-4"</text>
+<rect x="506.0" y="235.0" width="46.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="529" y="248" fill="#7d9cbd" font-size="5.5" text-anchor="middle">DESK</text>
+<rect x="522.0" y="219.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="509.0" y="258.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="531.0" y="258.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="566.0" y="226.0" width="23.0" height="52.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="578" y="254" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="572.0" y="288.0" width="13.0" height="13.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="474.3" y1="276.0" x2="474.3" y2="306.0" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 474.3 276.0 L 504.3 276.0 A 30.0 30.0 0 0 1 474.3 306.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="532" y="367" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">OPD 1 · Ortho</text>
+<text x="532" y="379" fill="#7d9cbd" font-size="7.5" text-anchor="middle">≈11'-1" × 9'-11"</text>
+<rect x="552.0" y="338.0" width="22.5" height="60.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="563" y="370" fill="#7d9cbd" font-size="5.5" text-anchor="middle">EXAM</text>
+<rect x="496.0" y="332.0" width="46.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="519" y="344" fill="#7d9cbd" font-size="5.5" text-anchor="middle">DESK</text>
+<rect x="512.0" y="317.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="498.0" y="355.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="520.0" y="355.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="474.3" y1="380.0" x2="474.3" y2="410.0" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 474.3 380.0 L 504.3 380.0 A 30.0 30.0 0 0 1 474.3 410.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="388" y="488" fill="#f2f6fb" font-size="5.5" text-anchor="middle">RECEPTION</text>
+<rect x="367.0" y="477.0" width="46.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="354.7" y1="475.0" x2="354.7" y2="497.0" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 354.7 475.0 L 376.7 475.0 A 22.0 22.0 0 0 1 354.7 497.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<circle cx="534" cy="499" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="534" y="502" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
+<rect x="540.0" y="487.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="546.0" y="472.0" width="12.0" height="11.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="507.1" y1="469.8" x2="507.1" y2="494.2" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 507.1 469.8 L 531.6 469.8 A 24.5 24.5 0 0 1 507.1 494.2" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="180" y="609" fill="#f2f6fb" font-size="5.5" text-anchor="middle">Duct</text>
+<text x="191" y="644" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">BP / ECG</text>
+<text x="191" y="656" fill="#7d9cbd" font-size="7.5" text-anchor="middle">7'-6" wide, L-shape</text>
+<rect x="156.0" y="677.0" width="57.0" height="22.5" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="184" y="691" fill="#7d9cbd" font-size="5.5" text-anchor="middle">EXAM</text>
+<rect x="157.0" y="632.0" width="30.0" height="17.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="165.0" y="650.0" width="13.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="199.0" y1="595.0" x2="229.0" y2="595.0" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 199.0 595.0 L 199.0 625.0 A 30.0 30.0 0 0 1 229.0 595.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="261" y="627" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">PHARMACY</text>
+<text x="261" y="639" fill="#7d9cbd" font-size="7.5" text-anchor="middle">5'-8" × 6'-9"</text>
+<rect x="245.0" y="599.0" width="36.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="234.5" y="618.0" width="11.0" height="44.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="290.9" y1="634.2" x2="290.9" y2="661.8" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 290.9 634.2 L 263.4 634.2 A 27.5 27.5 0 0 0 290.9 661.8" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="254" y="688" fill="#f2f6fb" font-size="5.5" text-anchor="middle">Obs. Bed</text>
+<rect x="221.0" y="671.0" width="65.0" height="29.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="254" y="688" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<text x="183" y="737" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">Staff Change</text>
+<text x="183" y="749" fill="#7d9cbd" font-size="7.5" text-anchor="middle">5'-10" × 6'-5"</text>
+<rect x="156.0" y="710.0" width="12.0" height="59.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="213.9" y1="741.5" x2="213.9" y2="766.5" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 213.9 741.5 L 188.9 741.5 A 25.0 25.0 0 0 0 213.9 766.5" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="252" y="737" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">NURSING STN.</text>
+<text x="252" y="749" fill="#7d9cbd" font-size="7.5" text-anchor="middle">7'-4" × 6'-5"</text>
+<rect x="273.0" y="715.0" width="14.0" height="50.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="254.0" y="732.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="218.0" y="710.0" width="44.0" height="11.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="188" y="815" fill="#f2f6fb" font-size="5.5" text-anchor="middle">Store</text>
+<rect x="156.0" y="830.0" width="46.0" height="10.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="192.0" y="804.0" width="10.0" height="25.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="176.5" y1="773.9" x2="201.5" y2="773.9" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 176.5 773.9 L 176.5 798.9 A 25.0 25.0 0 0 1 201.5 773.9" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="248" y="806" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">Duty Dr / Staff Rest</text>
+<text x="248" y="818" fill="#7d9cbd" font-size="7.5" text-anchor="middle">8'-2" × 6'-8"</text>
+<rect x="210.0" y="813.0" width="65.0" height="27.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="242" y="829" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="210.0" y="778.0" width="36.0" height="10.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="290.9" y1="782.2" x2="290.9" y2="809.8" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 290.9 782.2 L 263.4 782.2 A 27.5 27.5 0 0 0 290.9 809.8" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<circle cx="183" cy="873" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="183" y="876" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
+<rect x="156.0" y="848.0" width="17.0" height="24.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="177.0" y="848.0" width="13.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="194.0" y="849.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7" transform="rotate(180 194.0 849.0)"/>
+<line x1="166.2" y1="901.9" x2="193.8" y2="901.9" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 166.2 901.9 L 166.2 929.4 A 27.5 27.5 0 0 1 193.8 901.9" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="252" y="870" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">Pantry</text>
+<text x="252" y="882" fill="#7d9cbd" font-size="7.5" text-anchor="middle">7'-4" × 5'-5"</text>
+<rect x="218.0" y="848.0" width="60.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="218.0" y="877.0" width="18.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="290.9" y1="864.2" x2="290.9" y2="891.8" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 290.9 864.2 L 263.4 864.2 A 27.5 27.5 0 0 0 290.9 891.8" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="411" y="669" fill="#f2f6fb" font-size="9.5" font-weight="bold" text-anchor="middle">ROOM 1</text>
+<text x="411" y="681" fill="#7d9cbd" font-size="7.5" text-anchor="middle">≈19'-2" × 10'-5" incl. toilet</text>
+<rect x="400.0" y="599.0" width="33.0" height="68.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="416" y="636" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="435.0" y="599.0" width="14.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="359.0" y="619.0" width="20.0" height="36.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="369" y="640" fill="#7d9cbd" font-size="5.5" text-anchor="middle">WARD.</text>
+<rect x="480.0" y="599.0" width="54.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7" transform="rotate(180 480.0 599.0)"/>
+<text x="507" y="613" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="400.0" y="694.0" width="34.0" height="5.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="354.7" y1="658.5" x2="354.7" y2="693.5" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 354.7 658.5 L 389.7 658.5 A 35.0 35.0 0 0 1 354.7 693.5" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<circle cx="507" cy="674" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="507" y="677" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
+<rect x="503.0" y="679.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="480.0" y="687.0" width="13.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="521.0" y="649.0" width="22.0" height="24.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="468.1" y1="663.0" x2="468.1" y2="693.0" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 468.1 663.0 L 438.1 663.0 A 30.0 30.0 0 0 0 468.1 693.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="411" y="731" fill="#f2f6fb" font-size="9.5" font-weight="bold" text-anchor="middle">ROOM 2</text>
+<text x="411" y="743" fill="#7d9cbd" font-size="7.5" text-anchor="middle">≈17'-7" × 10'-5" incl. toilet</text>
+<rect x="400.0" y="739.0" width="33.0" height="68.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="416" y="776" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="435.0" y="792.0" width="14.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="359.0" y="758.0" width="20.0" height="46.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="369" y="783" fill="#7d9cbd" font-size="5.5" text-anchor="middle">WARD.</text>
+<rect x="458.0" y="784.0" width="44.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="480" y="798" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="400.0" y="707.0" width="34.0" height="5.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="354.7" y1="712.5" x2="354.7" y2="747.5" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 354.7 712.5 L 389.7 712.5 A 35.0 35.0 0 0 1 354.7 747.5" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<circle cx="503" cy="732" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="503" y="735" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
+<rect x="503.0" y="707.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7" transform="rotate(180 503.0 707.0)"/>
+<rect x="480.0" y="707.0" width="13.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="513.0" y="732.0" width="20.0" height="24.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="468.1" y1="713.0" x2="468.1" y2="743.0" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 468.1 713.0 L 438.1 713.0 A 30.0 30.0 0 0 0 468.1 743.0" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="401" y="883" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">ROOM 3</text>
+<text x="401" y="895" fill="#7d9cbd" font-size="7.5" text-anchor="middle">≈16'-1" × 10'-3" incl. toilet</text>
+<rect x="397.0" y="815.0" width="33.0" height="68.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="414" y="852" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="432.0" y="815.0" width="13.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="359.0" y="816.0" width="20.0" height="44.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="369" y="841" fill="#7d9cbd" font-size="5.5" text-anchor="middle">WARD.</text>
+<rect x="452.0" y="815.0" width="50.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7" transform="rotate(180 452.0 815.0)"/>
+<text x="477" y="829" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="397.0" y="908.0" width="34.0" height="5.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="354.7" y1="870.5" x2="354.7" y2="905.5" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 354.7 870.5 L 389.7 870.5 A 35.0 35.0 0 0 1 354.7 905.5" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<circle cx="483" cy="875" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="483" y="878" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
+<rect x="454.0" y="893.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="475.0" y="901.0" width="13.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="490.0" y="863.0" width="22.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="452.0" y1="859.1" x2="482.0" y2="859.1" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 452.0 859.1 L 452.0 829.1 A 30.0 30.0 0 0 0 482.0 859.1" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="401" y="945" fill="#f2f6fb" font-size="8" font-weight="bold" text-anchor="middle">ROOM 4</text>
+<text x="401" y="957" fill="#7d9cbd" font-size="7.5" text-anchor="middle">≈14'-6" × 11'-2" incl. toilet</text>
+<rect x="397.0" y="921.0" width="33.0" height="68.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="414" y="958" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="432.0" y="921.0" width="13.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="359.0" y="964.0" width="20.0" height="43.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="369" y="988" fill="#7d9cbd" font-size="5.5" text-anchor="middle">WARD.</text>
+<rect x="386.0" y="1005.0" width="54.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="413" y="1019" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="440.0" y="981.0" width="5.0" height="32.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="354.7" y1="921.5" x2="354.7" y2="956.5" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 354.7 921.5 L 389.7 921.5 A 35.0 35.0 0 0 1 354.7 956.5" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<circle cx="478" cy="946" r="7" fill="none" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="478" y="949" fill="#f2f6fb" font-size="7" text-anchor="middle">T</text>
+<rect x="454.0" y="921.0" width="15.0" height="20.0" fill="none" stroke="#7d9cbd" stroke-width="0.7" transform="rotate(180 454.0 921.0)"/>
+<rect x="475.0" y="921.0" width="13.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="480.0" y="947.0" width="20.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="452.0" y1="974.6" x2="482.0" y2="974.6" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 452.0 974.6 L 452.0 1004.6 A 30.0 30.0 0 0 1 482.0 974.6" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="253" y="982" fill="#f2f6fb" font-size="9.5" font-weight="bold" text-anchor="middle">SUITE ROOM 5</text>
+<text x="253" y="994" fill="#7d9cbd" font-size="7.5" text-anchor="middle">≈19'-11" × 12'-8" (L) + bath</text>
+<rect x="220.0" y="906.0" width="35.0" height="70.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="238" y="944" fill="#7d9cbd" font-size="5.5" text-anchor="middle">BED</text>
+<rect x="256.0" y="906.0" width="14.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="205.0" y="906.0" width="14.0" height="15.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="156.0" y="942.0" width="20.0" height="50.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="166" y="970" fill="#7d9cbd" font-size="5.5" text-anchor="middle">WARD.</text>
+<rect x="234.0" y="1005.0" width="60.0" height="23.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="264" y="1019" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="214.0" y="1008.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="328.0" y="978.0" width="23.0" height="46.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="340" y="1003" fill="#7d9cbd" font-size="5.5" text-anchor="middle">SOFA</text>
+<rect x="176.0" y="1008.0" width="30.0" height="18.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<line x1="305.3" y1="959.9" x2="340.3" y2="959.9" stroke="#0d2a4a" stroke-width="5"/>
+<path d="M 305.3 959.9 L 305.3 994.9 A 35.0 35.0 0 0 1 340.3 959.9" fill="none" stroke="#ffd166" stroke-width="0.9"/>
+<text x="509" y="444" fill="#7d9cbd" font-size="8" font-style="italic" text-anchor="middle">WAITING AREA (19 seats)</text>
+<rect x="482.0" y="421.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="500.0" y="421.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="518.0" y="421.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="536.0" y="421.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="554.0" y="421.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="463.0" y="452.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="481.0" y="452.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="499.0" y="452.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="517.0" y="452.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="535.0" y="452.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="553.0" y="452.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="432.0" y="494.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="450.0" y="494.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="468.0" y="494.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="432.0" y="476.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="450.0" y="476.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="360.0" y="424.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="378.0" y="424.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="396.0" y="424.0" width="14.0" height="14.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="430.0" y="422.0" width="12.0" height="12.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<rect x="562.0" y="448.0" width="13.0" height="13.0" fill="none" stroke="#7d9cbd" stroke-width="0.7"/>
+<text x="325" y="464" fill="#7d9cbd" font-size="8" font-style="italic" text-anchor="middle">LOBBY</text>
+<text x="447" y="237" fill="#7d9cbd" font-size="8" font-style="italic" text-anchor="middle">OPD PASSAGE 5'-0"</text>
+<text x="220" y="533" fill="#7d9cbd" font-size="8" font-style="italic" text-anchor="middle">ENTRY PASSAGE 8'-0"</text>
+<text x="374" y="554" fill="#7d9cbd" font-size="8" font-style="italic" text-anchor="middle">trolley /
+wheelchair bay</text>
+<text x="323" y="772" fill="#7d9cbd" font-size="8" font-style="italic" text-anchor="middle">WARD PASSAGE 6'-0"</text>
+<line x1="150.0" y1="542.0" x2="150.0" y2="592.0" stroke="#ffd166" stroke-width="3"/>
+<text x="92" y="570" fill="#ffd166" font-size="9" font-weight="bold" text-anchor="end">MAIN ENTRY 5'-0"</text>
+<polygon points="352.8,115.3 352.8,127.4 378.7,127.4 378.7,115.3 352.8,115.3" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="628.0,115.3 601.7,115.3 601.7,127.4 627.6,127.4 628.0,124.5 628.0,115.3" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="352.8,310.2 352.8,336.1 378.7,336.1 378.7,310.2 352.8,310.2" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="599.5,310.2 573.0,310.2 573.0,326.2 598.9,326.2 599.5,321.8 599.5,310.2" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="352.8,497.5 352.8,513.6 378.7,513.6 378.7,497.5 352.8,497.5" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="569.0,509.6 572.0,487.7 560.2,486.0 556.9,509.6 569.0,509.6" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="352.8,593.0 352.8,616.6 373.8,616.6 373.8,593.0 352.8,593.0" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="541.5,615.7 556.7,617.9 559.9,596.3 544.9,596.3 541.5,615.7" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="167.1,616.6 167.1,593.0 150.0,593.0 150.0,616.6 167.1,616.6" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="153.3,797.4 153.3,828.2 173.0,828.2 173.0,797.4 153.3,797.4" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="153.3,1009.0 153.3,1031.0 165.4,1031.0 165.4,1009.0 153.3,1009.0" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="352.8,1009.0 352.8,1031.0 373.8,1031.0 373.8,1009.0 352.8,1009.0" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="510.7,794.5 506.3,825.0 526.4,827.9 530.8,797.4 510.7,794.5" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<polygon points="501.9,889.7 498.9,910.5 514.2,912.7 517.2,891.9 501.9,889.7" fill="#ffd166" fill-opacity="0.55" stroke="#ffd166" stroke-width="0.8"/>
+<line x1="150" y1="86" x2="630" y2="86" stroke="#f2f6fb" stroke-width="0.7"/>
+<line x1="147" y1="89" x2="153" y2="83" stroke="#f2f6fb" stroke-width="0.8"/>
+<line x1="627" y1="89" x2="633" y2="83" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="390" y="81" fill="#f2f6fb" font-size="10" text-anchor="middle">47'-11¾"</text>
+<line x1="114" y1="112" x2="114" y2="1034" stroke="#f2f6fb" stroke-width="0.7"/>
+<line x1="111" y1="115" x2="117" y2="109" stroke="#f2f6fb" stroke-width="0.8"/>
+<line x1="111" y1="1037" x2="117" y2="1031" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="108" y="573" fill="#f2f6fb" font-size="10" text-anchor="middle" transform="rotate(-90 108 573)">92'-2¾"</text>
+<line x1="132" y1="112" x2="132" y2="542" stroke="#f2f6fb" stroke-width="0.7"/>
+<line x1="129" y1="115" x2="135" y2="109" stroke="#f2f6fb" stroke-width="0.8"/>
+<line x1="129" y1="545" x2="135" y2="539" stroke="#f2f6fb" stroke-width="0.8"/>
+<text x="126" y="327" fill="#f2f6fb" font-size="10" text-anchor="middle" transform="rotate(-90 126 327)">43'-0"</text>
+<rect x="150" y="1082" width="50" height="6" fill="#f2f6fb" stroke="#f2f6fb" stroke-width="0.7"/>
+<rect x="200" y="1082" width="50" height="6" fill="#0d2a4a" stroke="#f2f6fb" stroke-width="0.7"/>
+<rect x="250" y="1082" width="50" height="6" fill="#f2f6fb" stroke="#f2f6fb" stroke-width="0.7"/>
+<rect x="300" y="1082" width="50" height="6" fill="#0d2a4a" stroke="#f2f6fb" stroke-width="0.7"/>
+<text x="150" y="1100" fill="#f2f6fb" font-size="8" text-anchor="middle">0'</text>
+<text x="200" y="1100" fill="#f2f6fb" font-size="8" text-anchor="middle">5'</text>
+<text x="250" y="1100" fill="#f2f6fb" font-size="8" text-anchor="middle">10'</text>
+<text x="300" y="1100" fill="#f2f6fb" font-size="8" text-anchor="middle">15'</text>
+<text x="350" y="1100" fill="#f2f6fb" font-size="8" text-anchor="middle">20'</text>
+<path d="M 675 952 l -5 -14 l 5 4 l 5 -4 Z" fill="#f2f6fb"/>
+<text x="675" y="964" fill="#f2f6fb" font-size="10" font-weight="bold" text-anchor="middle">N</text>
+<text x="675" y="930" fill="#7d9cbd" font-size="7.5" text-anchor="middle">NORTH ↓</text>
+<text x="390" y="65" fill="#7d9cbd" font-size="9" text-anchor="middle" letter-spacing="2">SOUTH — SERVICE STRIP BEYOND</text>
+<text x="665" y="412" fill="#7fd4ff" font-size="9" text-anchor="middle" letter-spacing="1.5" transform="rotate(-90 665 412)">WEST — OPENABLE GLASS · VIEWS</text>
+<text x="24" y="1136" fill="#7d9cbd" font-size="8">PATIENT WC: BUILDER'S x06 TOILET KEPT OFF THE WAITING AREA · COLUMNS FROM THE DWG</text>
+<text x="24" y="1148" fill="#7d9cbd" font-size="8">OT SUITE ENTERED ONLY VIA RECOVERY (PATIENTS) / SCRUB (STAFF)</text>
+<text x="24" y="1160" fill="#7d9cbd" font-size="8">SCALE: USE THE BAR · CONCEPT FOR REVIEW, TO BE VERIFIED BY THE PROJECT ARCHITECT</text>
+</svg>

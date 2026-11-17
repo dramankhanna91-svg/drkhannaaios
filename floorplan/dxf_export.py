@@ -4,6 +4,7 @@ from ezdxf.enums import TextEntityAlignment
 
 from plan_model import (PLATE, CUTOUT, GLASS_WEST, GLASS_NORTH, LAYOUTS,
                         wall_bands)
+from layout_g import with_geometry, dxf_extras
 
 LAYERS = {
     "PLATE":     {"color": 7, "lineweight": 50},
@@ -17,6 +18,7 @@ LAYERS = {
 }
 
 
+@with_geometry
 def export_dxf(key, out_path):
     _, factory = LAYOUTS[key]
     rooms = factory()
@@ -72,6 +74,8 @@ def export_dxf(key, out_path):
             msp.add_lwpolyline([(x, y), (x + w, y), (x + w, y + h), (x, y + h)], close=True,
                                dxfattribs={"layer": "FURNITURE"})
 
+    if key == "G":
+        dxf_extras(doc, msp)
     doc.saveas(out_path)
     auditor = doc.audit()
     return len(auditor.errors)

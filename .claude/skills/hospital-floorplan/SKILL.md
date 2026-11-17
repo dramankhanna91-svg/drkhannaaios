@@ -37,6 +37,14 @@ branch `claude/hospital-floorplan-design-p9mczs`, commit and push when done.
    - `python3 -c "from score import comparison_table; print(comparison_table()[0])"` — HospitalEdgeWeigths corridor-L1 scores
 4. Visual check every regenerated PNG (Read it) before delivering.
 
+## Layout G (DWG geometry)
+`floorplan/layout_g.py` holds Layout G (key `'G'`): rooms, the real outline
+(inner/outer wall faces, 14 columns, cut-out, lift core) taken from
+`floorplan/source/solaris_typical_5_7_10.dxf`, its own sheet renderer and
+`checks()`. `python3 layout_g.py` prints overlaps, passage widths, travel
+distance and the Rev C deviations. Outputs `layout_G_*`; blueprint:
+`python3 blueprint_svg.py G`. See `deliverables/LAYOUT_G_BRIEF_AND_FEASIBILITY.md`.
+
 ## Blueprint SVG output spec (AI-CAD / Rayon style)
 Self-contained SVG only — no external refs. Double-line walls come from
 `wall_bands()` fills; door swing arcs; thin parallel window lines on the
