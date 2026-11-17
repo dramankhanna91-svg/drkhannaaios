@@ -125,7 +125,10 @@ HATCHES_H = [
     (20.65, 8.3, 2.4, "v", "pass box"),
 ]
 
-ACCESSIBLE_H = {"wc_acc", "wcW2"}        # 5'-0" turning circle drawn
+ACCESSIBLE_H = {"wc_acc", "wcW1", "wcW2", "wcW3"}     # 5'-0" turning circle drawn
+_COLS_H = unary_union(list(COLUMNS_H.values()))
+# single-leaf doors hinged at the high-coordinate jamb: (cx, cy)
+HINGE_HI = set()
 
 
 def fi(v):
@@ -144,6 +147,8 @@ class RoomH(Room):
         p = p.difference(CUTOUT_H.buffer(EXT, join_style=2))
         for hx, hy, hw, hh in self.holes:
             p = p.difference(box(hx, hy, hx + hw, hy + hh).buffer(T, join_style=2))
+        if self.zone == "inpatient" or self.key.startswith(("wcW", "wcN")):
+            p = p.difference(_COLS_H)        # IPD: clear floor excludes RCC columns
         return p
 
 
@@ -163,31 +168,55 @@ def R(key, name, x1, y1, x2, y2, zone, doors=(), furniture=(), holes=(), notes="
                  notes=notes)
 
 
-def _twin(n, y1, y2, tx2, ty2, beds_x, ward_x, door_cy, door_w=3.75, acc=False, wc=None,
-          tdoor="S", extra=(), chairs=(), ward_w=1.6):
-    """Twin-sharing room on the west glass: ensuite at the passage end on the
-    south side, entry vestibule on the north side, bed heads on the solid
-    south wall, clear aisle along the feet, full window bay free."""
-    x1 = 18.375
-    key = f"twin{n}"
-    furn = [("wardrobe", ward_x, y1 + 0.15, ward_w, 4.0, 0)]
-    for bx in beds_x:
-        furn += [("bed", bx, y1 + 0.12, 3.25, 6.6, 180)]
-    furn += [("side", beds_x[0] + 3.35, y1 + 0.15, 1.2, 1.4, 0),
-             ("side", beds_x[1] - 1.3, y1 + 0.15, 1.2, 1.4, 0)]
-    furn += [("chair", cx_, cy_, 1.5, 1.5, 0) for cx_, cy_ in chairs]
-    furn += list(extra)
-    room = R(key, f"TWIN SHARING {n}", x1, y1, 49.0, y2, "inpatient",
-             doors=[(x1 - T / 2, door_cy, door_w, "E")], furniture=furn,
-             holes=[(x1, y1, tx2, ty2)],
-             notes="2 beds, heads on the solid south wall; ensuite; full-width window")
-    tcx = tx2 - 1.7
-    toilet = R(f"wcW{n}", "T (Acc.)" if acc else "T", x1, y1, tx2, ty2, "wet",
-               doors=[(tcx, ty2 + T / 2, 3.0 if acc else 2.6, tdoor)],
-               furniture=wc or [("wc", x1 + 0.4, y1 + 0.4, 1.6, 2.2, 0),
-                                ("sink", x1 + 2.1, y1 + 0.4, 1.0, 1.0, 0),
-                                ("shower", tx2 - 2.2, y1 + 0.3, 2.0, 2.0, 0)])
+X1 = 18.375          # east clear face of the west ward rooms (6'-6" passage)
+TW, TD = 6.0, 7.0    # ensuite: 6'-0" (E-W) x 7'-0" (N-S) = wheelchair size
+
+
+def _twin(n, y1, y2, head, door_cy, hinge_hi, furn, door_w=3.75):
+    """Twin-sharing room on the west glass, drawn with true-size furniture.
+
+    head 'S' / 'N' = the solid wall the two bed heads stand on.  The 6' x 7'
+    ensuite sits in the passage-side corner on the head side, so its 7' depth
+    lines up with the 7' beds; the other side is a 6'-2" to 8'-0" deep zone
+    (entry + foot aisle + attendant sofa) that runs clear to the window."""
+    ty1, ty2 = (y1, y1 + TD) if head == "S" else (y2 - TD, y2)
+    side = "south" if head == "S" else "north"
+    room = R(f"twin{n}", f"TWIN SHARING {n}", X1, y1, 49.0, y2, "inpatient",
+             doors=[(X1 - T / 2, door_cy, door_w, "E")], furniture=furn,
+             holes=[(X1, ty1, X1 + TW, ty2)],
+             notes=f"2 beds 3'-3\" x 7'-0\", heads on the solid {side} wall; "
+                   "lockers, wardrobe, attendant sofa; ensuite 6' x 7'")
+    if hinge_hi:
+        HINGE_HI.add((X1 - T / 2, door_cy))
+    tx = X1 + 0.5
+    if head == "S":      # fixtures on the toilet's south wall, door in its north wall
+        tdoor = (X1 + 4.425, ty2 + T / 2, 3.0, "N")
+        fx = [("wc", tx, ty1 + 0.1, 1.6, 2.2, 180), ("sink", tx + 2.6, ty1 + 0.1, 1.3, 1.3, 0),
+              ("shower", X1 + 0.15, ty2 - 2.65, 2.5, 2.5, 0)]
+    else:
+        tdoor = (X1 + 4.425, ty1 - T / 2, 3.0, "S")
+        fx = [("wc", tx, ty2 - 2.3, 1.6, 2.2, 0), ("sink", tx + 2.6, ty2 - 1.4, 1.3, 1.3, 0),
+              ("shower", X1 + 0.15, ty1 + 0.15, 2.5, 2.5, 0)]
+    HINGE_HI.add(tdoor[:2])
+    toilet = R(f"wcW{n}", "T (Acc.)", X1, ty1, X1 + TW, ty2, "wet", doors=[tdoor], furniture=fx)
     return [room, toilet]
+
+
+def _bed(x, y, head):          # N-S bed 3'-3" x 7'-0"; head 'S' or 'N'
+    return ("bed", x, y, 3.25, 7.0, 180 if head == "S" else 0)
+
+
+def _lk(x, y):                 # bedside locker 1'-6" x 1'-6"
+    return ("side", x, y, 1.5, 1.5, 0)
+
+
+# IPD dimension strings: room -> ((x, y) of the E-W string, (x, y) of the N-S string)
+IPD_PTS = {
+    "twin1": ((30.0, 54.55), (26.95, 56.0)),
+    "twin2": ((30.0, 73.65), (35.42, 70.0)),
+    "twin3": ((28.0, 88.3), (24.97, 85.0)),
+    "twin4": ((5.0, 87.4), (7.9, 80.0)),
+}
 
 
 def layout_h_rooms():
@@ -202,8 +231,11 @@ def layout_h_rooms():
       the west glass; X-ray / dressing / plaster sits at its mouth.
     * OPD wing on the west glass; psychiatry at the dead end behind its own
       sub-wait door.
-    * Ward: 6'-6" passage, five twin rooms (10 beds), every bed room with a
-      window and an ensuite; nursing station at the ward door.
+    * Ward: 6'-6" passage, four twin rooms (8 beds) drawn with true-size
+      furniture, every room with a window and an ensuite (three are 6'-0" x
+      7'-0" wheelchair size); nursing station at the ward door.  Rev. of
+      17-11-2026 (IPD fix): the earlier five-room / 10-bed version only worked
+      with under-size bed, locker and wardrobe symbols.
     """
     rooms = [
         # ------------------------------------------------ OT complex (south-east)
@@ -292,33 +324,38 @@ def layout_h_rooms():
           doors=[(11.31, 64.6, 2.6, "W")],
           furniture=[("counter", 5.0, 66.9, 5.8, 1.5, 0), ("sink", 5.2, 63.2, 1.3, 1.3, 0)]),
         # ------------------------------------------------ wards
-        R("twin5", "TWIN SHARING 5", 0.46, 68.975, 11.125, 91.9, "inpatient",
+        R("twin4", "TWIN SHARING 4", 0.46, 68.975, 11.125, 91.9, "inpatient",
           doors=[(11.31, 71.9, 3.75, "W")],
-          holes=[(0.46, 68.975, 6.7, 74.6)],
-          furniture=[("bed", 0.6, 76.3, 6.6, 3.25, 180), ("bed", 0.6, 82.5, 6.6, 3.25, 180),
-                     ("side", 0.6, 79.7, 1.4, 1.2, 0), ("side", 0.6, 81.1, 1.4, 1.2, 0),
-                     ("wardrobe", 9.4, 75.4, 1.6, 4.0, 0), ("sofa", 3.0, 89.3, 5.5, 2.3, 0),
-                     ("chair", 9.3, 84.0, 1.5, 1.5, 0)],
-          notes="North window; heads on the solid east party wall"),
-        R("wcN5", "T", 0.46, 68.975, 6.7, 74.6, "wet",
-          doors=[(6.89, 72.9, 2.6, "W")],
-          furniture=[("wc", 2.9, 69.3, 1.6, 2.2, 0), ("sink", 5.0, 69.3, 1.3, 1.3, 0),
-                     ("shower", 0.7, 72.0, 2.3, 2.3, 0)]),
+          holes=[(0.46, 68.975, 6.46, 77.0)],
+          furniture=[("bed", 0.56, 77.45, 7.0, 3.25, 180), ("bed", 0.56, 83.7, 7.0, 3.25, 180),
+                     _lk(0.56, 80.7), _lk(0.56, 82.2),
+                     ("sofa", 1.7, 89.8, 5.5, 2.0, 0), ("wardrobe", 9.025, 87.8, 2.0, 4.0, 0)],
+          notes="North window; 2 beds, heads on the solid east party wall; attendant sofa under the window"),
+        # column C9 stands in the SE corner: the toilet is 8'-0" deep so that a
+        # clear 6'-0" x 5'-3" remains north of the column
+        R("wcN4", "T", 0.46, 68.975, 6.46, 77.0, "wet",
+          doors=[(6.65, 75.0, 2.75, "W")],
+          furniture=[("wc", 2.7, 69.1, 1.6, 2.2, 180), ("sink", 4.8, 69.1, 1.3, 1.3, 0),
+                     ("shower", 0.6, 74.4, 2.5, 2.5, 0)]),
     ]
     # twin rooms on the west glass (south -> north)
-    rooms += _twin(1, 48.56, 58.9, 25.4, 54.6, (28.0, 34.45), 25.95, 56.95,
-                   chairs=((37.9, 51.2), (37.5, 57.0)),
-                   wc=[("wc", 18.6, 48.9, 1.6, 2.2, 0), ("sink", 20.8, 50.8, 1.3, 1.3, 0),
-                       ("shower", 22.7, 48.8, 2.5, 2.4, 0)])
-    rooms += _twin(2, 59.275, 69.62, 25.6, 65.375, (28.0, 34.15), 26.05, 67.7, acc=True,
-                   chairs=((35.9, 66.4), (34.2, 66.4)),
-                   tdoor="N",
-                   wc=[("wc", 18.8, 59.6, 1.6, 2.2, 0), ("sink", 23.6, 59.7, 1.3, 1.3, 0),
-                       ("shower", 18.6, 63.0, 2.2, 2.2, 0)])
-    rooms += _twin(3, 70.0, 80.0, 23.775, 75.6, (26.3, 32.25), 24.3, 78.0,
-                   chairs=((31.7, 77.0), (33.35, 77.0)))
-    rooms += _twin(4, 80.375, 91.9, 23.775, 85.625, (25.7, 31.7), 24.2, 87.9, door_w=3.5, ward_w=1.4,
-                   chairs=((31.0, 87.5), (31.0, 89.2)))
+    #   1: heads on the solid north wall (ensuite back-to-back with room 2)
+    #   2, 3: heads on the solid south wall
+    rooms += _twin(1, 48.56, 62.56, "N", 52.475, False,
+                   [_bed(27.4, 55.46, "N"), _bed(34.15, 55.46, "N"),
+                    _lk(30.75, 60.96), _lk(32.55, 60.96),
+                    ("wardrobe", 22.6, 48.66, 4.0, 2.0, 0),
+                    ("sofa", 27.3, 48.66, 5.5, 2.0, 180), ("sofa", 33.1, 48.66, 5.5, 2.0, 180)])
+    rooms += _twin(2, 62.935, 76.535, "S", 73.725, True,
+                   [_bed(25.4, 63.035, "S"), _bed(31.65, 63.035, "S"),
+                    _lk(28.65, 63.035), _lk(30.15, 63.035),
+                    ("wardrobe", 25.0, 74.435, 4.0, 2.0, 0), ("sofa", 29.6, 74.435, 5.5, 2.0, 0),
+                    ("chair", 35.2, 72.0, 1.5, 1.5, 0)])
+    rooms += _twin(3, 76.91, 91.9, "S", 86.875, True,
+                   [_bed(24.95, 77.01, "S"), _bed(31.2, 77.01, "S"),
+                    _lk(28.2, 77.01), _lk(29.7, 77.01),
+                    ("wardrobe", 22.7, 89.8, 4.0, 2.0, 0), ("sofa", 26.9, 89.35, 5.5, 2.0, 0),
+                    ("chair", 33.2, 85.2, 1.5, 1.5, 0)])
     # ---------------------------------------------------- circulation anchors
     seats = ([("chair", 21.1 + 1.6 * i, 28.0, 1.5, 1.5, 0) for i in range(3)]
              + [("chair", 33.9 + 1.6 * i, 28.0, 1.5, 1.5, 0) for i in range(5)]
@@ -340,6 +377,16 @@ def layout_h_rooms():
           doors=[(14.75, 48.33, 5.0, "N"), (2.2, 40.01, 2.8, "N")],
           furniture=[("chair", 12.0, 90.0, 1.5, 1.5, 0), ("plant", 16.2, 90.1, 1.4, 1.4, 0)]),
     ]
+    import ipd
+    for r in rooms:                      # schedule sizes = the measured clear strings
+        if r.key in IPD_PTS:
+            (wx, wy), (dx, dy) = IPD_PTS[r.key]
+            a, b = ipd.span(r.poly, wx, wy, "x")
+            c, d = ipd.span(r.poly, dx, dy, "y")
+            r.dims = f"{fi(b - a)} x {fi(d - c)}"
+        elif r.key.startswith(("wcW", "wcN")):
+            tw, td, _ = ipd.toilet_size(r.poly)
+            r.dims = f"{fi(tw)} x {fi(td)}"
     return rooms
 
 

@@ -21,6 +21,7 @@ from shapely.ops import unary_union
 
 import layout_h as H
 from layout_h import fi
+import ipd
 from plan_model import ZONES
 import render as RD
 
@@ -46,12 +47,16 @@ LABELS = {
     "clean": dict(x=3.2, y=64.9, rot=90, fs=6.0),
     "pantry": dict(x=8.3, y=64.9, fs=6.2),
     "duct": dict(x=2.9, y=50.0, fs=5.5),
-    "twin1": dict(x=30.5, y=57.1, fs=7.0),
-    "twin2": dict(x=29.6, y=67.8, fs=7.0),
-    "twin3": dict(x=28.4, y=78.35, fs=7.0),
-    "twin4": dict(x=27.4, y=89.4, fs=7.0),
-    "twin5": dict(x=5.6, y=87.4, fs=7.0),
 }
+# IPD rooms: label in the clear floor (never over a bed), W / D dimension strings
+# (x, y, text position along the string, text offset)
+IPD_H = {     # label position; text position / offset on the W and D strings (points: H.IPD_PTS)
+    "twin1": dict(label=(31.6, 52.25), w=(0.5, 0.42), d=(0.62, 0.42)),
+    "twin2": dict(label=(31.0, 71.45), w=(0.55, 0.42), d=(0.22, -0.42)),
+    "twin3": dict(label=(29.3, 85.6), w=(0.5, 0.42), d=(0.64, -0.42)),
+    "twin4": dict(label=(9.75, 81.6), rot=90, w=(0.42, -0.42), d=(0.1, 0.42)),
+}
+IPD_WINDOW = (-3.5, 53.5, 46.2, 97.0)      # close-up crop, plan feet (x0, x1, y0, y1)
 CIRC_LABELS = {
     "wait": dict(x=27.4, y=33.6, fs=8.2, bold=True),
     "gate": dict(x=17.3, y=38.6, fs=5.8),
@@ -115,6 +120,13 @@ def run_checks(rooms):
                 hd = box(x, y - 0.3, x + w, y + 0.1) if rot == 180 else box(x, y + h - 0.1, x + w, y + h + 0.3)
             ok = hd.intersection(walls).area > 0.3 and hd.intersection(glass).area < 0.01
             heads.append((r.key, ok))
+    iss, nb, nh = ipd.audit(rooms, walls, glass)
+    out.append(f"IPD true-size audit ({nb} beds, {nh} heads on solid walls): {iss or 'none'}")
+    for r in rooms:
+        if r.key.startswith(("wcW", "wcN")):
+            tw, td, ta = ipd.toilet_size(r.poly)
+            out.append(f"toilet {r.key}: clear {fi(tw)} x {fi(td)}, {ta:.0f} sf"
+                       + ("" if min(tw, td) >= 4.99 and max(tw, td) >= 5.99 else "  BELOW 5'x6'"))
     out.append(f"beds: {len(heads)} drawn, heads on solid wall: "
                f"{sum(1 for _, ok in heads if ok)}/{len(heads)}"
                + ("" if all(ok for _, ok in heads) else f"  FAIL {[k for k, ok in heads if not ok]}"))
@@ -135,7 +147,7 @@ def _swing_box(cx, cy, w, side):
 # --------------------------------------------------------------- 2D drawing
 def _door(ax, d, z=8):
     cx, cy, w, side = d
-    leaves = [(-1, w / 2), (1, w / 2)] if w >= 4.5 else [(-1, w)]
+    leaves = [(-1, w / 2), (1, w / 2)] if w >= 4.5 else [(1 if (cx, cy) in H.HINGE_HI else -1, w)]
     for hs, r in leaves:
         if side in ("N", "S"):
             sg = 1 if side == "N" else -1
@@ -272,6 +284,18 @@ def render_detailed(out_base):
         if r.zone == "wet":
             keynotes.append((r, cp))
             continue
+        if r.key in IPD_H:
+            o = IPD_H[r.key]
+            (wx, wy), (dx, dy) = H.IPD_PTS[r.key]
+            wl = ipd.dim_string(ax, p, wx, wy, "x", at=o["w"][0], off=o["w"][1])
+            dl = ipd.dim_string(ax, p, dx, dy, "y", at=o["d"][0], off=o["d"][1])
+            nb = sum(1 for f in r.furniture if f[0] == "bed")
+            ax.text(o["label"][0], o["label"][1],
+                    f"{r.name} · {nb} beds\nclear {fi(wl)} × {fi(dl)}\n"
+                    f"{p.area:.0f} sf = {p.area / nb:.0f} sf per bed",
+                    ha="center", va="center", fontsize=5.9, color="#111", zorder=9.2,
+                    linespacing=1.3, rotation=o.get("rot", 0))
+            continue
         o = LABELS.get(r.key, {})
         fs = o.get("fs", 10 if p.area > 200 else (8 if p.area > 90 else 6.5))
         txt = o.get("name", r.name) + ("\n" + r.dims if r.dims else "") + (f"\n{p.area:.0f} sf" if p.area > 45 else "")
@@ -280,8 +304,8 @@ def render_detailed(out_base):
         ax.text(o.get("x", cp.x), o.get("y", cp.y), txt, ha="center", va="center", fontsize=fs,
                 color="#111", weight="bold" if r.name.isupper() or "·" in r.name else "normal",
                 rotation=o.get("rot", 0), zorder=9, linespacing=1.25)
-    KN = {"wc_acc": (38.2, 34.8), "wc_staff": (2.8, 56.2), "wcN5": (4.4, 72.6), "wcW1": (22.6, 52.9),
-          "wcW2": (21.8, 62.3), "wcW3": (21.4, 73.9), "wcW4": (21.4, 84.2)}
+    KN = {"wc_acc": (38.2, 34.8), "wc_staff": (2.8, 56.2), "wcN4": (3.6, 72.6), "wcW1": (22.0, 58.6),
+          "wcW2": (22.0, 66.9), "wcW3": (22.0, 80.9)}
     for r, cp in keynotes:
         x, y = KN.get(r.key, (cp.x, cp.y))
         acc = r.key in H.ACCESSIBLE_H
@@ -289,7 +313,12 @@ def render_detailed(out_base):
             ax.add_patch(Circle((x, y), 2.5, fc="none", ec="#2c6fbb", lw=0.6, ls=(0, (4, 3)), zorder=9))
         ax.add_patch(Circle((x, y), 0.95, fc="white", ec=INK, lw=0.8, zorder=10))
         ax.text(x, y, "T", ha="center", va="center", fontsize=7, weight="bold", color=INK, zorder=11)
-        ax.text(x, y + 1.55, ("Acc. " if acc else "") + r.dims.replace(" avg", "").replace(" x ", "×"),
+        if r.key.startswith(("wcW", "wcN")):
+            tw, td, _ = ipd.toilet_size(r.poly)
+            tdims = f"{fi(tw)}×{fi(td)}"
+        else:
+            tdims = r.dims.replace(" avg", "").replace(" x ", "×")
+        ax.text(x, y + 1.55, ("Acc. " if acc else "") + tdims,
                 ha="center", va="center", fontsize=4.6, color=INK, zorder=11,
                 bbox=dict(fc="white", ec="none", pad=0.4, alpha=0.8))
 
@@ -339,7 +368,7 @@ def render_detailed(out_base):
     # dimensions (clear-space stations = wall centre lines, outer faces at the ends)
     _dim_chain(ax, [0, 20.65, 27.02, 33.4, 48.12], -5.4, "x", side=1)
     _dim_chain(ax, [0, 48.12], -7.6, "x", side=1, fs=8, color=INK)
-    _dim_chain(ax, [0, 9.65, 18.39, 27.59, 40.0, 48.33, 59.09, 69.81, 80.19, 92.36], 51.6, "y", side=1)
+    _dim_chain(ax, [0, 9.65, 18.39, 27.59, 40.0, 48.33, 62.75, 76.72, 92.36], 51.6, "y", side=1)
     _dim_chain(ax, [0, 17.65, 27.59, 40.0, 48.33, 68.79, 92.36], -11.4, "y", side=-1)
     _dim_chain(ax, [0, 92.36], -13.0, "y", side=-1, fs=8, color=INK)
     _dim_chain(ax, [0, 11.31, 18.19, 30.47], 95.6, "x", side=-1)
@@ -356,11 +385,13 @@ def render_detailed(out_base):
     ax.legend(handles=handles, loc="upper left", bbox_to_anchor=(0.02, 0.118), ncol=4, fontsize=7.2,
               frameon=False, columnspacing=1.0, handletextpad=0.5)
 
-    ipd, rec = bed_count(rooms)
+    n_ipd, rec = bed_count(rooms)
     carpet = H.INNER_H.area - H.CUTOUT_H.intersection(H.INNER_H).area
     notes = ("NOTES\n"
              f"1. Geometry from the builder's DWG (typical floor 5/7/10): 48'-1½\" x 92'-4\" over plaster.\n"
-             f"2. Beds: {ipd} in-patient (5 twin rooms, each with window + ensuite) + {rec} recovery.\n"
+             f"2. Beds: {n_ipd} in-patient (4 twin rooms, each with window + ensuite) + {rec} recovery.  IPD furniture is\n"
+             "    drawn at true size: bed 3'-3\" x 7'-0\", locker 1'-6\" sq., wardrobe 2'-0\" x 4'-0\", attendant sofa 2'-0\" x 5'-6\".\n"
+             "    Blue strings in the ward rooms = clear size, plaster face to plaster face, measured on the DWG geometry.\n"
              "3. OT is entered only through Recovery/Pre-op (patients) or Change > Scrub (staff).\n"
              "4. Soiled goods: OT > Dirty Utility > 3'-6\" service passage > door beside the main entry.\n"
              "5. X-ray room is 114 sf: mobile unit only. AERB fixed-unit room (≈194 sf) does NOT fit here.\n"
@@ -385,7 +416,7 @@ def render_detailed(out_base):
             linespacing=1.3)
 
     ax.set_title(f"{H.TITLE_H}\nHospital of Dr. Aman Khanna - 7th Floor, Solaris Shine, Althan, Surat\n"
-                 f"Based on Ar. Bankim Dave's proposal dated 09-01-2026  ·  {ipd} beds + {rec} recovery  ·  "
+                 f"Based on Ar. Bankim Dave's proposal dated 09-01-2026  ·  {n_ipd} beds + {rec} recovery  ·  "
                  f"carpet ≈ {carpet:,.0f} sq ft", fontsize=11.5, pad=14)
 
     # scale bar
@@ -410,8 +441,7 @@ def render_detailed(out_base):
     ax.set_ylim(135.5, -13.5)
     ax.axis("off")
     fig.tight_layout()
-    fig.savefig(out_base + ".png", dpi=200, bbox_inches="tight", facecolor="white")
-    fig.savefig(out_base + ".svg", bbox_inches="tight", facecolor="white")
+    ipd.save_sheet(fig, ax, out_base, IPD_WINDOW, os.path.join(os.path.dirname(out_base), "ipd_H.jpg"))
     plt.close(fig)
 
 

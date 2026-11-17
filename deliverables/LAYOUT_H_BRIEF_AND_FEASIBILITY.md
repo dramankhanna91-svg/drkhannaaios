@@ -1,5 +1,7 @@
 # Layout H — the architect's plan improved, on the builder's DWG geometry
 
+> **Revision 17-11-2026 (IPD fix).** The ward in this brief is superseded by `IPD_COMPARISON.md`, `layout_H_detailed.jpg`, `ipd_H.jpg` and `layout_H_schedule.md`: Layout H now has **8 in-patient beds in 4 twin rooms, not 10 in 5**. The 10-bed ward only fitted with under-size bed, locker and wardrobe symbols; at true size the west side takes three twin rooms 13'-7" to 15'-0" deep (94 to 122 sf per bed, three 6'-0" x 7'-0" wheelchair toilets). Everything south of the ward is unchanged. The text and tables below were not rewritten.
+
 Solaris Shine, 7th floor, Althan, Surat · Dr. Aman Khanna (Orthopaedics) and Dr. Heena (Psychiatry) · 17-11-2026
 
 Base plan: Ar. Bankim Dave, "Proposed Layout Plan for the Hospital of Dr. Aman Khanna at 7th floor", dated 09-01-2026.

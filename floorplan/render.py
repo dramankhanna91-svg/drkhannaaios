@@ -103,15 +103,20 @@ def _furniture(ax, item, z=6, pal=CAD_PALETTE):
     kind, x, y, w, h, rot = item
     thin = dict(lw=0.55, ec="#4a4a4a", zorder=z)
     if kind == "bed":
+        # true-size bed: mattress outline, pillow at the head, blanket fold line
         ax.add_patch(Rectangle((x, y), w, h, fc="white", **thin))
         if w > h:      # lying east-west: head at the west end (east if rot=180)
-            px = x + 0.4 if rot == 180 else x + w - 1.4
-            ax.add_patch(Rectangle((px, y + 0.25), 1.0, h - 0.5, fc=pal["bed_blanket"],
+            hd = x + 0.25 if rot == 180 else x + w - 1.55
+            fold = x + 2.6 if rot == 180 else x + w - 2.6
+            ax.add_patch(Rectangle((hd, y + 0.35), 1.3, h - 0.7, fc=pal["bed_blanket"],
                                    lw=0.4, ec="#4a4a4a", zorder=z))
+            ax.plot([fold, fold], [y, y + h], color="#4a4a4a", lw=0.35, zorder=z)
         else:          # lying north-south: head at the north end (south if rot=180)
-            py = y + 0.4 if rot == 180 else y + h - 1.4
-            ax.add_patch(Rectangle((x + 0.25, py), w - 0.5, 1.0, fc=pal["bed_blanket"],
+            hd = y + 0.25 if rot == 180 else y + h - 1.55
+            fold = y + 2.6 if rot == 180 else y + h - 2.6
+            ax.add_patch(Rectangle((x + 0.35, hd), w - 0.7, 1.3, fc=pal["bed_blanket"],
                                    lw=0.4, ec="#4a4a4a", zorder=z))
+            ax.plot([x, x + w], [fold, fold], color="#4a4a4a", lw=0.35, zorder=z)
     elif kind == "exam":
         ax.add_patch(Rectangle((x, y), w, h, fc="#f4f4f4", **thin))
         ax.plot([x, x + w], [y + h * 0.75, y + h * 0.75], color="#4a4a4a", lw=0.4, zorder=z)
@@ -119,6 +124,11 @@ def _furniture(ax, item, z=6, pal=CAD_PALETTE):
         ax.add_patch(Rectangle((x, y), w, h, fc="#eef2ee", angle=rot, **thin))
         ax.add_patch(Circle((x + w / 2, y + h + 1.1), 0.85, fc="none", lw=0.55,
                             ec="#4a4a4a", zorder=z))
+    elif kind == "side" and abs(w - h) < 0.01 and w <= 1.6:
+        # bedside locker 1'-6" x 1'-6"
+        ax.add_patch(Rectangle((x, y), w, h, fc=pal["desk"], **thin))
+        ax.add_patch(Rectangle((x + 0.3, y + 0.3), w - 0.6, h - 0.6, fc="none", lw=0.35,
+                               ec="#4a4a4a", zorder=z))
     elif kind in ("desk", "side", "cart"):
         ax.add_patch(Rectangle((x, y), w, h, fc=pal["desk"], angle=rot, **thin))
     elif kind == "counter":
@@ -137,15 +147,25 @@ def _furniture(ax, item, z=6, pal=CAD_PALETTE):
         ax.plot([x, x + w], [y, y + h], color="#4a4a4a", lw=0.35, zorder=z)
         ax.plot([x, x + w], [y + h, y], color="#4a4a4a", lw=0.35, zorder=z)
     elif kind == "sofa":
+        # back rest: rot 0 = high-y side, 180 = low-y, 90 = high-x, 270 = low-x
         ax.add_patch(Rectangle((x, y), w, h, fc=pal["chair"], **thin))
-        ax.plot([x + 0.25, x + w - 0.25], [y + h - 0.55, y + h - 0.55],
-                color="#4a4a4a", lw=0.45, zorder=z)
+        b = 0.5
+        if rot == 180:
+            seg = ([x + 0.2, x + w - 0.2], [y + b, y + b])
+        elif rot == 90:
+            seg = ([x + w - b, x + w - b], [y + 0.2, y + h - 0.2])
+        elif rot == 270:
+            seg = ([x + b, x + b], [y + 0.2, y + h - 0.2])
+        else:
+            seg = ([x + 0.2, x + w - 0.2], [y + h - b, y + h - b])
+        ax.plot(*seg, color="#4a4a4a", lw=0.45, zorder=z)
     elif kind == "chair":
         ax.add_patch(Rectangle((x, y), w, h, fc=pal["chair"], lw=0.5, ec="#4a4a4a", zorder=z))
     elif kind == "wc":
-        ax.add_patch(Rectangle((x, y + h * 0.5), w, h * 0.5, fc="white", lw=0.5,
+        t0, bc = (y, y + h * 0.72) if rot == 180 else (y + h * 0.5, y + h * 0.28)
+        ax.add_patch(Rectangle((x, t0), w, h * 0.5, fc="white", lw=0.5,
                                ec="#4a4a4a", zorder=z))
-        ax.add_patch(Circle((x + w / 2, y + h * 0.28), w * 0.4, fc="white", lw=0.5,
+        ax.add_patch(Circle((x + w / 2, bc), w * 0.4, fc="white", lw=0.5,
                             ec="#4a4a4a", zorder=z))
     elif kind == "sink":
         ax.add_patch(Circle((x + w / 2, y + h / 2), min(w, h) * 0.45, fc="white", lw=0.5,

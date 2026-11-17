@@ -80,3 +80,15 @@ bad = [(a.key, b.key, a.poly.intersection(b.poly).area)
 print("overlaps:", bad or "none")
 EOF
 ```
+
+## IPD fix (17-11-2026): Layouts G and H, ward at true furniture size
+
+```bash
+cd floorplan && python3 build_ipd.py
+```
+
+Rebuilds `layout_G_detailed.*` and `layout_H_detailed.*` (PNG, SVG, JPG, DXF), the
+blueprint SVGs and 3D views of G and H, the ward close-ups `ipd_G.jpg` / `ipd_H.jpg`
+and `IPD_COMPARISON.md` (architect vs G vs H, written from the model). Needs Pillow.
+Shared helpers are in `floorplan/ipd.py`: true furniture sizes, measured clear spans,
+in-room dimension strings, the IPD audit and the JPG export.

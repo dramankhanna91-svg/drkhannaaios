@@ -1,5 +1,7 @@
 # Layout G — brief and feasibility
 
+> **Revision 17-11-2026 (IPD fix).** The ward in this brief is superseded by `IPD_COMPARISON.md`, `layout_G_detailed.jpg` and `ipd_G.jpg`: ward furniture is now drawn at true size, the ward toilets are 5'-0" deep and 6'-0" to 6'-9" long (were 5'-5" x 9'-0"), the suite bath is 7'-0" x 6'-0" wheelchair size, Room 3's door is at the south end of its passage wall, and Store / Duty room / Pantry changed size slightly. Room positions and bed count (5) are unchanged. The text and tables below were not rewritten.
+
 Solaris Shine, 7th floor, Althan, Surat · Dr. Aman Khanna (Orthopaedics) and Dr. Heena (Psychiatry) · 17-11-2026
 
 Layout G puts the clients' sketches on the builder's real geometry (walls, columns, cut-out, lift core) instead of the Rev C outline that Layout F used.

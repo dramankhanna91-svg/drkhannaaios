@@ -171,12 +171,19 @@ def _mk(key, name, rect, zone, doors=(), furniture=(), holes=(), notes="",
     return r
 
 
-def _ward_wc(key, x, y, door, wc, sink, shower, label, acc=False):
-    """Ensuite 5'-5" deep: WC + basin + shower, 3'-0" door opening outward."""
-    return _mk(key, "Toilet (Acc.)" if acc else "Toilet", (x, y, 9.0, 5.4), "wet",
-               doors=[door], label=label,
-               furniture=[("wc",) + wc, ("sink",) + sink + (1.3, 1.2, 0),
-                          ("shower",) + shower + (0,)])
+def _ward_wc(key, x, y, door, fixtures, label):
+    """Ward ensuite at the glass: 5'-0" deep (N-S), at least 6'-0" clear E-W,
+    WC + basin + shower, 2'-9" door opening outward into the room."""
+    return _mk(key, "Toilet", (x, y, 9.0, 5.0), "wet", doors=[door], label=label,
+               furniture=list(fixtures))
+
+
+def _bed(x, y, head):          # 3'-3" x 7'-0" bed; head on the 'N' or 'S' wall
+    return ("bed", x, y, 3.25, 7.0, 180 if head == "S" else 0)
+
+
+def _lk(x, y):                 # bedside locker 1'-6" x 1'-6"
+    return ("side", x, y, 1.5, 1.5, 0)
 
 
 def layout_g_rooms():
@@ -299,71 +306,73 @@ def layout_g_rooms():
             doors=[D(14.09, 62.8, 5.0, "v", -1, kind="open")],
             furniture=[("counter", 12.3, 60.3, 1.4, 5.0, 0), ("chair", 10.4, 62.0, 1.4, 1.4, 0),
                        ("shelf", 6.8, 59.8, 4.4, 1.1, 0)], label=(9.6, 64.6)),
-        _mk("store", "Store", (E0, 66.375, 5.01, 6.625), "support",
+        _mk("store", "Store", (E0, 66.375, 5.01, 6.05), "support",
             doors=[D(3.9, 66.19, 2.5, "h", 1)],
-            furniture=[("shelf", 0.6, 71.8, 4.6, 1.0, 0), ("shelf", 4.2, 69.2, 1.0, 2.5, 0)],
+            furniture=[("shelf", 2.5, 71.3, 2.8, 1.0, 0), ("shelf", 4.2, 68.6, 1.0, 2.5, 0)],
             label=(2.7, 67.7)),
-        _mk("duty", "Duty Dr / Staff Rest", (5.775, 66.375, 8.13, 6.625), "support",
+        _mk("duty", "Duty Dr / Staff Rest", (5.775, 66.375, 8.13, 6.05), "support",
             doors=[D(14.09, 68.4, 2.75, "v", -1)],
-            furniture=[("bed", 6.0, 70.1, 6.5, 2.7, 180), ("shelf", 6.0, 66.6, 3.6, 1.0, 0)],
-            label=(8.9, 68.7),
+            furniture=[("bed", 6.0, 69.55, 6.5, 2.7, 180), ("shelf", 6.0, 66.6, 3.6, 1.0, 0)],
+            label=(8.9, 68.5),
             notes="Bunk (2 berths)"),
-        _mk("bath5", "Suite Bath", (E0, 73.375, 5.81, 5.425), "wet",
-            doors=[D(3.0, 78.99, 2.75, "h", 1)],
-            furniture=[("shower", 0.6, 73.6, 1.7, 2.4, 0), ("sink", 2.7, 73.6, 1.3, 1.2, 0),
-                       ("wc", 4.4, 73.7, 1.5, 2.0, 180)]),
-        _mk("pantry", "Pantry", (6.575, 73.375, 7.33, 5.425), "support",
+        # wheelchair-size bath 7'-0" x 6'-0" (5'-0" turning circle), 3'-0" door
+        _mk("bath5", "Suite Bath (Acc.)", (E0, 72.8, 7.0, 6.0), "wet",
+            doors=[D(3.4, 78.99, 3.0, "h", 1)],
+            furniture=[("shower", 0.55, 72.95, 2.5, 2.5, 0), ("sink", 3.6, 72.95, 1.3, 1.2, 0),
+                       ("wc", 5.5, 72.95, 1.6, 2.2, 180)], label=(2.0, 76.4)),
+        _mk("pantry", "Pantry", (7.765, 72.8, 6.14, 6.0), "support",
             doors=[D(14.09, 76.6, 2.75, "v", -1)],
-            furniture=[("counter", 6.8, 73.6, 6.0, 1.5, 0), ("cart", 6.8, 76.5, 1.8, 2.0, 0)],
-            label=(10.3, 76.6)),
+            furniture=[("counter", 7.95, 73.0, 5.7, 1.5, 0), ("cart", 7.95, 76.4, 1.8, 2.0, 0)],
+            label=(11.3, 76.3)),
         # --------------------------- wards on the west glass, toilets paired at the glass
+        # Single rooms, true-size furniture.  The paired ensuites stay at the glass
+        # (clients' sketch) but are 5'-0" deep instead of 5'-5" x 9'-0" long, and sit
+        # on the bed-head side, so the foot side of every room runs clear to the window.
         _mk("room1", "ROOM 1", (20.655, 48.49, 22.0, 10.41), "inpatient",
-            holes=[(31.625, 53.125, 10.5, 5.9)],
-            doors=[D(20.47, 56.4, 3.5, "v", 1, hinge="hi")],
-            furniture=[("bed", 25.0, 48.7, 3.3, 6.8, 180), ("side", 28.5, 48.7, 1.4, 1.5, 0),
-                       ("wardrobe", 20.9, 50.7, 2.0, 3.6, 0), ("sofa", 33.0, 48.7, 5.4, 2.3, 180),
-                       ("tv", 25.0, 58.2, 3.4, 0.5, 0)], label=(28.1, 56.9),
-            dims="≈19'-2\" x 10'-5\" incl. toilet"),
-        _ward_wc("wcR1", 32.0, 53.5, D(31.81, 56.6, 3.0, "v", -1, hinge="hi"),
-                 (35.3, 56.7, 1.5, 2.0, 0), (33.0, 57.5), (37.1, 53.7, 2.2, 2.4), (34.2, 54.9),
-                 acc=True),
+            holes=[(31.925, 53.525, 10.5, 5.6)],
+            doors=[D(20.47, 56.4, 3.5, "v", 1)],
+            furniture=[_bed(27.0, 51.8, "N"), _lk(30.25, 57.3),
+                       ("wardrobe", 22.5, 48.6, 4.0, 2.0, 0),
+                       ("sofa", 33.5, 48.6, 5.5, 2.0, 180)]),
+        _ward_wc("wcR1", 32.3, 53.9, D(33.9, 53.71, 2.75, "h", -1),
+                 [("sink", 32.5, 57.6, 1.3, 1.2, 0), ("wc", 34.3, 56.6, 1.6, 2.2, 0),
+                  ("shower", 36.4, 56.3, 2.5, 2.5, 0)], (35.3, 55.3)),
         _mk("room2", "ROOM 2", (20.655, 59.275, 22.0, 10.425), "inpatient",
-            holes=[(31.625, 59.2, 10.5, 5.85)],
-            doors=[D(20.47, 61.8, 3.5, "v", 1)],
-            furniture=[("bed", 25.0, 62.7, 3.3, 6.8, 0), ("side", 28.5, 68.0, 1.4, 1.5, 0),
-                       ("wardrobe", 20.9, 64.6, 2.0, 4.6, 0), ("sofa", 30.8, 67.2, 4.4, 2.3, 0),
-                       ("tv", 25.0, 59.5, 3.4, 0.5, 0)], label=(28.6, 61.2),
-            dims="≈17'-7\" x 10'-5\" incl. toilet"),
-        _ward_wc("wcR2", 32.0, 59.275, D(31.81, 61.6, 3.0, "v", -1),
-                 (35.3, 59.5, 1.5, 2.0, 180), (33.0, 59.5), (36.3, 62.0, 2.0, 2.4), (34.2, 63.3)),
+            holes=[(31.925, 59.2, 10.5, 5.45)],
+            doors=[D(20.47, 61.8, 3.5, "v", 1, hinge="hi")],
+            furniture=[_bed(26.0, 59.375, "S"), _lk(29.25, 59.375),
+                       ("wardrobe", 20.75, 67.6, 4.0, 2.0, 0),
+                       ("sofa", 30.1, 67.6, 5.5, 2.0, 0)]),
+        _ward_wc("wcR2", 32.3, 59.275, D(33.9, 64.46, 2.75, "h", 1),
+                 [("sink", 32.5, 59.4, 1.3, 1.2, 0), ("wc", 34.3, 59.4, 1.6, 2.2, 180),
+                  ("shower", 36.0, 59.4, 2.5, 2.5, 0)], (35.3, 62.9)),
         _mk("room3", "ROOM 3", (20.655, 70.075, 20.0, 10.225), "inpatient",
-            holes=[(29.625, 74.525, 10.5, 5.9)],
-            doors=[D(20.47, 77.6, 3.5, "v", 1, hinge="hi")],
-            furniture=[("bed", 24.7, 70.3, 3.3, 6.8, 180), ("side", 28.2, 70.3, 1.3, 1.5, 0),
-                       ("wardrobe", 20.9, 70.4, 2.0, 4.4, 0), ("sofa", 30.2, 70.3, 5.0, 2.3, 180),
-                       ("tv", 24.7, 79.6, 3.4, 0.5, 0)], label=(26.0, 78.4),
-            dims="≈16'-1\" x 10'-3\" incl. toilet"),
-        _ward_wc("wcR3", 30.0, 74.9, D(31.7, 74.71, 3.0, "h", -1),
-                 (30.4, 78.1, 1.5, 2.0, 0), (32.5, 78.9), (34.0, 75.1, 2.2, 2.3), (32.2, 76.6)),
+            holes=[(28.525, 74.925, 10.5, 5.6)],
+            doors=[D(20.47, 72.2, 3.5, "v", 1)],
+            furniture=[_bed(25.0, 73.2, "N"), _lk(23.5, 78.7),
+                       ("wardrobe", 20.75, 76.2, 2.0, 4.0, 0),
+                       ("sofa", 30.1, 70.2, 5.5, 2.0, 180)]),
+        _ward_wc("wcR3", 28.9, 75.3, D(30.5, 75.11, 2.75, "h", -1),
+                 [("sink", 29.1, 79.0, 1.3, 1.2, 0), ("wc", 30.9, 78.0, 1.6, 2.2, 0),
+                  ("shower", 32.3, 75.5, 2.5, 2.5, 0)], (31.9, 76.6)),
+        # Room 4 is 14'-6" wide: 5'-0" attendant couch and a 2'-6" wardrobe only
         _mk("room4", "ROOM 4", (20.655, 80.675, 20.0, 11.155), "inpatient",
-            holes=[(29.625, 80.6, 10.5, 5.85)],
-            doors=[D(20.47, 82.7, 3.5, "v", 1)],
-            furniture=[("bed", 24.7, 80.9, 3.3, 6.8, 180), ("side", 28.2, 80.9, 1.3, 1.5, 0),
-                       ("wardrobe", 20.9, 85.2, 2.0, 4.3, 0), ("sofa", 23.6, 89.3, 5.4, 2.3, 0),
-                       ("tv", 29.0, 86.9, 0.5, 3.2, 0)], label=(31.6, 88.9),
-            dims="≈14'-6\" x 11'-2\" incl. toilet"),
-        _ward_wc("wcR4", 30.0, 80.675, D(31.7, 86.26, 3.0, "h", 1),
-                 (30.4, 80.9, 1.5, 2.0, 180), (32.5, 80.9), (33.0, 83.5, 2.0, 2.3), (31.4, 84.0)),
+            holes=[(28.525, 80.6, 10.5, 5.45)],
+            doors=[D(20.47, 82.7, 3.5, "v", 1, hinge="hi")],
+            furniture=[_bed(25.0, 80.775, "S"), _lk(23.5, 80.775),
+                       ("sofa", 20.75, 84.6, 2.0, 5.0, 270),
+                       ("wardrobe", 23.5, 89.73, 2.5, 2.0, 0)]),
+        _ward_wc("wcR4", 28.9, 80.675, D(30.5, 85.86, 2.75, "h", 1),
+                 [("sink", 29.1, 80.8, 1.3, 1.2, 0), ("wc", 30.9, 80.8, 1.6, 2.2, 180),
+                  ("shower", 32.6, 80.8, 2.5, 2.5, 0)], (31.9, 84.3)),
         _mk("suite", "SUITE ROOM 5", (E0, 79.175, 19.89, 12.655), "inpatient",
             holes=[(13.905, 79.175, 6.5, 5.8)],
             doors=[D(17.28, 84.79, 3.5, "h", 1)],
-            furniture=[("bed", 7.0, 79.4, 3.5, 7.0, 180), ("side", 10.6, 79.4, 1.4, 1.5, 0),
-                       ("side", 5.5, 79.4, 1.4, 1.5, 0),
-                       ("wardrobe", 0.6, 83.0, 2.0, 5.0, 0), ("sofa", 8.4, 89.3, 6.0, 2.3, 0),
-                       ("chair", 6.4, 89.6, 1.4, 1.4, 0), ("sofa", 17.8, 86.6, 2.3, 4.6, 0),
-                       ("desk", 2.6, 89.6, 3.0, 1.8, 0)],
-            dims="≈19'-11\" x 12'-8\" (L) + bath", label=(11.0, 87.4),
-            notes="Private bath entered from the suite; sit-out on the north glass"),
+            furniture=[_bed(7.0, 79.275, "S"), _lk(5.5, 79.275), _lk(10.25, 79.275),
+                       ("wardrobe", 0.5, 83.2, 2.0, 4.0, 0), ("sofa", 6.4, 89.73, 5.5, 2.0, 0),
+                       ("chair", 13.6, 89.9, 1.8, 1.8, 0), ("chair", 16.0, 89.9, 1.8, 1.8, 0),
+                       ("desk", 2.4, 89.9, 3.0, 1.8, 0)],
+            notes="Private wheelchair-size bath entered from the suite; sit-out on the north glass"),
         # ------------------------------------------- open-plan / circulation anchors
         _mk("wait", "WAITING AREA (19 seats)", (30.4, 32.45, 11.0, 1.4), "circ",
             furniture=wait + [("water", 28.0, 31.0, 1.2, 1.2, 0),
@@ -375,6 +384,16 @@ def layout_g_rooms():
         _mk("bay", "trolley /\nwheelchair bay", (20.6, 43.2, 3.6, 2.0), "circ"),
         _mk("wardcorr", "WARD PASSAGE 6'-0\"", (14.28, 50.0, 6.0, 32.0), "circ"),
     ]
+    import ipd
+    for r in rooms:                      # schedule sizes = the measured clear strings
+        if r.key in IPD_G:
+            o = IPD_G[r.key]
+            a, b = ipd.span(r.poly, o["w"][0], o["w"][1], "x")
+            c, d = ipd.span(r.poly, o["d"][0], o["d"][1], "y")
+            r.dims = f"{fi(b - a)} x {fi(d - c)}"
+        elif r.key.startswith("wcR") or r.key == "bath5":
+            tw, td, _ = ipd.toilet_size(r.poly)
+            r.dims = f"{fi(tw)} x {fi(td)}"
     return rooms
 
 
@@ -521,6 +540,17 @@ def checks():
 
 
 # ------------------------------------------------------------ CAD sheet (PNG/SVG)
+# IPD rooms: label in the clear floor (never over the bed), W / D dimension
+# strings as (x, y, text position along the string, text offset)
+IPD_G = {
+    "room1": dict(label=(29.9, 50.15), w=(27.0, 51.4, 0.1, 0), d=(26.75, 53.0, 0.52, 0)),
+    "room2": dict(label=(27.55, 68.4), w=(27.0, 67.0, 0.93, 0), d=(25.05, 64.0, 0.62, 0)),
+    "room3": dict(label=(26.9, 71.35), w=(27.0, 72.7, 0.93, 0), d=(23.15, 75.0, 0.5, 0)),
+    "room4": dict(label=(28.9, 89.95), w=(27.0, 88.4, 0.47, 0), d=(23.1, 86.0, 0.55, 0)),
+    "suite": dict(label=(8.6, 87.5), w=(10.0, 88.9, 0.82, 0), d=(12.5, 86.0, 0.35, 0)),
+}
+IPD_WINDOW = (-3.5, 49.0, 45.6, 96.0)      # close-up crop, plan feet (x0, x1, y0, y1)
+
 LABEL_FS = {"ot": 10, "scrub": 5.2, "otchange": 5.2, "otlobby": 5.0, "opd2": 5.4,
             "recep": 5.6, "lounge": 6.4, "drrest": 6.4, "recovery": 7.6, "xray": 7.4, "suite": 8.6, "room1": 8, "room2": 8,
             "room3": 8, "room4": 8, "opd1": 7.6, "opd3": 7.6}
@@ -594,7 +624,9 @@ def render_sheet(out_base):
     import matplotlib.pyplot as plt
     from matplotlib.patches import Rectangle, Circle, Polygon as MplPoly, FancyArrow
     from matplotlib.lines import Line2D
+    import os
     import render as R
+    import ipd
     from plan_model import ZONES
 
     INK = R.INK
@@ -704,7 +736,26 @@ def render_sheet(out_base):
         if r.key == "duct":
             ax.text(lx + 0.5, ly + 0.3, "DUCT", fontsize=5, ha="center", va="center", zorder=9)
             continue
+        if r.key in IPD_G:
+            o = IPD_G[r.key]
+            wl = ipd.dim_string(ax, p, o["w"][0], o["w"][1], "x", at=o["w"][2], off=o["w"][3], fs=5.2)
+            dl = ipd.dim_string(ax, p, o["d"][0], o["d"][1], "y", at=o["d"][2], off=o["d"][3], fs=5.2)
+            ax.text(o["label"][0], o["label"][1],
+                    f"{r.name} · 1 bed\nclear {fi(wl)} × {fi(dl)}\n{r.area:.0f} sf net of toilet",
+                    ha="center", va="center", fontsize=5.0, color="#111", zorder=9.2,
+                    weight="bold", linespacing=1.3,
+                    bbox=dict(fc="#f6f3fa", ec="none", pad=0.5, alpha=0.9))
+            continue
         if r.zone == "wet":
+            if r.key.startswith("wcR") or r.key == "bath5":
+                tw, td, _ = ipd.toilet_size(p)
+                ax.text(lx, ly + (1.25 if r.key in ("wcR2", "wcR4") else -1.25),
+                        f"{fi(tw)} × {fi(td)}", ha="center", va="center",
+                        fontsize=4.6, color=INK, zorder=11,
+                        bbox=dict(fc="white", ec="none", pad=0.3, alpha=0.85))
+            if r.key == "bath5":
+                ax.add_patch(Circle((3.4, 75.75), 2.5, fc="none", ec="#2c6fbb", lw=0.6,
+                                    ls=(0, (4, 3)), zorder=9))
             ax.add_patch(Circle((lx, ly), 0.85, fc="white", ec=INK, lw=0.7, zorder=10))
             ax.text(lx, ly, "T", ha="center", va="center", fontsize=6.5, weight="bold",
                     color=INK, zorder=11)
@@ -791,7 +842,7 @@ def render_sheet(out_base):
             ["22'-6\"", "", "3'-7½\"", "", "5'-0\"", "", "5'-5\"", "", fi(xw(S0) - 38.375)])
     chain_h([0.0, 47.98], -5.9, ["47'-11¾\" over walls (Rev C: 48'-6\" to glass line)"], fs=7)
     ys = [S0, 19.82, 20.21, 30.6, 30.975, 39.76, 40.09, 48.10, 48.49, 55.2, 55.575, 59.2,
-          59.575, 66.0, 66.375, 73.0, 73.375, 78.8, 79.175, N0]
+          59.575, 66.0, 66.375, 72.425, 72.8, 78.8, 79.175, N0]
     chain_v(ys, -12.2, [fi(b - a) if b - a > 1 else "" for a, b in zip(ys[:-1], ys[1:])])
     chain_v([0.0, 92.22], -14.6, ["92'-2¾\" over walls (Rev C: 92'-0\")"], fs=7)
     wys = [48.49, 58.9, 59.275, 69.7, 70.075, 80.3, 80.675, N0]
@@ -861,7 +912,10 @@ def render_sheet(out_base):
              "4. X-ray room ≈ 11 m²: mobile / portable unit only (AERB fixed unit needs ≈ 18 m², no side < 4 m).  "
              "5. New ward toilets are away from the builder's shafts: raised floor + drain runs to be designed.\n"
              "6. (T) toilet — tiled, floor trap.  Bed heads on solid walls.  Concept for review; "
-             "structure, fire and AERB to be verified by the project architect.")
+             "structure, fire and AERB to be verified by the project architect.\n"
+             "7. IPD furniture at true size: bed 3'-3\" x 7'-0\", locker 1'-6\" sq., wardrobe 2'-0\" x 4'-0\", attendant sofa 2'-0\" x 5'-6\" "
+             "(Room 4: 5'-0\" couch, 2'-6\" wardrobe).  Blue strings = clear size between plaster faces, measured on the DWG geometry; "
+             "room areas exclude the toilet.  Dashed blue circle = 5'-0\" wheelchair turning circle.")
     ax.text(-18, 112.6, notes, fontsize=6.6, color=INK, va="top", linespacing=1.5)
     ax.text(-18, 104.0, "DOORS  " + "   ".join(f"{t} = {d}" for t, d in DOOR_LEGEND), fontsize=6.2,
             color="#a33", va="top")
@@ -884,7 +938,7 @@ def render_sheet(out_base):
         lines.append(f"{n:>2} {nm:<25s} {dm:<19s}{area:>4.0f}")
     lines += ["─" * 46, f"   rooms total {sum(a for _, _, a in sched):>29.0f} sf",
               f"   clear floor inside walls {clear:>16.0f} sf",
-              "", "BEDS  5 in-patient (4 rooms + suite)",
+              "", "BEDS  5 in-patient (4 single rooms + suite)",
               "      2 recovery / pre-op, 1 observation", "      2 staff rest (duty bunk, Drs' rest)"]
     ax.text(57.0, -6, "\n".join(lines), fontsize=6.6, color=INK, va="top", family="monospace",
             linespacing=1.42)
@@ -907,8 +961,8 @@ def render_sheet(out_base):
     ax.set_xlim(-20, 86)
     ax.set_ylim(129, -13.5)
     ax.axis("off")
-    fig.savefig(out_base + ".png", dpi=200, bbox_inches="tight", facecolor="white")
-    fig.savefig(out_base + ".svg", bbox_inches="tight", facecolor="white")
+    ipd.save_sheet(fig, ax, out_base, IPD_WINDOW,
+                   os.path.join(os.path.dirname(os.path.abspath(out_base)), "ipd_G.jpg"))
     plt.close(fig)
     return clear
 
