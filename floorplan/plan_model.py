@@ -960,3 +960,5 @@ def wall_bands(rooms):
 
 
 import layout_h  # noqa: E402,F401  registers LAYOUTS["H"] (DWG-geometry layout, see layout_h.py)
+
+import layout_i  # noqa: E402,F401  registers LAYOUTS["I"] (pencil sketch, large entry waiting; see layout_i.py)
